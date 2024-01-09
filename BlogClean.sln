@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{0B9AA360-5B2C-4AD2-A06F-BC8126930F58}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{AD2A5CD2-203B-41CA-BFE2-BCBF291336FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra.Data", "Infra.Data", "{B9C3499B-A6C0-4445-8DFD-753E4DDBFFED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra.Ioc", "Infra.Ioc", "{DBA44B74-59AB-48EB-B2C2-9866FEA9EA65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ui", "Ui", "{9038CAE0-AC00-4B76-AF46-845C088F115C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogClean", "BlogClean\BlogClean.csproj", "{D91715F7-4FAB-4A04-AA69-EB606FB7171D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D91715F7-4FAB-4A04-AA69-EB606FB7171D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D91715F7-4FAB-4A04-AA69-EB606FB7171D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D91715F7-4FAB-4A04-AA69-EB606FB7171D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D91715F7-4FAB-4A04-AA69-EB606FB7171D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D91715F7-4FAB-4A04-AA69-EB606FB7171D} = {9038CAE0-AC00-4B76-AF46-845C088F115C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A4EE330-CBAE-45C6-9360-FAA13768762D}
+	EndGlobalSection
+EndGlobal
