@@ -15,13 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ui", "Ui", "{9038CAE0-AC00-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogClean", "BlogClean\BlogClean.csproj", "{D91715F7-4FAB-4A04-AA69-EB606FB7171D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{3330F4D2-AB90-4654-A366-ED7DD5DDDDA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{3330F4D2-AB90-4654-A366-ED7DD5DDDDA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{59E2A986-75B2-4A65-AE10-1F337BAFE742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{59E2A986-75B2-4A65-AE10-1F337BAFE742}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Data", "Infra.Data\Infra.Data.csproj", "{44A08218-8F26-4B29-B5E7-5E93C854F308}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Data", "Infra.Data\Infra.Data.csproj", "{44A08218-8F26-4B29-B5E7-5E93C854F308}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Ioc", "Infra.Ioc\Infra.Ioc.csproj", "{C242C26A-1AE6-4ECC-9007-EED7802CF670}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Ioc", "Infra.Ioc\Infra.Ioc.csproj", "{C242C26A-1AE6-4ECC-9007-EED7802CF670}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
