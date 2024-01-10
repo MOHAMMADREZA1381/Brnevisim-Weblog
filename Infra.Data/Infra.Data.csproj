@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contex\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 
