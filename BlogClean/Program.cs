@@ -6,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var app = builder.Build();
 
 //Data Base
 #region Config DataBase
@@ -16,6 +15,9 @@ builder.Services.AddDbContext<BlogContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BlogConnection"));
 });
 #endregion
+var app = builder.Build();
+
+
 //Ioc Dependency
 //#region Dependency Injection IoC
 
