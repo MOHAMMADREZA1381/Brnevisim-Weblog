@@ -1,5 +1,4 @@
-using Infra.Data.Contex;
-using Infra.Ioc;
+using Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,17 +11,17 @@ var app = builder.Build();
 //Data Base
 #region Config DataBase
 
-builder.Services.AddDbContext<ApplicationDbContxt>(options =>
+builder.Services.AddDbContext<BlogContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BlogDB"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BlogConnection"));
 });
 #endregion
 //Ioc Dependency
-#region Dependency Injection IoC
+//#region Dependency Injection IoC
 
-DependencyContainer.RegisterServices(builder.Services);
+//DependencyContainer.RegisterServices(builder.Services);
 
-#endregion
+//#endregion
 
 
 // Configure the HTTP request pipeline.
@@ -39,7 +38,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
