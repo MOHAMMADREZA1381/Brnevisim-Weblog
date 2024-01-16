@@ -73,3 +73,6 @@ a {
     url('../fonts/iransansfanum/woff/IRANSansWeb(FaNum).woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
     url('../fonts/iransansfanum/ttf/IRANSansWeb(FaNum).ttf') format('truetype');
 }
+.LogoC {
+    margin-top: -20%;
+}
