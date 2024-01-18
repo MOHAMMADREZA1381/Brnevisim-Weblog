@@ -4,7 +4,8 @@ namespace BlogClean.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Index()
+        [HttpGet("Register")]
+        public IActionResult Register()
         {
             return View();
         }
