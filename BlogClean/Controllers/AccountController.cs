@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.ViewModels.User;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlogClean.Controllers
 {
@@ -9,6 +10,14 @@ namespace BlogClean.Controllers
         {
             return View();
         }
+        [HttpPost("SignUp")]
+        public async Task<IActionResult> Register(RegisterViewModel viewModel)
+        {
+
+            return View();
+        }
+
+
         [HttpGet("SignIn")]
         public async Task<IActionResult> Login()
         {
