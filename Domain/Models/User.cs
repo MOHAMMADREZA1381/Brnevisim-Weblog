@@ -25,7 +25,7 @@ namespace Domain.Models
         [Display(Name = "شماره تلفن همراه")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
-        public int Phone { get; set; }
+        public int? Phone { get; set; }
 
         [Display(Name = "کد فعال سازی")]
         public string ActivateCode { get; set; }
