@@ -15,4 +15,10 @@ namespace Application.ViewModel
         public string FullName { get; set; }
 
     }
+
+    public enum State
+    {
+        Success,
+        Failed,
+    }
 }

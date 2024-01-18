@@ -1,8 +1,9 @@
-﻿using Domain.ViewModels.User;
+﻿using Domain.Models;
+using Domain.ViewModels.User;
 
 namespace Domain.IRepositories;
 
 public interface IUserRepository
 {
-    public Task Register(RegisterViewModel viewModel);
+    public Task Register(User user);
 }

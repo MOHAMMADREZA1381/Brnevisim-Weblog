@@ -34,7 +34,7 @@ namespace Domain.Models
         public bool IsActive { get; set; }
 
         [Display(Name = "عکس کاربر")]
-        public string UserImg { get; set; }
+        public string? UserImg { get; set; }
 
         [Display(Name = "رمز عبور")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
