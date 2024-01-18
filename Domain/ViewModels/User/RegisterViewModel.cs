@@ -31,5 +31,7 @@ namespace Domain.ViewModels.User
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         [Compare("Password",ErrorMessage ="رمز های عبور متفاوت هستند")]
         public string ConfirmPassword { get; set; }
+
+        public bool Rules { get; set; }
     }
 }

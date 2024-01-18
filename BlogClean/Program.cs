@@ -1,4 +1,5 @@
 using Infra.Data.Context;
+using Infra.Ioc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,15 +16,18 @@ builder.Services.AddDbContext<BlogContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BlogConnection"));
 });
 #endregion
+
+//Ioc Dependency
+#region Dependency Injection IoC
+
+DependencyContainer.RegisterServices(builder.Services);
+
+#endregion
+
 var app = builder.Build();
 
 
-//Ioc Dependency
-//#region Dependency Injection IoC
 
-//DependencyContainer.RegisterServices(builder.Services);
-
-//#endregion
 
 
 // Configure the HTTP request pipeline.

@@ -6,7 +6,7 @@ using Infra.Data.Context;
 
 namespace Infra.Data.Repositories
 {
-    internal class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         #region Context
         private readonly BlogContext _context;

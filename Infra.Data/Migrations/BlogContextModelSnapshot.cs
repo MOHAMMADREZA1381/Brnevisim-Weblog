@@ -77,12 +77,10 @@ namespace Infra.Data.Migrations
                         .HasColumnType("nvarchar(400)");
 
                     b.Property<int?>("Phone")
-                        .IsRequired()
                         .HasMaxLength(400)
                         .HasColumnType("int");
 
                     b.Property<string>("UserImg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")

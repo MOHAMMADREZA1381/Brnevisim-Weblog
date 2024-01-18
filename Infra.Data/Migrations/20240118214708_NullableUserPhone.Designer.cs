@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Data.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    [Migration("20240118204357_NullablePhoneNumber")]
-    partial class NullablePhoneNumber
+    [Migration("20240118214708_NullableUserPhone")]
+    partial class NullableUserPhone
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,12 +80,10 @@ namespace Infra.Data.Migrations
                         .HasColumnType("nvarchar(400)");
 
                     b.Property<int?>("Phone")
-                        .IsRequired()
                         .HasMaxLength(400)
                         .HasColumnType("int");
 
                     b.Property<string>("UserImg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
