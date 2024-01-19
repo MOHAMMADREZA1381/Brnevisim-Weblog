@@ -40,5 +40,15 @@ namespace Infra.Data.Repositories
             _context.Users.Update(user);
             _context.SaveChanges();
         }
+
+        public async Task<User> GetUserEmail(string Email)
+        {
+            return _context.Users.SingleOrDefault(user => user.Email == Email);
+        }
+
+        public async Task LoginUser(User user)
+        {
+
+        }
     }
 }

@@ -19,7 +19,7 @@ public class UserService : IUserService
     public async Task<State> Register(RegisterViewModel viewModel)
     {
         if (viewModel == null) { return State.Failed; }
-         
+
         var User = new User
         {
             UserName = viewModel.UserName,
@@ -35,7 +35,7 @@ public class UserService : IUserService
 
     public async Task<bool> IsEmailRegistered(string Email)
     {
-       return await _userRepository.IsEmailAlreadyRegistered(Email);
+        return await _userRepository.IsEmailAlreadyRegistered(Email);
     }
 
     public async Task<User> GetUserByActivateCode(string ActivateCode)
@@ -47,6 +47,33 @@ public class UserService : IUserService
     {
         user.IsActive = true;
         user.ActivateCode = Guid.NewGuid().ToString("N");
-       await _userRepository.GiveUserActiveRole(user);
+        await _userRepository.GiveUserActiveRole(user);
+    }
+
+    public async Task<UserViewModel> GetUserEmail(string Email)
+    {
+        var User = await _userRepository.GetUserEmail(Email);
+        var UserViewModel = new UserViewModel
+        {
+            Email = User.Email,
+            Phone = User.Phone,
+            UserImg = User.UserImg,
+            UserName = User.UserName,
+        };
+
+        return UserViewModel;
+    }
+
+    public async Task<LoginResult> LoginUser(LoginViewModel viewModel)
+    {
+        var user = await _userRepository.GetUserEmail(viewModel.Email);
+        if (user == null) return LoginResult.NotFound;
+        if (user.IsActive) return LoginResult.NotActive;
+        if (user.Password != viewModel.Password) return LoginResult.WrongPassword;
+
+        await _userRepository.LoginUser(user);
+        return LoginResult.Succeeded;
+
+
     }
 }

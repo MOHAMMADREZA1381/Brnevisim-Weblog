@@ -10,5 +10,7 @@ public interface IUserService
     public Task<bool> IsEmailRegistered(string Email);
     public Task<User> GetUserByActivateCode(string ActivateCode);
     public Task GiveUserActiveRole(User user);
+    public Task<UserViewModel> GetUserEmail(string Email);
+    public Task<LoginResult> LoginUser(LoginViewModel user);
 
 }
