@@ -34,5 +34,11 @@ namespace Infra.Data.Repositories
            return  _context.Users.SingleOrDefault(a => a.ActivateCode == activateCode);
               
         }
+
+        public async Task GiveUserActiveRole(User user)
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
+        }
     }
 }

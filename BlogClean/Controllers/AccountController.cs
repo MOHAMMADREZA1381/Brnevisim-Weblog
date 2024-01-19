@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using System.Runtime.InteropServices.JavaScript;
+using Application.Interfaces;
 using Domain.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,5 +42,19 @@ namespace BlogClean.Controllers
         {
             return View();
         }
+
+        [HttpGet("Active-account/{ActivateCode}")]
+        public async  Task<IActionResult> ActiveAccount(string ActivateCode)
+        {
+            var user = await _userService.GetUserByActivateCode(ActivateCode);
+            if (user!=null)
+            {
+               await _userService.GiveUserActiveRole(user);
+                return RedirectToAction("Login");
+            }
+
+            return NotFound();
+        }
+
     }
 }

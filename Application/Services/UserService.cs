@@ -42,4 +42,11 @@ public class UserService : IUserService
     {
         return await _userRepository.GetUserByActivateCode(ActivateCode);
     }
+
+    public async Task GiveUserActiveRole(User user)
+    {
+        user.IsActive = true;
+        user.ActivateCode = Guid.NewGuid().ToString("N");
+       await _userRepository.GiveUserActiveRole(user);
+    }
 }
