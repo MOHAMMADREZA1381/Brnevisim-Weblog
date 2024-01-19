@@ -10,5 +10,5 @@ public interface IUserRepository
     public Task<User> GetUserByActivateCode(string ActivateCode);
     public Task GiveUserActiveRole(User user);
     public Task<User> GetUserEmail(string Email);  
-    public Task LoginUser(User user);
+    
 }

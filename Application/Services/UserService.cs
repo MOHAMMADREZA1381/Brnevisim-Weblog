@@ -53,27 +53,25 @@ public class UserService : IUserService
     public async Task<UserViewModel> GetUserEmail(string Email)
     {
         var User = await _userRepository.GetUserEmail(Email);
-        var UserViewModel = new UserViewModel
+        var UserViewModel = new UserViewModel();
+        if (User != null)
         {
-            Email = User.Email,
-            Phone = User.Phone,
-            UserImg = User.UserImg,
-            UserName = User.UserName,
-        };
-
+            User.Id = User.Id;
+            User.Email = User.Email;
+            User.Phone = User.Phone;
+            User.UserImg = User.UserImg;
+            User.UserName = User.UserName;
+        }
         return UserViewModel;
     }
 
     public async Task<LoginResult> LoginUser(LoginViewModel viewModel)
     {
-        var user = await _userRepository.GetUserEmail(viewModel.Email);
+        var user = await _userRepository.GetUserEmail(viewModel.Email.ToLower().Trim());
         if (user == null) return LoginResult.NotFound;
-        if (user.IsActive) return LoginResult.NotActive;
+        if (user.IsActive == false) return LoginResult.NotActive;
         if (user.Password != viewModel.Password) return LoginResult.WrongPassword;
 
-        await _userRepository.LoginUser(user);
         return LoginResult.Succeeded;
-
-
     }
 }

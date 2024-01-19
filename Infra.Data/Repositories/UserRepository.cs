@@ -46,9 +46,6 @@ namespace Infra.Data.Repositories
             return _context.Users.SingleOrDefault(user => user.Email == Email);
         }
 
-        public async Task LoginUser(User user)
-        {
-
-        }
+      
     }
 }

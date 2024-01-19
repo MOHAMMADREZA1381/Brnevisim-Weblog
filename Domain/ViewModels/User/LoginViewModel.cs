@@ -21,6 +21,9 @@ namespace Domain.ViewModels.User
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
+
     }
 
     public enum LoginResult
