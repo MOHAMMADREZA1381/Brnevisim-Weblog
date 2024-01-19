@@ -6,4 +6,5 @@ namespace Domain.IRepositories;
 public interface IUserRepository
 {
     public Task Register(User user);
+    public Task<bool> IsEmailAlreadyRegistered(string Email);
 }

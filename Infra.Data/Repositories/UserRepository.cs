@@ -22,5 +22,12 @@ namespace Infra.Data.Repositories
             _context.Users.Add(user);
             _context.SaveChanges();
         }
+
+        public async Task<bool> IsEmailAlreadyRegistered(string email)
+        {
+           return   _context.Users.Any(a => a.Email == email);
+
+        }
+
     }
 }

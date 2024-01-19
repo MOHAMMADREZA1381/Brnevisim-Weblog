@@ -19,16 +19,23 @@ public class UserService : IUserService
     public async Task<State> Register(RegisterViewModel viewModel)
     {
         if (viewModel == null) { return State.Failed; }
-
+         
         var User = new User
         {
             UserName = viewModel.UserName,
             Password = viewModel.Password,
-            Email = viewModel.Email,
+            Email = viewModel.Email.ToLower().Trim(),
             ActivateCode = Guid.NewGuid().ToString("N"),
         };
         await _userRepository.Register(User);
         return State.Success;
 
     }
+
+
+    public async Task<bool> IsEmailRegistered(string Email)
+    {
+       return await _userRepository.IsEmailAlreadyRegistered(Email);
+    }
+
 }
