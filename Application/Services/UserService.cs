@@ -56,11 +56,11 @@ public class UserService : IUserService
         var UserViewModel = new UserViewModel();
         if (User != null)
         {
-            User.Id = User.Id;
-            User.Email = User.Email;
-            User.Phone = User.Phone;
-            User.UserImg = User.UserImg;
-            User.UserName = User.UserName;
+            UserViewModel.id = User.Id;
+            UserViewModel.Email = User.Email;
+            UserViewModel.Phone = User.Phone;
+            UserViewModel.UserImg = User.UserImg;
+            UserViewModel.UserName = User.UserName;
         }
         return UserViewModel;
     }

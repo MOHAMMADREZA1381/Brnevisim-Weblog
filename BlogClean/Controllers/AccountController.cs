@@ -47,7 +47,7 @@ namespace BlogClean.Controllers
         {
             return View();
         }
-        [HttpPost("SignIn")]
+        [HttpPost("SignIn"),ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
 
