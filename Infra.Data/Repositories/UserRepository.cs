@@ -29,5 +29,10 @@ namespace Infra.Data.Repositories
 
         }
 
+        public async Task<User> GetUserByActivateCode(string activateCode)
+        {
+           return  _context.Users.SingleOrDefault(a => a.ActivateCode == activateCode);
+              
+        }
     }
 }

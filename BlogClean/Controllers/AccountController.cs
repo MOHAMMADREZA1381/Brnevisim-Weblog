@@ -23,10 +23,14 @@ namespace BlogClean.Controllers
         [HttpPost("SignUp")]
         public async Task<IActionResult> Register(RegisterViewModel viewModel)
         {
-            if (ModelState.IsValid & viewModel.Rules==true)
+            if (ModelState.IsValid & viewModel.Rules==true & await _userService.IsEmailRegistered(viewModel.Email)==false)
             {
                 await _userService.Register(viewModel);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                ModelState.AddModelError("Email","کاربری با این ایمیل قبلا ثبت نام کرده است");
             }
             return View();
         }

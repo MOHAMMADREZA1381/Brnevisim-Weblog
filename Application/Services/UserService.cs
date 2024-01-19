@@ -38,4 +38,8 @@ public class UserService : IUserService
        return await _userRepository.IsEmailAlreadyRegistered(Email);
     }
 
+    public async Task<User> GetUserByActivateCode(string ActivateCode)
+    {
+        return await _userRepository.GetUserByActivateCode(ActivateCode);
+    }
 }
