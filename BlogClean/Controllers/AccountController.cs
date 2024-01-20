@@ -101,6 +101,12 @@ namespace BlogClean.Controllers
             return NotFound();
         }
 
+        [HttpGet("Profile")]
+        public async Task<IActionResult> UserPanel()
+        {
+            return View();
+        }
+
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
