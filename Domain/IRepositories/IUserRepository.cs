@@ -9,6 +9,7 @@ public interface IUserRepository
     public Task<bool> IsEmailAlreadyRegistered(string Email);
     public Task<User> GetUserByActivateCode(string ActivateCode);
     public Task GiveUserActiveRole(User user);
-    public Task<User> GetUserEmail(string Email);  
-    
+    public Task<User> GetUserEmail(string Email);
+    public Task<User> GetUserById(int id);
+
 }

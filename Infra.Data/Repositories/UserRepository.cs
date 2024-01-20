@@ -46,6 +46,10 @@ namespace Infra.Data.Repositories
             return _context.Users.SingleOrDefault(user => user.Email == Email);
         }
 
-      
+        public async Task<User> GetUserById(int id)
+        {
+            var user = _context.Users.FirstOrDefault(a=>a.Id==id);
+            return user;
+        }
     }
 }

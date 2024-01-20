@@ -74,4 +74,18 @@ public class UserService : IUserService
 
         return LoginResult.Succeeded;
     }
+
+    public async Task<UserViewModel> GetUserById(int id)
+    {
+           var user= await _userRepository.GetUserById(id);
+           var UserViewModel= new UserViewModel()
+           {
+               Email = user.Email,
+               UserName =  user.UserName,
+               Phone = user.Phone,
+               UserImg = user.UserImg,
+               id = user.Id,
+           };
+           return UserViewModel;
+    }
 }

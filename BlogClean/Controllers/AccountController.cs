@@ -5,6 +5,7 @@ using Domain.Models;
 using Domain.ViewModels.User;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Plugins;
 
@@ -101,10 +102,12 @@ namespace BlogClean.Controllers
             return NotFound();
         }
 
-        [HttpGet("Profile")]
+        [HttpGet("Profile"),Authorize]
         public async Task<IActionResult> UserPanel()
         {
-            return View();
+            var UserClaims = User.Claims.FirstOrDefault().Value;
+            var user =await _userService.GetUserById(int.Parse(UserClaims));
+            return View(user);
         }
 
         [HttpGet("logout")]

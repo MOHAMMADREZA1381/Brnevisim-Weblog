@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Domain.ViewModels.User.UserViewModel
 
     <!-- Hero Start -->
     <section class="bg-profile d-table w-100 bg-primary" style="background: url('images/account/bg.png') center center;">
@@ -23,7 +19,7 @@
                                             <small class="text-muted h6 me-2">توسعه وب</small>
                                             <ul class="list-inline mb-0 mt-3">
                                                 <li class="list-inline-item me-2"><a href="javascript:void(0)" class="text-muted" title="اینستاگرام"><i data-feather="instagram" class="fea icon-sm me-2"></i>jafar_abbasi</a></li>
-                                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted" title="لینکدین"><i data-feather="linkedin" class="fea icon-sm me-2"></i>جعفر عباسی</a></li>
+                                                <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted" title="لینکدین"><i data-feather="linkedin" class="fea icon-sm me-2"></i>@Model.UserName</a></li>
                                             </ul>
                                         </div><!--end col-->
                                         <div class="col-md-5 text-md-end text-center">
@@ -124,7 +120,7 @@
                                 </li>
 
                                 <li class="navbar-item account-menu px-0 mt-2">
-                                    <a href="auth-login-three.html" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <a asp-controller="Account" asp-action="Logout" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                         <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
                                         <h6 class="mb-0 ms-2">خروج </h6>
                                     </a>

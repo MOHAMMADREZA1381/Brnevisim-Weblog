@@ -12,5 +12,5 @@ public interface IUserService
     public Task GiveUserActiveRole(User user);
     public Task<UserViewModel> GetUserEmail(string Email);
     public Task<LoginResult> LoginUser(LoginViewModel user);
-
+    public Task<UserViewModel> GetUserById(int id);
 }
