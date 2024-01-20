@@ -101,5 +101,12 @@ namespace BlogClean.Controllers
             return NotFound();
         }
 
+        [HttpGet("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Login");
+        }
+
     }
 }
