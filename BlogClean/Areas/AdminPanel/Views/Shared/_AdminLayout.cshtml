@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html class="light-style layout-navbar-fixed layout-menu-fixed layout-compact" data-assets-path="../../assets/" data-template="vertical-menu-template-starter" data-theme="theme-default" dir="rtl" lang="fa">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" name="viewport" />
+    <title>@ViewData["Title"]-AdminPanel</title>
+    <meta content="" name="description" />
+    <partial name="_AdminHeaderRefrences" />
+</head>
+<body>
+@await Component.InvokeAsync("AdminHeader")
+    @RenderBody()
+    @await RenderSectionAsync("Scripts", required: false)
+    @await Component.InvokeAsync("AdminFooter")
+    <partial name="_AdminFooterRefrences" />
+    @await RenderSectionAsync("FooterSection", false)
+</body>
+
+</html>
