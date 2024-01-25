@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Security;
 using Application.ViewModel;
 using Domain.IRepositories;
 using Domain.Models;
@@ -23,7 +24,7 @@ public class UserService : IUserService
         var User = new User
         {
             UserName = viewModel.UserName,
-            Password = viewModel.Password,
+            Password = PasswordHelper.EncodePasswordSha256(viewModel.Password),
             Email = viewModel.Email.ToLower().Trim(),
             ActivateCode = Guid.NewGuid().ToString("N"),
         };
@@ -67,10 +68,11 @@ public class UserService : IUserService
 
     public async Task<LoginResult> LoginUser(LoginViewModel viewModel)
     {
+        var PasswordHashed = PasswordHelper.EncodePasswordSha256(viewModel.Password);
         var user = await _userRepository.GetUserEmail(viewModel.Email.ToLower().Trim());
         if (user == null) return LoginResult.NotFound;
         if (user.IsActive == false) return LoginResult.NotActive;
-        if (user.Password != viewModel.Password) return LoginResult.WrongPassword;
+        if (user.Password != PasswordHashed) return LoginResult.WrongPassword;
 
         return LoginResult.Succeeded;
     }
