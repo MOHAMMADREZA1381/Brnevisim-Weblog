@@ -1,7 +1,6 @@
-﻿using Application.ViewModel;
-using Domain.Models;
+﻿using Domain.Models;
 using Domain.ViewModels.User;
-
+using Domain.ViewModels.User;
 namespace Application.Interfaces;
 
 public interface IUserService
@@ -13,4 +12,7 @@ public interface IUserService
     public Task<UserViewModel> GetUserEmail(string Email);
     public Task<LoginResult> LoginUser(LoginViewModel user);
     public Task<UserViewModel> GetUserById(int id);
+    public Task<ICollection<UserViewModel>> GetUsers();
+    public Task DeleteUser(int id);
+    public Task EditUser(UserViewModel viewModel);
 }

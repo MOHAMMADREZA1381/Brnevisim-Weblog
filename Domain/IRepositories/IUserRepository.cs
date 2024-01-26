@@ -11,5 +11,6 @@ public interface IUserRepository
     public Task GiveUserActiveRole(User user);
     public Task<User> GetUserEmail(string Email);
     public Task<User> GetUserById(int id);
-
+    public Task<ICollection<User>> GetUserList();
+    public Task EditUser(User user);
 }

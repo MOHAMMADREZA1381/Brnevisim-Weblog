@@ -1,0 +1,45 @@
+﻿@model ICollection<Domain.ViewModels.User.UserViewModel>
+
+
+
+
+<div class="card">
+    <div class="card-header border-bottom">
+        <h5 class="card-title mb-3">فیلتر جستجو</h5>
+        <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0 mt-3">
+            <div class="col-md-4 user_role"></div>
+            <div class="col-md-4 user_plan"></div>
+            <div class="col-md-4 user_status"></div>
+        </div>
+    </div>
+    <div class="card-datatable table-responsive">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+            <div class="row me-2"><div class="col-md-2"><div class="me-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div></div><div class="col-md-10"><div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter mx-1"><label><input type="search" class="form-control" placeholder="جستجو.." aria-controls="DataTables_Table_0"></label></div><div class="dt-buttons">  <button class="dt-button add-new btn btn-primary waves-effect waves-light" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><span><i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">افزودن کاربر</span></span></button> </div></div></div></div><table class="datatables-users table dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
+                <thead class="border-top">
+                    <tr>
+                        <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" style="width: 62.8281px; display: none;" aria-label="">
+
+                        </th>
+                        <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 131.5px;" aria-sort="descending" aria-label="ایمیل: activate to sort column ascending">ایمل</th>
+                        <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 131.5px;" aria-sort="descending" aria-label="نام کاربری: activate to sort column ascending">نام کاربری</th>
+                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 168.438px;" aria-label="عملیات">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr class="">
+                            <td class="">@item.Email</td>
+                            <td class="">@item.UserName</td>
+                            <td class=""><a asp-route-id="@item.id" asp-action="DeleteUser" class="btn btn-outline-danger m-0">حذف</a></td>
+                            <td class=""><a  asp-controller="ApplicationUsers" asp-action="EditUser" asp-route-id="@item.id" class="btn btn-outline-warning m-0">ویرایش</a></td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table><div class="row mx-2"><div class="col-sm-12 col-md-6"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite"></div></div><div class="col-sm-12 col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="0" class="page-link">قبلی</a></li><li class="paginate_button page-item next disabled" id="DataTables_Table_0_next"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="next" tabindex="0" class="page-link">بعدی</a></li></ul></div></div></div>
+        </div>
+    </div>
+</div>

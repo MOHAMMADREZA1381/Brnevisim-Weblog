@@ -1,0 +1,43 @@
+﻿@model Domain.ViewModels.User.UserViewModel
+
+
+
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="card col-6 mx-auto">
+            <div class="card-body">
+                <form asp-controller="ApplicationUsers" asp-action="EditUser" method="post">
+                    <input type="hidden" asp-for="id" />
+                    <div class="mb-3">
+                        <label class="form-label">نام</label>
+                        <input asp-for="UserName" class="form-control" id="bs-validation-name" placeholder="نام کاربری" type="text">
+                        <span asp-validation-for="UserName"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ایمیل</label>
+                        <input asp-for="Email" aria-label="mail@gmail.com" class="form-control" id="bs-validation-email" placeholder="ایمیل" type="email">
+                        <span asp-validation-for="Email"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">شماره تلقن</label>
+                        <input asp-for="Phone" class="form-control" id="bs-validation-name" placeholder="شماره تلقن" type="number">
+                        <span asp-validation-for="Phone"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">عکس پروفایل</label>
+                        <input asp-for="UserImg" class="form-control" id="bs-validation-upload-file" type="file">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button  class="btn btn-primary waves-effect waves-light" type="submit">ارسال</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

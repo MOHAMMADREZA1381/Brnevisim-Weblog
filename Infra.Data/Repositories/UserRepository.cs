@@ -51,5 +51,17 @@ namespace Infra.Data.Repositories
             var user = _context.Users.FirstOrDefault(a=>a.Id==id);
             return user;
         }
+
+        public async Task<ICollection<User>> GetUserList()
+        {
+            var users =  _context.Users.Where(a=>a.IsDelete==false).ToList();
+            return users;
+        }
+
+        public async Task EditUser(User user)
+        {
+            _context.Update(user);
+            _context.SaveChanges();
+        }
     }
 }

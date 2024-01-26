@@ -41,5 +41,6 @@ namespace Domain.Models
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string Password { get; set; }
 
+        public bool IsDelete { get; set; }
     }
 }

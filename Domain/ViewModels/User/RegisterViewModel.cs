@@ -34,4 +34,9 @@ namespace Domain.ViewModels.User
 
         public bool Rules { get; set; }
     }
+    public enum State
+    {
+        Success,
+        Failed,
+    }
 }

@@ -28,6 +28,5 @@ namespace Domain.ViewModels.User
         [Display(Name = "عکس کاربر")]
         public string? UserImg { get; set; }
 
-    
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using Application.Security;
-using Application.ViewModel;
 using Domain.IRepositories;
 using Domain.Models;
 using Domain.ViewModels.User;
@@ -79,15 +78,51 @@ public class UserService : IUserService
 
     public async Task<UserViewModel> GetUserById(int id)
     {
-           var user= await _userRepository.GetUserById(id);
-           var UserViewModel= new UserViewModel()
-           {
-               Email = user.Email,
-               UserName =  user.UserName,
-               Phone = user.Phone,
-               UserImg = user.UserImg,
-               id = user.Id,
-           };
-           return UserViewModel;
+        var user = await _userRepository.GetUserById(id);
+        var UserViewModel = new UserViewModel()
+        {
+            Email = user.Email,
+            UserName = user.UserName,
+            Phone = user.Phone,
+            UserImg = user.UserImg,
+            id = user.Id,
+        };
+        return UserViewModel;
+    }
+
+    public async Task<ICollection<UserViewModel>> GetUsers()
+    {
+        var UserListViewModel = new List<UserViewModel>();
+        var Users = await _userRepository.GetUserList();
+        foreach (var item in Users)
+        {
+            var UserViewModel = new UserViewModel()
+            {
+                Email = item.Email,
+                Phone = item.Phone,
+                UserImg = "",
+                UserName = item.UserName,
+                id = item.Id
+            };
+            UserListViewModel.Add(UserViewModel);
+        }
+        return UserListViewModel;
+    }
+
+    public async Task DeleteUser(int id)
+    {
+        var user = await _userRepository.GetUserById(id);
+        user.IsDelete = true;
+        await _userRepository.EditUser(user);
+    }
+
+    public async Task EditUser(UserViewModel viewModel)
+    {
+        var User = await _userRepository.GetUserById(viewModel.id);
+        User.Email = viewModel.Email;
+        User.UserName = viewModel.UserName;
+        User.Phone = viewModel.Phone;
+        User.UserImg = viewModel.UserImg;
+        await _userRepository.EditUser(User);
     }
 }

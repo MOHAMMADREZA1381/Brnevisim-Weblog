@@ -1,0 +1,30 @@
+﻿@model Domain.ViewModels.User.RegisterViewModel
+<form asp-area="AdminPanel" asp-controller="ApplicationUsers" asp-action="AddUser" method="post" class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm">
+    <div class="mb-3 fv-plugins-icon-container">
+        <label class="form-label" for="add-user-fullname">نام و نام خانوادگی</label>
+        <input asp-for="UserName" type="text" class="form-control" id="add-user-fullname" placeholder="نـوید" aria-label="نـوید">
+        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="mb-3 fv-plugins-icon-container">
+        <label class="form-label" for="add-user-email">ایمیل</label>
+        <input asp-for="Email" type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" aria-label="john.doe@example.com">
+        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+        <span asp-validation-for="Email" class="text-danger"></span>
+
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="add-user-contact">رمز عبور</label>
+        <input asp-for="Password" type="text" id="add-user-contact" class="form-control phone-mask bdi" placeholder="+1 (609) 988-44-11" aria-label="john.doe@example.com">
+        <span asp-validation-for="Password" class="text-danger"></span>
+
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="add-user-contact">تکرار رمز عبور</label>
+        <input asp-for="ConfirmPassword" type="text" id="add-user-contact" class="form-control phone-mask bdi" placeholder="+1 (609) 988-44-11" aria-label="john.doe@example.com">
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit waves-effect waves-light">ارسال</button>
+    <button type="reset" class="btn btn-label-secondary waves-effect" data-bs-dismiss="offcanvas">لغو</button>
+    <input type="hidden">
+</form>
