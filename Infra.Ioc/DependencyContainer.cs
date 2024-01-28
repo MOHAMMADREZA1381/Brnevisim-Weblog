@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.SenderEmail;
 using Application.Services;
 using Domain.IRepositories;
 using Infra.Data.Repositories;
@@ -12,6 +13,7 @@ namespace Infra.Ioc
         public static void RegisterServices( IServiceCollection services)
         {
             //    <---Application LAYER--->
+            services.AddScoped<IViewRenderService, RenderViewToString>();
             services.AddScoped<IUserService, UserService>();
             //    <---Data Layer --->
             services.AddScoped<IUserRepository,UserRepository>();

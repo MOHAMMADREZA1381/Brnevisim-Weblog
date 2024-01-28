@@ -61,6 +61,7 @@ public class UserService : IUserService
             UserViewModel.Phone = User.Phone;
             UserViewModel.UserImg = User.UserImg;
             UserViewModel.UserName = User.UserName;
+            UserViewModel.ActivateCode= User.ActivateCode;
         }
         return UserViewModel;
     }
