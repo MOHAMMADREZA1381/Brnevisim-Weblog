@@ -2,13 +2,11 @@
 using System.Security.Claims;
 using Application.Interfaces;
 using Application.SenderEmail;
-using Domain.Models;
 using Domain.ViewModels.User;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Plugins;
 
 namespace BlogClean.Controllers
 {
@@ -16,11 +14,11 @@ namespace BlogClean.Controllers
     {
         #region Service
         private readonly IUserService _userService;
-        private readonly IViewRenderService _view;
-        public AccountController(IUserService userService,IViewRenderService view)
+        private readonly IRenderService _Render;
+        public AccountController(IUserService userService,IRenderService Render)
         {
             _userService = userService;
-            _view = view;
+            _Render = Render;
         }
         #endregion
 
@@ -37,15 +35,10 @@ namespace BlogClean.Controllers
             {
                 await _userService.Register(viewModel);
                 var user = await _userService.GetUserEmail(viewModel.Email);
-                var ActiveUser = new ActiveUserViewModel()
-                {
-                    Email = user.Email,
-                    UserName = user.UserName,
-                    ActiveCode = user.ActivateCode
-                };
+                object UserModel = await _userService.GetUserByActivateCode(user.ActivateCode);
 
-                string body =_view.RenderToStringAsync("Active", ActiveUser);
-                EmailSender.Send(ActiveUser.Email, "فعال سازی", body);
+                string Body = _Render.RenderToStringAsync("_ActiveMail", UserModel);
+                EmailSender.Send(user.Email, "فعال سازی", Body);
                 return RedirectToAction("Login");
             }
             else

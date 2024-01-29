@@ -13,7 +13,7 @@ namespace Infra.Ioc
         public static void RegisterServices( IServiceCollection services)
         {
             //    <---Application LAYER--->
-            services.AddScoped<IViewRenderService, RenderViewToString>();
+            services.AddScoped<IRenderService, RenderViewToString>();
             services.AddScoped<IUserService, UserService>();
             //    <---Data Layer --->
             services.AddScoped<IUserRepository,UserRepository>();
