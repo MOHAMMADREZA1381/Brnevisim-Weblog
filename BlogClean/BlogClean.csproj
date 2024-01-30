@@ -32,4 +32,43 @@
     <ProjectReference Include="..\Infra.Ioc\Infra.Ioc.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Admin\assets\customizer\border-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\border.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\collapsed-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\collapsed.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\compact-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\compact.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\dark-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\default-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\default.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\expanded-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\expanded.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\hidden-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\hidden.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\horizontal-fixed-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\horizontal-fixed.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\horizontal-static-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\horizontal-static.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\light-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\light.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\ltr-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\ltr.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\rtl-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\rtl.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\semi-dark-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\semi-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\static-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\static.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\sticky-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\sticky.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\system-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\system.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\vertical-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\vertical.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\wide-dark.svg" />
+    <None Include="wwwroot\Admin\assets\customizer\wide.svg" />
+  </ItemGroup>
+
 </Project>

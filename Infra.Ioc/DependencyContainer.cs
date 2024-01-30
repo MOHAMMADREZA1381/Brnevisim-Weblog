@@ -14,9 +14,14 @@ namespace Infra.Ioc
         {
             //    <---Application LAYER--->
             services.AddScoped<IRenderService, RenderViewToString>();
+
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+
             //    <---Data Layer --->
             services.AddScoped<IUserRepository,UserRepository>();
+            services.AddScoped<ICategoryRepository,CategoryRepository>();
+
 
         }
     }
