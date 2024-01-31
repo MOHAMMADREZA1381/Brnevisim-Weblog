@@ -87,6 +87,9 @@ public class UserService : IUserService
             Phone = user.Phone,
             UserImg = user.UserImg,
             id = user.Id,
+            IsAdmin = user.IsAdmin,
+            IsDeleted = user.IsDelete,
+            ActivateCode = user.ActivateCode
         };
         return UserViewModel;
     }
@@ -103,7 +106,8 @@ public class UserService : IUserService
                 Phone = item.Phone,
                 UserImg = "",
                 UserName = item.UserName,
-                id = item.Id
+                id = item.Id,
+                IsAdmin = item.IsAdmin
             };
             UserListViewModel.Add(UserViewModel);
         }
@@ -124,6 +128,8 @@ public class UserService : IUserService
         User.UserName = viewModel.UserName;
         User.Phone = viewModel.Phone;
         User.UserImg = viewModel.UserImg;
+        User.IsDelete = viewModel.IsDeleted;
+        User.IsAdmin = viewModel.IsAdmin;
         await _userRepository.EditUser(User);
     }
 }

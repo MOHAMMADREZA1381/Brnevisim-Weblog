@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.ViewModels.User
 {
-    public class UserViewModel
+    public class UserViewModel:EditUserPropesViewModel
     {
         public int id { get; set; }
         [Display(Name = "نام کاربری  ")]

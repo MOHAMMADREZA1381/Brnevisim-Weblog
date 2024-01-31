@@ -42,5 +42,7 @@ namespace Domain.Models
         public string Password { get; set; }
 
         public bool IsDelete { get; set; }
+        public bool IsAdmin { get; set; }
+
     }
 }

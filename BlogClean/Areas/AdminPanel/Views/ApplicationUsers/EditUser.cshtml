@@ -11,6 +11,8 @@
             <div class="card-body">
                 <form asp-controller="ApplicationUsers" asp-action="EditUser" method="post">
                     <input type="hidden" asp-for="id" />
+                    <input type="hidden" asp-for="ActivateCode" />
+
                     <div class="mb-3">
                         <label class="form-label">نام</label>
                         <input asp-for="UserName" class="form-control" id="bs-validation-name" placeholder="نام کاربری" type="text">
@@ -30,7 +32,20 @@
                         <label class="form-label">عکس پروفایل</label>
                         <input asp-for="UserImg" class="form-control" id="bs-validation-upload-file" type="file">
                     </div>
-
+                    
+                    <div class="row row-bordered g-0">
+                        <div class="col-md p-4">
+                            <small class="text-light fw-medium">چک باکس ها</small>
+                            <div class="form-check mt-3">
+                                <input asp-for="IsAdmin" class="form-check-input" id="Admin" type="checkbox" >
+                                <label class="form-check-label" for="Admin">افزودن به عنوان ادمین</label>
+                            </div>
+                            <div class="form-check mt-3">
+                                <input asp-for="IsDeleted" class="form-check-input" id="Delete" type="checkbox" >
+                                <label class="form-check-label" for="Delete">حذف کاربر</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <button  class="btn btn-primary waves-effect waves-light" type="submit">ارسال</button>
