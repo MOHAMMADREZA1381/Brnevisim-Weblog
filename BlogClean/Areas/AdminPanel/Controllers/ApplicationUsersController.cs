@@ -13,11 +13,13 @@ namespace BlogClean.Areas.AdminPanel.Controllers
             _userService = userService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(FilterUserViewModel model)
         {
-            var Model = new AdminUsersViewModel();
-            Model.Users = await _userService.GetUsers();
-            return View(Model);
+            
+            var Users=await _userService.FilterUser(model);
+            var UsersViewModel = new AdminUsersViewModel();
+            UsersViewModel.FilterUserViewModel = Users;
+            return View(UsersViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> AddUser(RegisterViewModel model)
@@ -25,10 +27,9 @@ namespace BlogClean.Areas.AdminPanel.Controllers
             if (ModelState.IsValid)
             {
                 await _userService.Register(model);
-                return RedirectToAction("Index");
             }
 
-            return NotFound();
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> DeleteUser(int id)

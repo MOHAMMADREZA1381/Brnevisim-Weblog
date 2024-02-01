@@ -11,6 +11,6 @@ namespace Domain.ViewModels.User
     {
         [Required]
         public RegisterViewModel Register { get; set; }
-        public ICollection<UserViewModel> Users { get; set; }
+        public FilterUserViewModel FilterUserViewModel { get; set; }
     }
 }

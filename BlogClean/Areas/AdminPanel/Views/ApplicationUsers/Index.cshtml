@@ -6,9 +6,9 @@
                 <div class="card-body">
                     <div class="d-flex align-items-start justify-content-between">
                         <div class="content-left">
-                            <span>مجموع کاربران</span>
+                            <span>تعداد کاربران لیست</span>
                             <div class="d-flex align-items-center my-2">
-                                <h3 class="mb-0 me-2">@Model.Users.Count</h3>
+                                <h3 class="mb-0 me-2">@Model.FilterUserViewModel.Entities.Count</h3>
 
                             </div>
                         </div>
@@ -67,7 +67,7 @@
         </div>
     </div>
     <!-- Users List Table -->
-    <partial model="Model.Users" name="_UserList"></partial>
+    <partial model="Model.FilterUserViewModel" name="_UserList"></partial>
     <!-- Offcanvas to add new user -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel">
         <div class="offcanvas-header">

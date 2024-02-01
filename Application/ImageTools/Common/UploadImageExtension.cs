@@ -2,7 +2,7 @@
 using System.IO;
 using Application.ImageTools.Common;
 
-namespace Store_BootCamp.Application.ImageTools.Common
+namespace Application.ImageTools.Common
 {
     public static class UploadImageExtension
     {

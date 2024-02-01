@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Domain.ViewModels.User
 {
@@ -25,10 +26,14 @@ namespace Domain.ViewModels.User
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public int? Phone { get; set; }
 
-        [Display(Name = "عکس کاربر")]
-        public string? UserImg { get; set; }
 
-        public string ActivateCode { get; set; }   
+        [Display(Name = "عکس کاربر")]
+        public string? picProfile { get; set; }
+
+        [Display(Name = "عکس کاربر")]
+        public IFormFile? UserImg { get; set; }
+
+        public string ActivateCode { get; set; }
 
     }
 }

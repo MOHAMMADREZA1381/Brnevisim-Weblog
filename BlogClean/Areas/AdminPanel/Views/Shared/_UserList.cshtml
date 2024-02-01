@@ -1,4 +1,5 @@
-﻿@model ICollection<Domain.ViewModels.User.UserViewModel>
+﻿@using Application.ImageTools
+@model Domain.ViewModels.User.FilterUserViewModel
 
 
 
@@ -15,11 +16,32 @@
     <div class="card-datatable table-responsive">
         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
             <div class="row me-2">
-                <div class="col-md-2">
-                </div><div class="col-md-10"><div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter mx-1"><label><input type="search" class="form-control" placeholder="جستجو.." aria-controls="DataTables_Table_0"></label></div><div class="dt-buttons">  <button class="dt-button add-new btn btn-primary waves-effect waves-light" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><span><i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">افزودن کاربر</span></span></button> </div></div></div>
+                <form asp-area="AdminPanel" asp-controller="ApplicationUsers" asp-action="Index" id="FilterForm">
+                    <input type="hidden" asp-for="PageId" id="PageId" />
+                    <div class="col-md-10">
+                        <div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
+                            <div id="DataTables_Table_0_filter" class="dataTables_filter mx-1">
+                                <label>
+                                    <input asp-for="Email" type="search" class="form-control" placeholder="جستجو.." aria-controls="DataTables_Table_0">
+                                </label>
+                                <label>
+                                    <span for="IsActive">کاربران فعال:</span>
+                                    <input class="form-check-input" id="IsActive" asp-for="IsActive" />
+                                </label>
+                                <label>
+                                    <span for="IsAdmin">ادمین:</span>
+                                    <input class="form-check-input" id="IsAdmin" asp-for="IsAdmin" />
+                                </label>
+                            </div>
+                            <button class="btn btn-label-info waves-effect mx-1" type="submit">فیلتر</button>
+                            <div class="dt-buttons"> <button class="dt-button add-new btn btn-primary waves-effect waves-light" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><span><i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">افزودن کاربر</span></span></button> </div>
+                        </div>
+                    </div>
+                </form>
             </div><table class="datatables-users table dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
                 <thead class="border-top">
                     <tr>
+                        <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 131.5px;" aria-sort="descending" aria-label="ایمیل: activate to sort column ascending">پروفایل</th>
                         <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 131.5px;" aria-sort="descending" aria-label="ایمیل: activate to sort column ascending">ایمل</th>
                         <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 131.5px;" aria-sort="descending" aria-label="نام کاربری: activate to sort column ascending">نام کاربری</th>
                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 168.438px;" aria-label="ادمین">ادمین</th>
@@ -28,9 +50,19 @@
                 </thead>
                 <tbody>
 
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Entities)
                     {
                         <tr class="">
+                            <td class="avatar ">
+                               @if (item.picProfile != null)
+                               {
+                                   <img class="h-auto rounded-circle PicProfile" src="@PathExtensions.UserAvatarOrgin@item.picProfile"/>
+                               }
+                               else
+                               {
+                                    <img class="h-auto rounded-circle PicProfile" src="~/images/blog/user.png" />
+                               }
+                            </td>
                             <td class="">@item.Email</td>
                             <td class="">@item.UserName</td>
                             <td class="">
@@ -45,7 +77,18 @@
 
                     }
                 </tbody>
-            </table><div class="row mx-2"><div class="col-sm-12 col-md-6"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite"></div></div><div class="col-sm-12 col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="0" class="page-link">قبلی</a></li><li class="paginate_button page-item next disabled" id="DataTables_Table_0_next"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="next" tabindex="0" class="page-link">بعدی</a></li></ul></div></div></div>
+            </table>
+            <div class="row mx-2">
+                <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                       <partial name="_Pagination" model="Model.GetCurrentPaging()"/>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

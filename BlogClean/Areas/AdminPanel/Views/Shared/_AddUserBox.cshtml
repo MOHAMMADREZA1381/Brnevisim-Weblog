@@ -8,9 +8,7 @@
     </div>
     <div class="mb-3 fv-plugins-icon-container">
         <label class="form-label" for="add-user-email">ایمیل</label>
-        <input asp-for="Email" type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" aria-label="john.doe@example.com">
-        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-        <span asp-validation-for="Email" class="text-danger"></span>
+        <input asp-for="Email" type="email" id="add-user-email" class="form-control" placeholder="john.doe@example.com" aria-label="john.doe@example.com">
     </div>
     <div class="mb-3">
         <label class="form-label" for="add-user-contact">رمز عبور</label>

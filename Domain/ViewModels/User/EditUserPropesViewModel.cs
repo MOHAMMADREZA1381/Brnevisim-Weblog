@@ -10,5 +10,6 @@ namespace Domain.ViewModels.User
     {
         public bool IsAdmin { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
     }
 }

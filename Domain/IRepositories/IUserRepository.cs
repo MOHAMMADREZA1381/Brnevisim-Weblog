@@ -13,4 +13,5 @@ public interface IUserRepository
     public Task<User> GetUserById(int id);
     public Task<ICollection<User>> GetUserList();
     public Task EditUser(User user);
+    public Task<FilterUserViewModel> GetFilterUserViewModel(FilterUserViewModel filterUserViewModel);
 }

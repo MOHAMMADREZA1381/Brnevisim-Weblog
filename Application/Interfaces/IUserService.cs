@@ -15,4 +15,5 @@ public interface IUserService
     public Task<ICollection<UserViewModel>> GetUsers();
     public Task DeleteUser(int id);
     public Task EditUser(UserViewModel viewModel);
+    public Task<FilterUserViewModel> FilterUser(FilterUserViewModel filterUser);
 }

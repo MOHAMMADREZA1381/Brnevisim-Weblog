@@ -23,6 +23,12 @@
             <ul class="menu-inner py-1">
                 <!-- Page -->
                 <li class="menu-item active">
+                    <a class="menu-link" asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="menu-icon tf-icons ti ti-app-window"></i>
+                        <div data-i18n="Page 2">صفحه اصلی برنامه</div>
+                    </a>
+                </li>
+                <li class="menu-item ">
                     <a class="menu-link" asp-area="AdminPanel" asp-controller="ApplicationUsers" asp-action="Index">
                         <i class="menu-icon tf-icons ti ti-users"></i>
                         <div data-i18n="Page 1">لیست کاربران</div>
@@ -58,12 +64,7 @@
                     </ul>
                 </li>
 
-                <li class="menu-item">
-                    <a class="menu-link" asp-area="" asp-controller="Home" asp-action="Index">
-                        <i class="menu-icon tf-icons ti ti-app-window"></i>
-                        <div data-i18n="Page 2">صفحه اصلی برنامه</div>
-                    </a>
-                </li>
+            
 
             </ul>
         </aside>

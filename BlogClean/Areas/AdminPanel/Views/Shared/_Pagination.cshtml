@@ -1,0 +1,13 @@
+﻿@model Domain.ViewModels.Paging.Pagination.PagingViewModel
+
+<nav class="mt-1" aria-label="پیمایش صفحه">
+    <ul class="pagination">
+        @for (int i=Model.StartPage;i<=Model.EndPage;i++)
+        {
+            <li class="page-item @(Model.CurrentPage==i?"active":"")">
+                <a onclick="fillPage(@i)" class="page-link waves-effect" href="javascript:void(0);">@i</a>
+            </li>
+        }
+
+    </ul> 
+</nav>

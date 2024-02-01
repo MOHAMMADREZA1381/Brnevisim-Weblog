@@ -1,8 +1,11 @@
-﻿using Application.Interfaces;
+﻿using Application.ImageTools;
+using Application.Interfaces;
 using Application.Security;
 using Domain.IRepositories;
 using Domain.Models;
 using Domain.ViewModels.User;
+using Application.ImageTools.Common;
+using Application.ImageTools;
 
 namespace Application.Services;
 
@@ -59,7 +62,7 @@ public class UserService : IUserService
             UserViewModel.id = User.Id;
             UserViewModel.Email = User.Email;
             UserViewModel.Phone = User.Phone;
-            UserViewModel.UserImg = User.UserImg;
+            UserViewModel.picProfile = User.UserImg;
             UserViewModel.UserName = User.UserName;
             UserViewModel.ActivateCode= User.ActivateCode;
         }
@@ -85,11 +88,12 @@ public class UserService : IUserService
             Email = user.Email,
             UserName = user.UserName,
             Phone = user.Phone,
-            UserImg = user.UserImg,
+            picProfile = user.UserImg,
             id = user.Id,
             IsAdmin = user.IsAdmin,
             IsDeleted = user.IsDelete,
-            ActivateCode = user.ActivateCode
+            ActivateCode = user.ActivateCode,
+            IsActive = user.IsActive,
         };
         return UserViewModel;
     }
@@ -104,7 +108,7 @@ public class UserService : IUserService
             {
                 Email = item.Email,
                 Phone = item.Phone,
-                UserImg = "",
+                picProfile = item.UserImg,
                 UserName = item.UserName,
                 id = item.Id,
                 IsAdmin = item.IsAdmin
@@ -124,12 +128,24 @@ public class UserService : IUserService
     public async Task EditUser(UserViewModel viewModel)
     {
         var User = await _userRepository.GetUserById(viewModel.id);
+        if (viewModel.UserImg?.Length > 0)
+        { 
+            var galleryImage = "";
+            galleryImage = Guid.NewGuid().ToString("N") + Path.GetExtension(viewModel.UserImg.FileName);
+            viewModel.UserImg.AddImageToServer(galleryImage, PathExtensions.UserAvatarOrginServer, 300, 300, PathExtensions.UserAvatarThumbServer);
+            User.UserImg = galleryImage;
+        }
         User.Email = viewModel.Email;
         User.UserName = viewModel.UserName;
         User.Phone = viewModel.Phone;
-        User.UserImg = viewModel.UserImg;
         User.IsDelete = viewModel.IsDeleted;
         User.IsAdmin = viewModel.IsAdmin;
+        User.IsActive = viewModel.IsActive;
         await _userRepository.EditUser(User);
+    }
+
+    public async Task<FilterUserViewModel> FilterUser(FilterUserViewModel filterUser)
+    {
+       return await _userRepository.GetFilterUserViewModel(filterUser);
     }
 }

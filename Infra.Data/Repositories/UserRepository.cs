@@ -3,6 +3,8 @@ using Domain.IRepositories;
 using Domain.Models;
 using Domain.ViewModels.User;
 using Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Infra.Data.Repositories
 {
@@ -62,6 +64,39 @@ namespace Infra.Data.Repositories
         {
             _context.Update(user);
             _context.SaveChanges();
+        }
+
+        public async Task<FilterUserViewModel> GetFilterUserViewModel(FilterUserViewModel filterUserViewModel)
+        {
+            var users =  _context.Users.AsQueryable();
+            if (!string.IsNullOrEmpty(filterUserViewModel.Email))
+            {
+                users = users.Where(a => EF.Functions.Like(a.Email, $"%{filterUserViewModel.Email}%"));
+            }
+
+            if (filterUserViewModel.IsActive==true)
+            {
+                users = users.Where(a => a.IsActive == true);
+            }
+
+            if (filterUserViewModel.IsAdmin==true)
+            {
+                users = users.Where(a => a.IsAdmin == true);
+            }
+
+            await filterUserViewModel.Paging(users.Select(a => new UserViewModel()
+            {
+             UserName = a.UserName,
+             ActivateCode = a.ActivateCode,
+             Email = a.Email,
+             picProfile = a.UserImg,
+             IsAdmin = a.IsAdmin,
+             Phone = a.Phone,
+             IsDeleted = a.IsDelete,
+             id = a.Id,
+             
+            }));
+            return filterUserViewModel;
         }
     }
 }
