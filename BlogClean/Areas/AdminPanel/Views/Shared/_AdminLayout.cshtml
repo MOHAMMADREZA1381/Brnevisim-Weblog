@@ -7,14 +7,15 @@
     <title>@ViewData["Title"]-AdminPanel</title>
     <meta content="" name="description" />
     <partial name="_AdminHeaderRefrences" />
+    @RenderSection("AdminHeaderSection", false)
 </head>
 <body>
-@await Component.InvokeAsync("AdminHeader")
+    @await Component.InvokeAsync("AdminHeader")
     @RenderBody()
     @await RenderSectionAsync("Scripts", required: false)
     @await Component.InvokeAsync("AdminFooter")
     <partial name="_AdminFooterRefrences" />
-    @await RenderSectionAsync("FooterSection", false)
+    @await RenderSectionAsync("AdminFooterSection", false)
 </body>
 
 </html>

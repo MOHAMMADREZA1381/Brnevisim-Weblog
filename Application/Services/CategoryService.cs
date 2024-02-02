@@ -7,17 +7,17 @@ using System.Collections;
 
 namespace Application.Services;
 
-public class CategoryService:ICategoryService
+public class CategoryService : ICategoryService
 {
     #region Repository
-    private readonly  ICategoryRepository _categoryRepository;
+    private readonly ICategoryRepository _categoryRepository;
     public CategoryService(ICategoryRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
     }
     #endregion
 
-    public async Task AddCategory(CategoryViewModel category)
+    public async Task AddCategory(AddCategoryViewModel category)
     {
         var Category = new Category();
         Category.Name = category.Name;
@@ -27,13 +27,14 @@ public class CategoryService:ICategoryService
 
     public async Task EditCategory(EditCategoryViewModel category)
     {
-        var Category=new Category();
+        var Category = new Category();
         Category.Name = category.Name;
-        Category.IsDeleted=category.IsDeleted;
+        Category.id = category.id;
+        Category.IsDeleted = category.IsDeleted;
         await _categoryRepository.EditCategory(Category);
     }
 
-    public async Task<CategoryViewModel> GetCategoryById(int id)
+    public async Task<CategoryViewModel> GetCategoryViewModelById(int id)
     {
         var Category = await _categoryRepository.GetCategoryById(id);
         var CategoryVieModel = new CategoryViewModel()
@@ -46,16 +47,28 @@ public class CategoryService:ICategoryService
 
     public async Task<List<CategoryViewModel>> GetAllCategories()
     {
-        var Categories=await _categoryRepository.GetAllCategories();
+        var Categories = await _categoryRepository.GetAllCategories();
         var CategoriesViewModel = new List<CategoryViewModel>();
 
         foreach (var Item in Categories)
         {
             var ViewModel = new CategoryViewModel();
             ViewModel.Name = Item.Name;
-            ViewModel.id=Item.id;
+            ViewModel.id = Item.id;
             CategoriesViewModel.Add(ViewModel);
         }
         return CategoriesViewModel;
+    }
+
+    public async Task<Category> GetCategoryById(int id)
+    {
+        return await _categoryRepository.GetCategoryById(id);
+    }
+
+    public async Task DeleteCategory(int id)
+    {
+        var Category = await GetCategoryById(id);
+        Category.IsDeleted = true;
+        await _categoryRepository.EditCategory(Category);
     }
 }

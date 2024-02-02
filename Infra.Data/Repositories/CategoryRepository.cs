@@ -22,11 +22,14 @@ namespace Infra.Data.Repositories
         public async Task AddCategory(Category category)
         {
             _context.Add(category);
+            _context.SaveChanges();
         }
 
         public async Task EditCategory(Category category)
         {
             _context.Update(category);
+            _context.SaveChanges();
+
         }
 
         public async Task<Category> GetCategoryById(int id)

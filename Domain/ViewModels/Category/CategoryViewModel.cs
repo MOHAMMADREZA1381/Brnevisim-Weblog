@@ -10,5 +10,7 @@ namespace Domain.ViewModels.Category
     {
         public int id { get; set; }
         public string Name { get; set; }
+        //todo get count of category content
+        //public int? ContentCount { get; set; }
     }
 }

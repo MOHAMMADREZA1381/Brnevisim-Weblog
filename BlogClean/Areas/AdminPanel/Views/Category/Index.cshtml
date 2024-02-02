@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<Domain.ViewModels.Category.CategoryViewModel>
+
+
+<div class="container">
+        <div class="table-responsive text-nowrap  col-12 ">
+            <table class="table card-table  ">
+                <thead>
+                <tr>
+                    <a asp-area="AdminPanel" asp-controller="Category" asp-action="AddCategory" class="btn btn-outline-primary waves-effect" type="button">افزودن دسته بندی</a>
+                    <th>نام دسته بندی</th>
+                    <th>تعداد محتوای مرتبط</th>
+                    <th>عملیات</th>
+
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                @if (Model != null)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                <a asp-area="AdminPanel" asp-controller="Category" asp-action="EditCategory" asp-route-id="@item.id"  class="btn btn-outline-warning waves-effect" type="button">ویرایش</a>
+                                <a asp-area="AdminPanel" asp-controller="Category" asp-action="DeleteCategory"  asp-route-id="@item.id" class="btn btn-outline-danger waves-effect" type="button">حذف</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
