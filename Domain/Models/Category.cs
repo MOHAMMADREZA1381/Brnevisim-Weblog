@@ -15,5 +15,12 @@ namespace Domain.Models
         [MaxLength(ErrorMessage = "تعداد کارکتر بیش از حد مجاز")]
         public string Name { get; set; }
         public bool IsDeleted { get; set; }
+
+        #region Relations
+
+        public ICollection<Content> Contents { get; set; }
+        
+
+        #endregion
     }
 }

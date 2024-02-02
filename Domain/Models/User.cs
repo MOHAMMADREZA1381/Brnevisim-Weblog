@@ -44,5 +44,8 @@ namespace Domain.Models
         public bool IsDelete { get; set; }
         public bool IsAdmin { get; set; }
 
+        #region Relations
+        public ICollection<Content> Contents { get; set; }
+        #endregion
     }
 }
