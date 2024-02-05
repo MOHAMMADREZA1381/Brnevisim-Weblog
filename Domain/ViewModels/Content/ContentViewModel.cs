@@ -36,6 +36,6 @@ namespace Domain.ViewModels.Content
         public int ViewCount { get; set; } = 0;
         public int UserId { get; set; }
         public int CategoryId { get; set; }
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
     }
 }

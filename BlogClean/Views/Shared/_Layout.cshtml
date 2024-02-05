@@ -7,11 +7,12 @@
     <partial name="_HeaderRefrences" />
     @RenderSection("HeaderSection", false)
 </head>
-<body >
+<body>
     @await Component.InvokeAsync("SiteHeader")
     @RenderBody()
     @await RenderSectionAsync("Scripts", required: false)
     <partial name="_FooterRefrences" />
+    @await Component.InvokeAsync("SiteFooter")
     @RenderSection("FooterSection", false)
 
 </body>
