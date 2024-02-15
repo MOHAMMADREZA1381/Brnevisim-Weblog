@@ -8,14 +8,30 @@
             <div class="rounded p-4 shadow">
                 <div class="row">
                     <div class="col-12">
-                        <form asp-area="" asp-controller="Content" asp-action="CreateContent" method="post">
-                           <input type="hidden" asp-for="UserId"/>
+                        <form asp-area="" asp-controller="Content" asp-action="CreateContent" method="post" enctype="multipart/form-data">
+                            <input type="hidden" asp-for="UserId" />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="inputTag" class=" textColor  p-0 m-0 labelinpute rounded">
+                                            <br />
+                                            <span class="text-center d-block btn btn-primary">آپلود تصویر</span>
+                                            <span asp-validation-for="Banner" class="text-danger"></span>
+
+                                            <input class="d-none" asp-for="Banner" id="inputTag" type="file" accept="image/png, image/gif, image/jpeg" onchange="previewimg(event)" />
+
+                                        </label>
+                                        <img alt="preview" src="images/blog/image (2).png" class="img-fluid mx-auto d-block mt-5" id="Preview" />
+                                    </div>
+                                </div><!--end col-->
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label class="form-label">عنوان</label>
                                         <div class="form-icon position-relative">
-                                            <input asp-for="Title" id="subject" class="form-control ps-5" placeholder="عنوان شما :">
+                                            <input asp-for="Title" type="text" id="subject" class="form-control ps-5" placeholder="عنوان شما :">
                                             <span asp-validation-for="Title" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -29,7 +45,7 @@
                                         </div>
                                     </div>
                                 </div><!--end col-->
-                                
+
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label class="form-label">دسته بندی ها</label>
@@ -80,36 +96,24 @@
     </div><!--end row-->
 </div>
 
-<div class="col mt-4 pt-2" id="select-box">
-    <div class="component-wrapper rounded shadow">
-        <div class="p-4 border-bottom">
-            <h4 class="title mb-0"> فرم انتخاب جعبه </h4>
-        </div>
-
-        <div class="p-4">
-            <div class="mb-0">
-                <select asp-for="CategoryId" class="form-select form-control" aria-label="Default select example">
-                    <option>انتحاب کنید</option>
-                    @foreach (var item in Model.CategoryViewModels)
-                    {
-                        <option value="@item.id">@item.Name</option>
-
-                    }
-                    
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
 @section FooterSection
 {
     <script src="lib/ckeditor5-build-classic/ckeditor.js"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .catch(error => {
-                console.error(error);
+        ClassicEditor.create(document.querySelector('#editor'), 
+            {
+
+                ckfinder: { uploadUrl: '/Content/UploadImagesContentCkEditorTask' },
+                language:'fa'
             });
+
+    </script>
+    <script>
+        var previewimg = function (event) {
+
+            var result = document.getElementById("Preview");
+            result.src = URL.createObjectURL(event.target.files[0]);
+        }
     </script>
 
 }

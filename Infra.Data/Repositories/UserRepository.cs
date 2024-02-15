@@ -4,7 +4,7 @@ using Domain.Models;
 using Domain.ViewModels.User;
 using Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 
 namespace Infra.Data.Repositories
 {

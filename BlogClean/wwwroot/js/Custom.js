@@ -1,4 +1,6 @@
 ﻿function fillPage(page) {
-    $("#PageId").val(page);
-    $("#FilterForm").submit();
+    var test = document.getElementById("PageId");
+    test.value = page;
+    var form = document.getElementById("FilterForm");
+    form.submit();
 }

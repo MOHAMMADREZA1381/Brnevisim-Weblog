@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Domain.IRepositories;
 using Domain.Models;
+using Domain.ViewModels.Content;
 using Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +16,7 @@ namespace Infra.Data.Repositories
             _context = context;
         }
         #endregion
-        public async Task CreateContenTask(Content content)
+        public async Task CreateContentTask(Content content)
         {
             _context.Add(content);
             _context.SaveChanges();
@@ -39,6 +36,32 @@ namespace Infra.Data.Repositories
         public async Task<ICollection<Content>> AllContents()
         {
           return _context.Contents.Include(a=>a.User).Include(a=>a.Category).Where(a=>a.IsDeleted==false).ToList();
+        }
+
+        public async Task<FilterContentViewModel> GetAllContentWithFilter(FilterContentViewModel model)
+        {
+            var Contents = _context.Contents.Where(a=>a.IsDeleted==false).AsQueryable();
+            if (!string.IsNullOrEmpty(model.Title))
+            {
+                Contents = Contents.Where(a => EF.Functions.Like(a.Title, $"%{model.Title}%"));
+            }
+
+            await model.Paging(Contents.Select(a => new ContentViewModel()
+                {
+                    UserName = a.User.UserName,
+                    id = a.id,
+                    BannerName = a.Banner,
+                    UserId = a.UserId,
+                    CategoryId = a.CategoryId,
+                    SubTitle = a.SubTitle,
+                    ContentText = a.ContentText,
+                    CreateDate = a.CreateDate,
+                    Tag = a.Tag,
+                    ViewCount = a.ViewCount,
+                    Title = a.Title,
+                }
+            ));
+            return model;
         }
     }
 }

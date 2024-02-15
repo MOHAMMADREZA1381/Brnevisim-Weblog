@@ -1,6 +1,5 @@
 ﻿using Domain.Models;
 using Domain.ViewModels.User;
-using Domain.ViewModels.User;
 namespace Application.Interfaces;
 
 public interface IUserService
