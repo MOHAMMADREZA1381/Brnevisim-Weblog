@@ -37,3 +37,9 @@ public class EditContentViewModel:ContentCategoriesViewModel
     public int CategoryId { get; set; }
     public string UserName { get; set; }
 }
+public enum State
+{
+
+    Success,
+    Failed,
+}

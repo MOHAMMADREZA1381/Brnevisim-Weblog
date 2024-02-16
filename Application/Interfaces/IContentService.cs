@@ -11,4 +11,6 @@ public interface IContentService
     public Task<ICollection<ContentViewModel>> AllContents();
     public Task<FilterContentViewModel> GetContentWithFilter(FilterContentViewModel model);
     public Task<EditContentViewModel> GetContentForEdit(int id);
+
+    public Task<State> DeletContent(int id, int UserId);
 }

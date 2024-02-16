@@ -152,4 +152,17 @@ public class ContentService : IContentService
         return ContentEdit;
 
     }
+
+    public async Task<State> DeletContent(int id, int UserId)
+    {
+        var Content = await GetContentForEdit(id);
+        if (Content.UserId == UserId)
+        {
+            Content.IsDeleted = true;
+            await Edit(Content);
+            return State.Success;
+        }
+
+        return State.Failed;
+    }
 }

@@ -112,6 +112,21 @@ namespace BlogClean.Controllers
         }
         #endregion
 
+        #region DeleteContent
+        [Authorize]
+        public async Task<IActionResult> DeleteContent(int id)
+        {
+            var UserId= int.Parse(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+           var Result= await _contentService.DeletContent(id, UserId);
+           if (Result==State.Success)
+           {
+               return RedirectToAction("Index");
+           }
+          // todo : return redirect to ContentDetails if State=Failed
+           return RedirectToAction("Index");
+        }
+
+        #endregion
 
     }
 }

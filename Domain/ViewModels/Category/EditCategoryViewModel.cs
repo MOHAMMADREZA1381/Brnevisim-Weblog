@@ -13,4 +13,5 @@ namespace Domain.ViewModels.Category
         public bool IsDeleted { get; set; }
 
     }
+  
 }
