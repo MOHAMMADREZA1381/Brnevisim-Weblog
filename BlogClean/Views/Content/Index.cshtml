@@ -2,6 +2,10 @@
 @using Persia_.NET_Core
 @using Calendar = Persia_.NET_Core.Calendar
 @model Domain.ViewModels.Content.FilterContentViewModel
+@{
+    ViewData["Title"] = "همه محتوا ها";
+
+}
 
 <section class="bg-half bg-light d-table w-100">
     <div class="container">
@@ -61,6 +65,8 @@
                                 <ul class="list-unstyled mb-0">
                                     <li class="list-inline-item bi bi-eye me-2 mb-0 "><span class="ms-1">@item.ViewCount</span></li>
                                 </ul>
+                                <a asp-controller="Content" asp-action="EditContent" asp-route-id="@item.id">edit</a>
+
                                 <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب <i class="uil uil-angle-left-b align-middle"></i></a>
                             </div>
                         </div>

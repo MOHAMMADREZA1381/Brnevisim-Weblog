@@ -47,14 +47,14 @@ public class ContentService : IContentService
         await _contentRepository.CreateContentTask(Content);
     }
 
-    public async Task Edit(ContentViewModel content)
+    public async Task Edit(EditContentViewModel content)
     {
         var Content = await _contentRepository.GetContentById(content.id);
 
         //Sanitizer is a package for check ckeditor input for security
         var Sanity = new HtmlSanitizer();
 
-        if (content.Banner.Length < 0)
+        if (content.Banner !=null)
         {
             var galleryImage = "";
             galleryImage = Guid.NewGuid().ToString("N") + Path.GetExtension(content.Banner.FileName);
@@ -129,5 +129,27 @@ public class ContentService : IContentService
     public async Task<FilterContentViewModel> GetContentWithFilter(FilterContentViewModel model)
     {
         return await _contentRepository.GetAllContentWithFilter(model);
+    }
+
+    public async Task<EditContentViewModel> GetContentForEdit(int id)
+    {
+        var content =await  GetContentById(id);
+        var ContentEdit = new EditContentViewModel()
+        {
+            BannerName = content.BannerName,
+            CategoryId = content.CategoryId,
+            ContentText = content.ContentText,
+            CreateDate = content.CreateDate,
+            SubTitle = content.SubTitle,
+            IsDeleted = content.IsDeleted,
+            Tag = content.Tag,
+            Title = content.Title,
+            UserId = content.UserId,
+            UserName = content.UserName,
+            ViewCount = content.ViewCount,
+            id = content.id,
+        };
+        return ContentEdit;
+
     }
 }

@@ -9,13 +9,15 @@ using Microsoft.AspNetCore.Http;
 
 namespace Domain.ViewModels.Content
 {
-    public class ContentViewModel:EditContentViewModel
+    public class ContentViewModel:ContentCategoriesViewModel
     {
+        public int  id { get; set; }
 
         [Display(Name = "عنوان")]
         [Required(ErrorMessage = "{0} محتوا خودرا وارد کنید")]
         [MinLength(15, ErrorMessage = "تعداد حروف {0} نباید کم تر از  15 تا باشد")]
-        [MaxLength(120, ErrorMessage = "تعداد حروف {0} نباید بیشتر از 120 تا باشد")] public string Title { get; set; }
+        [MaxLength(120, ErrorMessage = "تعداد حروف {0} نباید بیشتر از 120 تا باشد")] 
+        public string Title { get; set; }
 
         [Display(Name = "مقدمه")]
         [Required(ErrorMessage = "{0} محتوای خود بنویسید")]

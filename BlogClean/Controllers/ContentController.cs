@@ -9,7 +9,7 @@ using Application.ImageTools.Common;
 using Persia_.NET_Core;
 namespace BlogClean.Controllers
 {
-    [Authorize]
+
     public class ContentController : Controller
     {
         #region Services
@@ -23,14 +23,20 @@ namespace BlogClean.Controllers
         }
         #endregion
 
+        #region ContentList
+        [Route("ContentList")]
         public async Task<IActionResult> Index(FilterContentViewModel viewModel)
         {
-            viewModel.TakeEntity = 2;
+         
             var Content = await _contentService.GetContentWithFilter(viewModel);
            
             return View(Content);
         }
+        #endregion
 
+        #region Create Content
+
+        [Authorize]
         [HttpGet("Add-Content")]
         public async Task<IActionResult> CreateContent()
         {
@@ -41,7 +47,7 @@ namespace BlogClean.Controllers
 
             return View(ContentViewModel);
         }
-
+        [Authorize]
         [HttpPost("Add-Content")]
         public async Task<IActionResult> CreateContent(ContentViewModel viewModel)
         {
@@ -55,7 +61,7 @@ namespace BlogClean.Controllers
             return View(viewModel);
         }
 
-
+        [Authorize]
         public JsonResult UploadImagesContentCkEditorTask()
         {
             var MyFiles = Request.Form.Files;
@@ -79,5 +85,33 @@ namespace BlogClean.Controllers
             };
             return Json(Success);
         }
+        #endregion
+
+        #region EditContent
+        [HttpGet("Edit-Content")]
+        public async Task<IActionResult> EditContent(int id)
+        {
+            var Content = await _contentService.GetContentForEdit(id);
+            Content.CategoryViewModels=await _categoryService.GetAllCategories();
+
+            return View(Content);
+        }
+        [HttpPost("Edit-Content")]
+        public async Task<IActionResult> EditContent(EditContentViewModel model)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                await _contentService.Edit(model);
+                return RedirectToAction("Index");
+
+            }
+            var Categories = await _categoryService.GetAllCategories();
+            model.CategoryViewModels=Categories;
+            return View(model);
+        }
+        #endregion
+
+
     }
 }

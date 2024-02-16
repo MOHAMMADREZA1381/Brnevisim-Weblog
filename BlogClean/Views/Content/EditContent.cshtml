@@ -1,8 +1,9 @@
-﻿@model Domain.ViewModels.Content.ContentViewModel
+﻿@using Application.ImageTools
+@model Domain.ViewModels.Content.EditContentViewModel
 @{
-    ViewData["Title"] = "افزودن محتوا";
-
+    ViewData["Title"] = "ویرایش محتوا";
 }
+
 
 
 <div class="container ContentForm">
@@ -11,8 +12,11 @@
             <div class="rounded p-4 shadow">
                 <div class="row">
                     <div class="col-12">
-                        <form asp-area="" asp-controller="Content" asp-action="CreateContent" method="post" enctype="multipart/form-data">
+                        <form asp-area="" asp-controller="Content" asp-action="EditContent" method="post" enctype="multipart/form-data">
                             <input type="hidden" asp-for="UserId" />
+                            <input type="hidden" asp-for="id" />
+                            <input type="hidden" asp-for="UserName" />
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
@@ -21,14 +25,14 @@
                                             <span class="text-center d-block btn btn-primary">آپلود تصویر</span>
                                             <span asp-validation-for="Banner" class="text-danger"></span>
 
-                                            <input class="d-none" asp-for="Banner" id="inputTag" type="file" accept="image/png, image/gif, image/jpeg" onchange="previewimg(event)" />
+                                            <input class="d-none" asp-for="Banner" value="@PathExtensions.ContentBannerOrgin@Model.BannerName" id="inputTag" type="file" accept="image/png, image/gif, image/jpeg" onchange="previewimg(event)" />
 
                                         </label>
-                                        <img alt="preview" src="images/blog/image (2).png" class="img-fluid mx-auto d-block mt-5" id="Preview" />
+                                        <img alt="preview" src="@PathExtensions.ContentBannerOrgin@Model.BannerName" class="img-fluid mx-auto d-block mt-5" id="Preview" />
                                     </div>
                                 </div><!--end col-->
                             </div>
-
+                            @PathExtensions.ContentBannerOrgin@Model.BannerName
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
@@ -103,11 +107,11 @@
 {
     <script src="lib/ckeditor5-build-classic/ckeditor.js"></script>
     <script>
-        ClassicEditor.create(document.querySelector('#editor'), 
+        ClassicEditor.create(document.querySelector('#editor'),
             {
 
                 ckfinder: { uploadUrl: '/Content/UploadImagesContentCkEditorTask' },
-                language:'fa'
+                language: 'fa'
             });
 
     </script>
