@@ -13,13 +13,13 @@ namespace BlogClean.Controllers
         }
 
         [HttpGet("Contact-Us")]
-        public async Task<IActionResult> ContactUs()
+        public async Task<IActionResult> ContactUsRequest()
         {
             return View();
         }
 
         [HttpPost("Contact-Us")]
-        public async Task<IActionResult> ContactUs(ContactUsViewModel model)
+        public async Task<IActionResult> ContactUsRequest(ContactUsViewModel model)
         {
             return View();
         }

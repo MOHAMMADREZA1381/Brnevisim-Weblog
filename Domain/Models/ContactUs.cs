@@ -28,12 +28,12 @@ namespace Domain.Models
         [MaxLength(120, ErrorMessage = "تعداد کارکتر {0} نباید بیشتر از ۱۲۰ باشد")]
         public string Title { get; set; }
 
-        [Display(Name = "نظرات")]
+        [Display(Name = "پیام")]
         [Required(ErrorMessage = "لطفا {0} خود را وارد")]
         [MinLength(60, ErrorMessage = "تعداد کارکتر {0} نباید کمتر از ۶۰ باشد")]
         [MaxLength(600, ErrorMessage = "تعداد کارکتر {0} نباید بیشتر از ۶۰۰ باشد")]
         public string Text { get; set; }
-
+        public bool IsDelete { get; set; }
 
     }
 }
