@@ -1,0 +1,27 @@
+﻿@if (TempData["MessageType"] != null)
+{
+    string type = (string)TempData["MessageType"];
+
+    if (type == "Error")
+    {
+        <script>
+            Swal.fire({
+                title: "عملیات ناموق",
+                text: "عملیات مورد نطر انجام نشد,لطفا دوباره تلاش کنید",
+                icon: "error"
+            });
+        </script>
+    }
+    else if (type == "Success")
+    {
+        <script>
+            Swal.fire({
+                title: "عملیات موفق",
+                text: "عملیات مورد نطر انجام شد",
+                icon: "success"
+            });
+        </script>
+    }
+
+
+}

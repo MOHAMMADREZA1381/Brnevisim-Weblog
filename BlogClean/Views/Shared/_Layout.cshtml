@@ -12,6 +12,7 @@
     @RenderBody()
     @await RenderSectionAsync("Scripts", required: false)
     <partial name="_FooterRefrences" />
+    <partial name="_SweetAlert" />
     @await Component.InvokeAsync("SiteFooter")
     @RenderSection("FooterSection", false)
 
