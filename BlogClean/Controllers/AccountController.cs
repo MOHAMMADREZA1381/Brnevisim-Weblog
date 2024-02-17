@@ -15,7 +15,7 @@ namespace BlogClean.Controllers
         #region Service
         private readonly IUserService _userService;
         private readonly IRenderService _Render;
-        public AccountController(IUserService userService,IRenderService Render)
+        public AccountController(IUserService userService, IRenderService Render)
         {
             _userService = userService;
             _Render = Render;
@@ -54,7 +54,7 @@ namespace BlogClean.Controllers
         {
             return View();
         }
-        [HttpPost("SignIn"),ValidateAntiForgeryToken]
+        [HttpPost("SignIn"), ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
 
@@ -89,7 +89,7 @@ namespace BlogClean.Controllers
                             IsPersistent = viewModel.RememberMe
                         });
                         TempData["SuccessMessage"] = "خوش آمدید";
-                        return RedirectToAction("Index","Home");
+                        return RedirectToAction("Index", "Home");
                 }
             }
             return View();
@@ -108,11 +108,11 @@ namespace BlogClean.Controllers
             return NotFound();
         }
 
-        [HttpGet("Profile"),Authorize]
+        [HttpGet("Profile"), Authorize]
         public async Task<IActionResult> UserPanel()
         {
             var UserClaims = User.Claims.FirstOrDefault().Value;
-            var user =await _userService.GetUserById(int.Parse(UserClaims));
+            var user = await _userService.GetUserById(int.Parse(UserClaims));
             return View(user);
         }
 
@@ -122,6 +122,72 @@ namespace BlogClean.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("Login");
         }
+
+
+
+
+
+
+
+        [HttpGet("Forgot-Password")]
+        public async Task<IActionResult> ForgotPassword()
+        {
+
+            return View();
+        }
+
+        [HttpPost("Forgot-Password")]
+        public async Task<IActionResult> ForgotPassword(EmailViewModel viewModel)
+        {
+            if (viewModel.Email == null)
+            {
+                ModelState.AddModelError("email", "لطفا ایمیلی را وارد کنید");
+
+            }
+
+            var User = await _userService.IsEmailRegistered(viewModel.Email);
+            if (User == true)
+            {
+                object UserInfo = await _userService.GetUserEmail(viewModel.Email);
+                string Body = _Render.RenderToStringAsync("_ForgotPasswordMail", UserInfo);
+                EmailSender.Send(viewModel.Email, "تغیر رمز عبور", Body);
+                ModelState.AddModelError("email", "اگر ایمیل وارد شده صحیح باشد یک لینک برای تغیر رمز عبور برای شما ارسال شده است");
+
+            }
+            return View();
+        }
+
+
+
+
+        [HttpGet("Change-Password/{ActivateCode}")]
+        public async Task<IActionResult> ChangePassword(string ActivateCode)
+        {
+            if (ActivateCode == null) return RedirectToAction("ForgotPassword");
+
+            var user = await _userService.GetUserByActivateCode(ActivateCode);
+            if (user == null) return RedirectToAction("ForgotPassword");
+
+            var forgotPassword = new ForgotPasswordViewModel();
+            forgotPassword.ActivateCode = user.ActivateCode;
+            return View(forgotPassword);
+        }
+
+        [HttpPost("Change-Password/{ActivateCode}")]
+        public async Task<IActionResult> ChangePassword(ForgotPasswordViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                await _userService.ForgotPassword(viewModel);
+                return RedirectToAction("Login");
+            }
+
+            return View();
+        }
+
+
+
+
 
     }
 }

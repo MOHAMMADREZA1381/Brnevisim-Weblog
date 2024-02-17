@@ -141,11 +141,21 @@ public class UserService : IUserService
         User.IsDelete = viewModel.IsDeleted;
         User.IsAdmin = viewModel.IsAdmin;
         User.IsActive = viewModel.IsActive;
+        User.ActivateCode = Guid.NewGuid().ToString();
         await _userRepository.EditUser(User);
     }
 
     public async Task<FilterUserViewModel> FilterUser(FilterUserViewModel filterUser)
     {
        return await _userRepository.GetFilterUserViewModel(filterUser);
+    }
+
+    public async Task ForgotPassword(ForgotPasswordViewModel model)
+    {
+        var User =await GetUserByActivateCode(model.ActivateCode);
+        var NewPassword = PasswordHelper.EncodePasswordSha256(model.Password);
+        User.Password = NewPassword;
+        User.ActivateCode = Guid.NewGuid().ToString();
+        await _userRepository.EditUser(User);
     }
 }
