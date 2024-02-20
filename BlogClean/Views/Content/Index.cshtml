@@ -1,6 +1,7 @@
 ﻿@using Application.ImageTools
 @using Persia_.NET_Core
 @using Calendar = Persia_.NET_Core.Calendar
+@using Application.Convertor
 @model Domain.ViewModels.Content.FilterContentViewModel
 @{
     ViewData["Title"] = "همه محتوا ها";
@@ -17,7 +18,7 @@
                         <nav aria-label="breadcrumb" class="d-inline-block">
                             <ul class="breadcrumb d-flex bg-white rounded shadow mb-0">
                                 <li class=""><a class="link-dark" asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
-                                <li class="bi bi-chevron-left"><a class="link-dark">وبلاگ</a></li>
+                                <li class="bi bi-chevron-left"><a asp-action="Index" class="link-dark">وبلاگ</a></li>
                                 <li class="bi bi-chevron-left" aria-current="page">همه وبلاگ ها</li>
                             </ul>
                         </nav>
@@ -68,16 +69,13 @@
                                 <a asp-controller="Content" asp-action="EditContent" asp-route-id="@item.id">edit</a>
                                 <a asp-controller="Content" asp-action="DeleteContent" asp-route-id="@item.id">DElete</a>
 
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب <i class="uil uil-angle-left-b align-middle"></i></a>
+                                <a asp-controller="Content" asp-action="ContentDetails" asp-route-id="@item.id" class="text-muted readmore">ادامه مطلب <i class="uil uil-angle-left-b align-middle"></i></a>
                             </div>
                         </div>
                         <div class="author">
                             <small class="text-light user d-block"><i class="uil uil-user"></i>@item.UserName</small>
-                            @{
-                                SolarDate solar = Calendar.ConvertToPersian(item.CreateDate);
-                                string str = solar.ToString("W");
-                            }
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i>@str </small>
+
+                            <small class="text-light date"><i class="uil uil-calendar-alt"></i>@ConvertDateToShamsi.ConvertDateToSh(@item.CreateDate) </small>
                         </div>
                     </div>
                 </div>

@@ -45,6 +45,10 @@ namespace Domain.Models
         public User User { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+
+        public ICollection<CaseMessage>? CaseMessages { get; set; }
+       
+
         #endregion
     }
 }

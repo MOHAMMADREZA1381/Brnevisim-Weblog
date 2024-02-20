@@ -1,0 +1,189 @@
+﻿@using Application.ImageTools
+@using Persia_.NET_Core
+@using Application.Convertor
+@model Domain.ViewModels.Content.ContentDetailsViewModel
+
+
+
+@if (Model.Content == null)
+{
+    <partial name="_NotFoundError" />
+}
+else
+{
+    @*Convert date to shamsi*@
+    string str = "";
+    if (Model.Content != null)
+    {
+        SolarDate solar = Calendar.ConvertToPersian(Model.Content.CreateDate);
+        str = solar.ToString("W");
+    }
+    @* end *@
+
+    <!-- Hero Start -->
+    <section class="bg-half d-table w-100" style="background: url('@PathExtensions.ContentBannerOrgin@Model.Content.BannerName') center center;">
+        <div class="bg-overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <div class="page-next-level">
+                        <div class="page-next">
+                            <nav aria-label="breadcrumb" class="d-inline-block">
+                                <ul class="breadcrumb d-flex bg-white rounded shadow mb-0">
+                                    <li class=""><a class="link-dark" asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
+                                    <li class="bi bi-chevron-left"><a asp-action="Index" class="link-dark">وبلاگ</a></li>
+                                    <li class="bi bi-chevron-left" aria-current="page">جزئیات وبلاگ</li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div><!--end col-->
+            </div><!--end row-->
+        </div> <!--end container-->
+    </section>
+
+
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="row">
+
+
+                        <div class="col-md-10">
+                            <p class="text-muted">@Model.Content.SubTitle</p>
+
+                            <ul class="list-unstyled d-flex justify-content-between mt-4">
+                                <li class="list-inline-item user me-2">
+                                    <a href="javascript:void(0)" class="text-muted">
+                                        <i class="@(Model.Content.ProfilePicture == null ? "uil uil-user text-dark" : "")">
+                                            @if (Model.Content.ProfilePicture != null)
+                                            {
+                                                <img class="rounded-circle ProfilePicture" src="@PathExtensions.UserAvatarOrgin@Model.Content.ProfilePicture" />
+                                            }
+                                        </i> @Model.Content.UserName
+                                    </a>
+                                </li>
+                                <li class="list-inline-item date text-muted"><i class="uil uil-calendar-alt text-dark"></i>@str</li>
+                            </ul>
+                            <img src="@PathExtensions.ContentBannerOrgin@Model.Content.BannerName" class="img-fluid rounded-md shadow" alt="">
+
+                            <h5 class="mt-4">@Model.Content.Title</h5>
+
+                            <p class="text-muted">@Model.Content.ContentText</p>
+
+                            <h5 class="mt-4">نظرات :</h5>
+                            <ul class="media-list list-unstyled mb-0">
+
+                                @foreach (var item in Model.Content.CaseList)
+                                {
+
+                                    foreach (var message in item.Messages)
+                                    {
+                                        if (message.IsFirstMessage == true)
+                                        {
+                                            <li class="mt-4">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <a class="pe-3" href="#">
+                                                            @if (message.ProfileNamePic == null)
+                                                            {
+                                                                <img src="images/blog/user.png" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="@PathExtensions.UserAvatarOrgin@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                            }
+                                                        </a>
+                                                        <div class="flex-1 commentor-detail">
+                                                            <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">@message.Name</a></h6>
+                                                            <small class="text-muted">@ConvertDateToShamsi.ConvertDateToSh(message.CreateDate)</small>
+                                                        </div>
+                                                    </div>
+                                                    <a onclick="Reply(@item.id)" class="text-muted pointer"><i class="bi bi-reply"></i> پاسخ </a>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <p class="text-muted fst-italic p-3 bg-light rounded">"@message.text"</p>
+                                                </div>
+                                            </li>
+                                        }
+
+                                        if (message.IsFirstMessage == false)
+                                        {
+                                            <ul class="list-unstyled ps-4 ps-md-5 sub-comment">
+                                                <li class="mt-4">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex align-items-center">
+                                                            <a class="pe-3" href="#">
+                                                                @if (message.ProfileNamePic == null)
+                                                                {
+                                                                    <img src="images/blog/user.png" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="@PathExtensions.UserAvatarOrgin@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                                }
+                                                            </a>
+                                                            <div class="commentor-detail">
+                                                                <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">@message.Name</a></h6>
+                                                                <small class="text-muted">@ConvertDateToShamsi.ConvertDateToSh(message.CreateDate)</small>
+                                                            </div>
+                                                        </div>
+                                                        <a onclick="Reply(@item.id)" class="text-muted pointer"><i class="bi bi-reply"></i> پاسخ </a>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <p class="text-muted fst-italic p-3 bg-light rounded">"@message.text"</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        }
+                                    }
+                                }
+                            </ul>
+                            <a onclick="ShowMoreCase()" href="javascript:void(0)" class="btn btn-outline-dark mt-2 me-2">نمایش بیشتر پیام ها</a>
+                            <form asp-controller="Content" asp-action="ContentDetails" id="ShowMore">
+                                <input type="hidden" id="Content" name="id" value="@Model.Content.id" />
+                                <input type="hidden" id="HowMany" name="HowManyCaseShow" value="@TempData["HowManyShowCase"]" />
+                                <input type="hidden" id="state" name="state" value="Success" />
+                            </form>
+
+                            <h5 class="mt-4">ارسال نظر :</h5>
+                            <partial name="_AddMessage" model="Model.MessageViewModel" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+@section Scripts
+{
+
+    <script>
+
+        function Reply(CaseId) {
+            var Case = document.getElementById("CaseId");
+            Case.value = CaseId;
+        }
+
+    </script>
+
+    <script>
+        function ShowMoreCase() {
+            var Content = document.getElementById("Content");
+            Content.value = @Model.Content.id;
+
+            var HowManyShow = document.getElementById("HowMany");
+            HowManyShow.value = @TempData["HowManyShowCase"]+4;
+
+            var Form = document.getElementById("ShowMore");
+            Form.submit();
+        }
+    </script>
+}
+
+
+

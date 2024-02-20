@@ -23,5 +23,7 @@ namespace Infra.Data.Context
         public DbSet<ContactUs> ContactUs { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Content> Contents { get; set; }
+        public DbSet<CaseMessage> CaseMessages { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

@@ -4,7 +4,10 @@ using Application.Interfaces;
 using Domain.IRepositories;
 using Domain.Models;
 using Domain.ViewModels.Content;
+using Domain.ViewModels.Message;
 using Ganss.Xss;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.Language;
 
 namespace Application.Services;
 
@@ -37,12 +40,12 @@ public class ContentService : IContentService
         }
         Content.UserId = content.UserId;
         Content.CategoryId = content.CategoryId;
-        Content.ContentText =Sanity.Sanitize(content.ContentText);
+        Content.ContentText = Sanity.Sanitize(content.ContentText);
         Content.CreateDate = DateTime.Now;
         Content.SubTitle = content.SubTitle;
         Content.Tag = content.Tag;
-        Content.Title=content.Title;
-        
+        Content.Title = content.Title;
+
 
         await _contentRepository.CreateContentTask(Content);
     }
@@ -54,7 +57,7 @@ public class ContentService : IContentService
         //Sanitizer is a package for check ckeditor input for security
         var Sanity = new HtmlSanitizer();
 
-        if (content.Banner !=null)
+        if (content.Banner != null)
         {
             var galleryImage = "";
             galleryImage = Guid.NewGuid().ToString("N") + Path.GetExtension(content.Banner.FileName);
@@ -75,10 +78,36 @@ public class ContentService : IContentService
     public async Task<ContentViewModel> GetContentById(int id)
     {
         var Content = await _contentRepository.GetContentById(id);
-
         //Sanitizer is a package for check ckeditor input for security
         var Sanity = new HtmlSanitizer();
 
+        var CaseList = new List<CaseMessageViewModel>();
+        foreach (var Case in Content.CaseMessages)
+        {
+            var CaseViewModel = new CaseMessageViewModel();
+            CaseViewModel.ContentId = Content.id;
+            CaseViewModel.UserId = Case.UserId;
+            CaseViewModel.id = Case.Id;
+
+            var MessageList = new List<MessageViewModel>();
+            foreach (var Message in Case.Messages)
+            {
+                var MessageViewModel = new MessageViewModel();
+                MessageViewModel.UserId = Message.UserId;
+                MessageViewModel.CaseId = Message.CaseId;
+                MessageViewModel.text = Message.Text;
+                MessageViewModel.id = Message.Id;
+                MessageViewModel.ContentId = Message.ContentId;
+                MessageViewModel.ProfileNamePic = Message.User.UserImg;
+                MessageViewModel.Name = Message.User.UserName;
+                MessageViewModel.CreateDate = Message.CreateTime;
+                MessageViewModel.IsFirstMessage = Message.IsFirstMesage;
+                MessageList.Add(MessageViewModel);
+            }
+            CaseViewModel.Messages = MessageList;
+            CaseList.Add(CaseViewModel);
+        }
+       
         var ContentViewModel = new ContentViewModel()
         {
             id = Content.id,
@@ -92,7 +121,10 @@ public class ContentService : IContentService
             UserId = Content.UserId,
             ViewCount = Content.ViewCount,
             UserName = Content.User.UserName,
+            ProfilePicture = Content.User.UserImg,
+            CaseList = CaseList
         };
+
         return ContentViewModel;
     }
 
@@ -111,7 +143,7 @@ public class ContentService : IContentService
                 id = Content.id,
                 BannerName = Content.Banner,
                 CategoryId = Content.CategoryId,
-                ContentText =Sanity.Sanitize(Content.ContentText),
+                ContentText = Sanity.Sanitize(Content.ContentText),
                 CreateDate = Content.CreateDate,
                 SubTitle = Content.SubTitle,
                 Tag = Content.Tag,
@@ -133,7 +165,7 @@ public class ContentService : IContentService
 
     public async Task<EditContentViewModel> GetContentForEdit(int id)
     {
-        var content =await  GetContentById(id);
+        var content = await GetContentById(id);
         var ContentEdit = new EditContentViewModel()
         {
             BannerName = content.BannerName,
@@ -165,4 +197,11 @@ public class ContentService : IContentService
 
         return State.Failed;
     }
+
+    public async Task<bool> IsAnyContent(int id)
+    {
+        return await _contentRepository.IsAnyContentByIdTask(id);
+    }
+
+   
 }

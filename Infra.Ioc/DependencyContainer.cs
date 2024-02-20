@@ -18,6 +18,8 @@ namespace Infra.Ioc
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IContentService, ContentService>();
             services.AddScoped<IContactUsService, ContactUsService>();
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<ICaseMessageService, CaseMessageService>();
 
 
             //    <---Data Layer --->
@@ -25,6 +27,8 @@ namespace Infra.Ioc
             services.AddScoped<ICategoryRepository,CategoryRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<IContactUsRepository, ContactUsRepository>();
+            services.AddScoped<ICaseMessageRepository, CaseMessageRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
 
 
         }

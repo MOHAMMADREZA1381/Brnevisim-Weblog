@@ -13,4 +13,5 @@ public interface IContentService
     public Task<EditContentViewModel> GetContentForEdit(int id);
 
     public Task<State> DeletContent(int id, int UserId);
+    public Task<bool> IsAnyContent(int id);
 }

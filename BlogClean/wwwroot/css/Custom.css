@@ -87,3 +87,10 @@ a {
     margin-top: 14% !important;
     padding-bottom: 20% !important;
 }
+.ProfilePicture {
+    width: 45px !important;
+}
+
+.Pointer {
+    cursor: pointer !important
+}
