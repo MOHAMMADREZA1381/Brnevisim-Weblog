@@ -107,11 +107,11 @@ else
                                                 {
                                                     @if (message.UserId == int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
                                                     {
-                                                        <a onclick="EditMessage(@message.id)" class="text-muted pointer Edit" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i> ویرایش </a>
+                                                            <a onclick="EditMessage(@message.id)" class="text-muted Pointer Edit" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i> ویرایش </a>
                                                         <partial name="_EditMessageModal" model="Model.MessageViewModel" />
 
                                                     }
-                                                    <a onclick="Reply(@item.id)" class="text-muted pointer"><i class="bi bi-reply"></i> پاسخ </a>
+                                                        <a href="#scrollspyHeading1" onclick="Reply(@item.id)" class="text-muted Pointer"><i class="bi bi-reply"></i> پاسخ </a>
                                                 }
                                                 </div>
                                                 <div class="mt-3">
@@ -145,10 +145,10 @@ else
                                                         {
                                                             @if (message.UserId == int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
                                                             {
-                                                                <a onclick="EditMessage(@message.id)" class="text-muted pointer Edit" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i> ویرایش </a> @*Modal For Edit*@
+                                                                <a onclick="EditMessage(@message.id)" class="text-muted Pointer Edit" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i> ویرایش </a> @*Modal For Edit*@
                                                                 <partial name="_EditMessageModal" model="Model.MessageViewModel" />
                                                             }
-                                                        <a onclick="Reply(@item.id)" class="text-muted pointer"><i class="bi bi-reply"></i> پاسخ </a>
+                                                            <a href="#scrollspyHeading1" onclick="Reply(@item.id)" class="text-muted Pointer"><i class="bi bi-reply"></i> پاسخ </a>
                                                         }
                                                     </div>
                                                     <div class="mt-3">
@@ -167,8 +167,8 @@ else
                                 <input type="hidden" id="state" name="state" value="Success" />
                             </form>
 
-                            <h5 class="mt-4">ارسال نظر :</h5>
-                            <partial name="_AddMessage"  model="Model.MessageViewModel" />
+
+                            <partial data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" class="mt-4" name="_AddMessage" model="Model.MessageViewModel" />
                            
                         </div>
                     </div>
