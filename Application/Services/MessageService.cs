@@ -53,6 +53,7 @@ public class MessageService : IMessageService
     public async Task EditMessage(MessageViewModel message)
     {
         var Message = await _messageRepository.GetMessageById(message.id);
+        message.CaseId = Message.CaseId;
         Message.Text = message.text;
         await _messageRepository.EditMessage(Message);
     }
@@ -62,5 +63,18 @@ public class MessageService : IMessageService
         var Message = await _messageRepository.GetMessageById(id);
         Message.IsDelete = true;
         await _messageRepository.EditMessage(Message);
+    }
+
+    public async Task<bool> CreatedBefor(int id)
+    {
+        bool IsCreated = await _messageRepository.CreatedMessageBefor(id);
+        return IsCreated;
+    }
+
+    public async Task<bool> MessageBlongToUser(int UserId,int MessageId)
+    {
+        var Message = await _messageRepository.GetMessageById(MessageId); 
+        bool MessageBlongToUser=Message.UserId==UserId;
+        return MessageBlongToUser;
     }
 }

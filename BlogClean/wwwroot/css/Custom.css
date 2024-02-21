@@ -94,3 +94,24 @@ a {
 .Pointer {
     cursor: pointer !important
 }
+
+@media only screen and (min-width:400px) and (max-width:900px) {
+
+    .Edit {
+        margin-left: -20% !important;
+    }
+}
+
+@media only screen and (min-width:901px) and (max-width:1200px) {
+
+    .Edit {
+        margin-left: -35% !important;
+    }
+}
+
+@media only screen and (min-width:1201px){
+
+    .Edit {
+        margin-left: -50% !important;
+    }
+}

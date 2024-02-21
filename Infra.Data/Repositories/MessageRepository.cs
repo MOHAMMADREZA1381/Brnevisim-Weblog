@@ -33,4 +33,10 @@ public class MessageRepository:IMessageRepository
         var Message = _context.Messages.Where(a => a.Id == id).FirstOrDefault();
         return Message;
     }
+
+    public async Task<bool> CreatedMessageBefor(int id)
+    {
+         bool isThere = _context.Messages.Any(a => a.Id == id);
+         return isThere;
+    }
 }
