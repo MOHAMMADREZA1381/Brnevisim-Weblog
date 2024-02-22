@@ -9,4 +9,5 @@ public interface IMessageService
     public Task DeleteMessage(int id);
     public Task<bool> CreatedBefor(int id);
     public Task<bool> MessageBlongToUser(int UserId,int MessageId);
+    
 }

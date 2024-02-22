@@ -3,8 +3,8 @@ using Domain.ViewModels.Message;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-
 using Microsoft.Identity.Client;
+
 
 namespace BlogClean.Controllers
 {
@@ -28,7 +28,7 @@ namespace BlogClean.Controllers
         [Authorize]
         public async Task<IActionResult> AddMessage(MessageViewModel model)
         {
-            int UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             model.UserId = UserId;
             if (ModelState.IsValid)
             {
@@ -62,6 +62,21 @@ namespace BlogClean.Controllers
             }
             return RedirectToAction("ContentDetails", "Content", new { id = model.ContentId, state = "Error" });
 
+        }
+        [Authorize]
+        [Route("Delete-Message")]
+        public async Task<IActionResult> DeletMessage(int MessageId,int ContentId)
+        {
+            int UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            bool CraeteBefor = await _messageService.CreatedBefor(MessageId);
+            bool MessageBlongToUser = await _messageService.MessageBlongToUser(UserId,MessageId);
+            if (CraeteBefor==false || ContentId==null)return PartialView("_NotFoundError");
+            if (CraeteBefor==true && MessageBlongToUser==true)
+            {
+                await _messageService.DeleteMessage(MessageId);
+            }
+
+            return RedirectToAction("ContentDetails", "Content", new {id=ContentId,state="Success"});
         }
     }
 }

@@ -77,4 +77,6 @@ public class MessageService : IMessageService
         bool MessageBlongToUser=Message.UserId==UserId;
         return MessageBlongToUser;
     }
+
+  
 }

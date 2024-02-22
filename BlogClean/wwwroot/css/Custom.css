@@ -94,12 +94,16 @@ a {
 .Pointer {
     cursor: pointer !important
 }
+.Delete {
+    margin-right: -20%;
+}
 
 @media only screen and (min-width:400px) and (max-width:900px) {
 
     .Edit {
         margin-left: -20% !important;
     }
+  
 }
 
 @media only screen and (min-width:901px) and (max-width:1200px) {
@@ -107,6 +111,8 @@ a {
     .Edit {
         margin-left: -35% !important;
     }
+  
+
 }
 
 @media only screen and (min-width:1201px){
@@ -114,4 +120,5 @@ a {
     .Edit {
         margin-left: -50% !important;
     }
-}
+    
+    }

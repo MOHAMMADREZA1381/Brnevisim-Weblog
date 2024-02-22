@@ -37,7 +37,7 @@ namespace Infra.Data.Repositories
                 .ThenInclude(a => a.Messages)
                 .ThenInclude(a => a.User)
                 .Include(a => a.CaseMessages)
-                .ThenInclude(a => a.Messages).ThenInclude(a => a.User)
+                .ThenInclude(a => a.Messages.Where(a=>a.IsDelete==false)).ThenInclude(a => a.User)
                 .FirstOrDefaultAsync(a => a.id == id);
             return Conetnt;
         }
