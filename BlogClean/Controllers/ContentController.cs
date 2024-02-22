@@ -43,12 +43,13 @@ namespace BlogClean.Controllers
             ///for load more case message
             if (HowManyCaseShow==null || HowManyCaseShow==0)
             {
-                HowManyCaseShow = 1;
+                HowManyCaseShow = 4;
             }
             TempData["HowManyShowCase"]=HowManyCaseShow.Value;
 
+            bool ContentExist = await _contentService.IsAnyContent(id);
             var ContentViewModel = new ContentDetailsViewModel();
-            if (id !=0 )
+            if (ContentExist==true)
             {
                 var Content = await _contentService.GetContentById(id);
                 var Message = new MessageViewModel();
@@ -61,7 +62,7 @@ namespace BlogClean.Controllers
                 return View(ContentViewModel);
             }
 
-            return View(ContentViewModel);
+            return PartialView("_NotFoundError");
         }
 
         #endregion

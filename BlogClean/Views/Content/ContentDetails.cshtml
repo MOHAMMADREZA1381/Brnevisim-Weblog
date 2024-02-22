@@ -5,23 +5,6 @@
 @using AngleSharp.Text
 @model Domain.ViewModels.Content.ContentDetailsViewModel
 
-
-
-@if (Model.Content == null)
-{
-    <partial name="_NotFoundError" />
-}
-else
-{
-    @*Convert date to shamsi*@
-    string str = "";
-    if (Model.Content != null)
-    {
-        SolarDate solar = Calendar.ConvertToPersian(Model.Content.CreateDate);
-        str = solar.ToString("W");
-    }
-    @* end *@
-
     <!-- Hero Start -->
     <section class="bg-half d-table w-100" style="background: url('@PathExtensions.ContentBannerOrgin@Model.Content.BannerName') center center;">
         <div class="bg-overlay"></div>
@@ -67,14 +50,15 @@ else
                                         </i> @Model.Content.UserName
                                     </a>
                                 </li>
-                                <li class="list-inline-item date text-muted"><i class="uil uil-calendar-alt text-dark"></i>@str</li>
+                                <li class="list-inline-item date text-muted"><i class="uil uil-calendar-alt text-dark"></i>@ConvertDateToShamsi.ConvertDateToSh(@Model.Content.CreateDate)</li>
                             </ul>
                             <img src="@PathExtensions.ContentBannerOrgin@Model.Content.BannerName" class="img-fluid rounded-md shadow" alt="">
 
                             <h5 class="mt-4">@Model.Content.Title</h5>
 
                             <p class="text-muted">@Model.Content.ContentText</p>
-
+                            @if (Model.Content.CaseList.Count != 0)
+                            {
                             <h5 class="mt-4">نظرات :</h5>
                             <ul class="media-list list-unstyled mb-0">
 
@@ -163,6 +147,8 @@ else
                                 }
                             </ul>
                             <a onclick="ShowMoreCase()" href="javascript:void(0)" class="btn btn-outline-dark mt-2 me-2">نمایش بیشتر پیام ها</a>
+                            }
+                            
                             <form asp-controller="Content" asp-action="ContentDetails" id="ShowMore">
                                 <input type="hidden" id="Content" name="id" value="@Model.Content.id" />
                                 <input type="hidden" id="HowMany" name="HowManyCaseShow" value="@TempData["HowManyShowCase"]" />
@@ -179,7 +165,7 @@ else
         </div>
     </section>
 
-}
+
 @section Scripts
 {
 

@@ -20,8 +20,8 @@ public class CaseMessageRepository:ICaseMessageRepository
 
     public async Task<CaseMessage> CreateCaseMessage(CaseMessage caseMessage)
     {
-        _context.Add(caseMessage);
-        _context.SaveChanges();
+       await _context.AddAsync(caseMessage);
+       await _context.SaveChangesAsync();
         return caseMessage;
     }
 
@@ -29,16 +29,16 @@ public class CaseMessageRepository:ICaseMessageRepository
     public async Task EditCaseMessage(CaseMessage caseMessage)
     {
         _context.Update(caseMessage);
-        _context.SaveChanges();
+       await _context.SaveChangesAsync();
     }
 
     public async Task<CaseMessage> GetCaseMessage(int id)
     {
-        return _context.CaseMessages.Where(a => a.Id == id).FirstOrDefault();
+        return await _context.CaseMessages.Where(a => a.Id == id).FirstOrDefaultAsync();
     }
 
     public async Task<bool> IsCreatedBefor(int id)
     {
-        return _context.CaseMessages.Any(a => a.Id == id);
+        return await _context.CaseMessages.AnyAsync(a => a.Id == id);
     }
 }

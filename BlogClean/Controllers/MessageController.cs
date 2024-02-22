@@ -68,9 +68,11 @@ namespace BlogClean.Controllers
         public async Task<IActionResult> DeletMessage(int MessageId,int ContentId)
         {
             int UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
             bool CraeteBefor = await _messageService.CreatedBefor(MessageId);
-            bool MessageBlongToUser = await _messageService.MessageBlongToUser(UserId,MessageId);
             if (CraeteBefor==false || ContentId==null)return PartialView("_NotFoundError");
+
+            bool MessageBlongToUser = await _messageService.MessageBlongToUser(UserId,MessageId);
             if (CraeteBefor==true && MessageBlongToUser==true)
             {
                 await _messageService.DeleteMessage(MessageId);

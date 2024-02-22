@@ -47,7 +47,7 @@ namespace Domain.ViewModels.Content
         public int CategoryId { get; set; }
         public string? UserName { get; set; }
         public string? ProfilePicture { get; set; }
-        public ICollection<CaseMessageViewModel> CaseList { get; set; }
+        public ICollection<CaseMessageViewModel>? CaseList { get; set; }
        
     }
 }

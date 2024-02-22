@@ -33,11 +33,9 @@ namespace Infra.Data.Repositories
         {
             var Conetnt = _context.Contents.Include(a => a.Category)
                 .Include(a => a.User)
-                .Include(a => a.CaseMessages)
-                .ThenInclude(a => a.Messages)
+                .Include(a => a.CaseMessages.OrderByDescending(a=>a.CreateDate).Where(a=>a.IsDelete==false))
+                .ThenInclude(a => a.Messages.Where(a=>a.IsDelete==false))
                 .ThenInclude(a => a.User)
-                .Include(a => a.CaseMessages)
-                .ThenInclude(a => a.Messages.Where(a=>a.IsDelete==false)).ThenInclude(a => a.User)
                 .FirstOrDefaultAsync(a => a.id == id);
             return Conetnt;
         }

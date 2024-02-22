@@ -61,6 +61,13 @@ public class MessageService : IMessageService
     public async Task DeleteMessage(int id)
     {
         var Message = await _messageRepository.GetMessageById(id);
+        if (Message.IsFirstMesage == true)
+        {
+            var Case = await _caseMessageRepository.GetCaseMessage(Message.CaseId);
+            Case.IsDelete = true;
+           await _caseMessageRepository.EditCaseMessage(Case);
+        }
+
         Message.IsDelete = true;
         await _messageRepository.EditMessage(Message);
     }
