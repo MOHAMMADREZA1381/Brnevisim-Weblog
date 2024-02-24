@@ -4,6 +4,7 @@ using Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Data.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    partial class BlogContextModelSnapshot : ModelSnapshot
+    [Migration("20240224173023_View-Count")]
+    partial class ViewCount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -317,13 +320,13 @@ namespace Infra.Data.Migrations
             modelBuilder.Entity("Domain.Models.ContentViews", b =>
                 {
                     b.HasOne("Domain.Models.Content", "Content")
-                        .WithMany("ContentViewsCollection")
+                        .WithMany()
                         .HasForeignKey("ContentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Domain.Models.User", "User")
-                        .WithMany("ViewsCollection")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -373,15 +376,11 @@ namespace Infra.Data.Migrations
             modelBuilder.Entity("Domain.Models.Content", b =>
                 {
                     b.Navigation("CaseMessages");
-
-                    b.Navigation("ContentViewsCollection");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
                     b.Navigation("Contents");
-
-                    b.Navigation("ViewsCollection");
                 });
 #pragma warning restore 612, 618
         }

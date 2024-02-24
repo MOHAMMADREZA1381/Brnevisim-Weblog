@@ -48,7 +48,7 @@ namespace Domain.Models
 
         public ICollection<CaseMessage>? CaseMessages { get; set; }
        
-
+        public ICollection<ContentViews> ContentViewsCollection { get; set; }
         #endregion
     }
 }

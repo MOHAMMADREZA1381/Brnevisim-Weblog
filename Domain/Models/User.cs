@@ -46,11 +46,8 @@ namespace Domain.Models
 
         #region Relations
         public ICollection<Content> Contents { get; set; }
+        public ICollection<ContentViews>ViewsCollection { get; set; }
 
-        public static ReadOnlySpan<byte> FindFirstValue(string nameIdentifier)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
     }
 }

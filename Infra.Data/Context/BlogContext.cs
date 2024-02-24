@@ -25,5 +25,7 @@ namespace Infra.Data.Context
         public DbSet<Content> Contents { get; set; }
         public DbSet<CaseMessage> CaseMessages { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<ContentViews> Views { get; set; }
+
     }
 }
