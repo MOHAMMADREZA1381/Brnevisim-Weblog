@@ -10,13 +10,10 @@ namespace Domain.Models
     public class ContentViews
     {
         public int id { get; set; }
-        public int UserIp { get; set; }
-        public int UserId { get; set; }
+        public string? UserIp { get; set; }
         public int ContentId { get; set; }
 
         #region Relations
-        [ForeignKey("UserId")]
-        public User User { get; set; }
         [ForeignKey("ContentId")]
         public Content Content { get; set; }
         #endregion

@@ -6,8 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Application.ImageTools.Common;
+using Domain.Models;
 using Domain.ViewModels.Message;
-using Persia_.NET_Core;
+
+using Microsoft.AspNetCore.HttpOverrides;
+
 namespace BlogClean.Controllers
 {
 
@@ -16,11 +19,12 @@ namespace BlogClean.Controllers
         #region Services
         private readonly IContentService _contentService;
         private readonly ICategoryService _categoryService;
-
-        public ContentController(IContentService contentService, ICategoryService categoryService)
+        private readonly IViewCountService _viewCountService;
+        public ContentController(IContentService contentService, ICategoryService categoryService, IViewCountService viewCountService)
         {
             _contentService = contentService;
             _categoryService = categoryService;
+            _viewCountService = viewCountService;
         }
         #endregion
 
@@ -51,6 +55,12 @@ namespace BlogClean.Controllers
             var ContentViewModel = new ContentDetailsViewModel();
             if (ContentExist==true)
             {
+                var AddViewCount = new ViewCountViewModel();
+                AddViewCount.ContentId = id;
+                AddViewCount.UserIp = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+                await _viewCountService.AddView(AddViewCount);
+
+
                 var Content = await _contentService.GetContentById(id);
                 var Message = new MessageViewModel();
                 Message.ContentId = Content.id;

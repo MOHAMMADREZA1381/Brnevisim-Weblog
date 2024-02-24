@@ -36,7 +36,7 @@ namespace Domain.Models
         [MaxLength(100, ErrorMessage = "{0} های وارد شده طولانی هستند")]
         public string Tag { get; set; }
         public bool IsDeleted { get; set; }
-        public int ViewCount { get; set; } = 0;
+     
         public int UserId { get; set; }
         public int CategoryId { get; set; }
 

@@ -36,6 +36,7 @@ namespace Infra.Data.Repositories
                 .Include(a => a.CaseMessages.OrderByDescending(a=>a.CreateDate).Where(a=>a.IsDelete==false))
                 .ThenInclude(a => a.Messages.Where(a=>a.IsDelete==false))
                 .ThenInclude(a => a.User)
+                .Include(a=>a.ContentViewsCollection)
                 .FirstOrDefaultAsync(a => a.id == id);
             return Conetnt;
         }
@@ -64,7 +65,7 @@ namespace Infra.Data.Repositories
                 ContentText = a.ContentText,
                 CreateDate = a.CreateDate,
                 Tag = a.Tag,
-                ViewCount = a.ViewCount,
+                ViewCount = a.ContentViewsCollection.Count,
                 Title = a.Title,
             }
             ));

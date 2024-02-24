@@ -81,6 +81,7 @@ public class ContentService : IContentService
         //Sanitizer is a package for check ckeditor input for security
         var Sanity = new HtmlSanitizer();
 
+        ///Get Messages And CaseMessages
         var CaseList = new List<CaseMessageViewModel>();
         foreach (var Case in Content.CaseMessages)
         {
@@ -107,7 +108,8 @@ public class ContentService : IContentService
             CaseViewModel.Messages = MessageList;
             CaseList.Add(CaseViewModel);
         }
-       
+        //End
+
         var ContentViewModel = new ContentViewModel()
         {
             id = Content.id,
@@ -119,7 +121,7 @@ public class ContentService : IContentService
             Tag = Content.Tag,
             Title = Content.Title,
             UserId = Content.UserId,
-            ViewCount = Content.ViewCount,
+            ViewCount = Content.ContentViewsCollection.Count,
             UserName = Content.User.UserName,
             ProfilePicture = Content.User.UserImg,
             CaseList = CaseList
@@ -150,7 +152,7 @@ public class ContentService : IContentService
                 Title = Content.Title,
                 UserId = Content.UserId,
                 UserName = Content.User.UserName,
-                ViewCount = Content.ViewCount,
+                ViewCount = Content.ContentViewsCollection.Count,
             };
             ListViewModel.Add(ContentViewModel);
         }

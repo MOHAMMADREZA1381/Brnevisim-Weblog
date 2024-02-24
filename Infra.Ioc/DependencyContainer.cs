@@ -20,6 +20,7 @@ namespace Infra.Ioc
             services.AddScoped<IContactUsService, ContactUsService>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<ICaseMessageService, CaseMessageService>();
+            services.AddScoped<IViewCountService, ViewCountService>();
 
 
             //    <---Data Layer --->
@@ -29,6 +30,7 @@ namespace Infra.Ioc
             services.AddScoped<IContactUsRepository, ContactUsRepository>();
             services.AddScoped<ICaseMessageRepository, CaseMessageRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IViewCountRepository, ViewCountRepository>();
 
 
         }
