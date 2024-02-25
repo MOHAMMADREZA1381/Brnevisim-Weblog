@@ -14,4 +14,5 @@ public interface IUserRepository
     public Task<ICollection<User>> GetUserList();
     public Task EditUser(User user);
     public Task<FilterUserViewModel> GetFilterUserViewModel(FilterUserViewModel filterUserViewModel);
+    public Task<bool> IsUserExistById(int Id);
 }

@@ -98,5 +98,10 @@ namespace Infra.Data.Repositories
             }));
             return filterUserViewModel;
         }
+
+        public async Task<bool> IsUserExistById(int Id)
+        {
+            return await _context.Users.AnyAsync(a => a.Id == Id);
+        }
     }
 }

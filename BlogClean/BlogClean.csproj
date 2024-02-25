@@ -150,4 +150,12 @@
     <TypeScriptCompile Include="wwwroot\lib\ckeditor5-build-classic\ckeditor.d.ts" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Follow\Followers.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Follow\Followers.cshtml" />
+  </ItemGroup>
+
 </Project>

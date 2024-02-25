@@ -53,5 +53,10 @@ namespace Infra.Data.Repositories
         {
             return await _context.Followings.AnyAsync(a => a.UserId == UserId && a.UserIdThatFollowed==UserIdWntToFollow);
         }
+
+        public async Task<Following> GetFollowing(int id)
+        {
+           return await _context.Followings.Where(a => a.Id == id).FirstOrDefaultAsync();
+        }
     }
 }

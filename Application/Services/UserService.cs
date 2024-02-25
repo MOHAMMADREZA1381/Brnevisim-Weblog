@@ -158,4 +158,9 @@ public class UserService : IUserService
         User.ActivateCode = Guid.NewGuid().ToString();
         await _userRepository.EditUser(User);
     }
+
+    public async Task<bool> IsUserExistById(int Id)
+    {
+        return await _userRepository.IsUserExistById(Id);
+    }
 }

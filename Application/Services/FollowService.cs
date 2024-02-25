@@ -17,10 +17,11 @@ namespace Application.Services
         
 
         private readonly IFollowRepository _followRepository;
-
-        public FollowService(IFollowRepository followRepository)
+        private readonly IUserService _userService;
+        public FollowService(IFollowRepository followRepository,IUserService userService)
         {
             _followRepository = followRepository;
+            _userService= userService;
         }
         #endregion
 
@@ -29,11 +30,12 @@ namespace Application.Services
             bool FollowedBefor = await this.FollowedBefor(followViewModel.UserId, followViewModel.UserIdThatFollowed);
             if (FollowedBefor == false)
             {
+                var UserWntFollow = await _userService.GetUserById(followViewModel.UserIdThatFollowed);
                 var FollowUser = new Following()
                 {
                     UserId = followViewModel.UserId,
                     UserIdThatFollowed = followViewModel.UserIdThatFollowed,
-                    UserNameThatFollowed = followViewModel.UserNameThatFollowed,
+                    UserNameThatFollowed = UserWntFollow.UserName,
                     
                 };
 
@@ -41,19 +43,14 @@ namespace Application.Services
             }
         }
 
-        public async Task RemoveFollow(FollowViewModel viewModel)
+        public async Task RemoveFollow(int id)
         {
-            bool FollowedBefor = await this.FollowedBefor(viewModel.UserId, viewModel.UserIdThatFollowed);
+            var Model = await this.GetFollowByIdTask(id);
+            bool FollowedBefor = await this.FollowedBefor(Model.UserId, Model.UserIdThatFollowed);
             if (FollowedBefor == true)
             {
-                var FollowUser = new Following()
-                {
-                    UserId = viewModel.UserId,
-                    UserIdThatFollowed = viewModel.UserIdThatFollowed,
-                    UserNameThatFollowed = viewModel.UserNameThatFollowed,
-                };
-
-                await _followRepository.RemoveFollow(FollowUser);
+                
+                await _followRepository.RemoveFollow(Model);
             }
         }
 
@@ -98,6 +95,11 @@ namespace Application.Services
         public async Task<bool> FollowedBefor(int UserId, int UserIdWntToFollow)
         {
             return await _followRepository.FollowedBefor(UserId, UserIdWntToFollow);
+        }
+
+        public async Task<Following> GetFollowByIdTask(int Id)
+        {
+            return await _followRepository.GetFollowing(Id);
         }
     }
 }
