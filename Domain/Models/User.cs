@@ -47,6 +47,7 @@ namespace Domain.Models
         #region Relations
         public ICollection<Content> Contents { get; set; }
         public ICollection<ContentViews>ViewsCollection { get; set; }
+        public ICollection<Following> Followings { get; set; }
 
         #endregion
     }
