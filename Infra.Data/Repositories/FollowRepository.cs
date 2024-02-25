@@ -25,22 +25,18 @@ namespace Infra.Data.Repositories
         #endregion
         public async Task AddFollow(Following following)
         {
-            bool FollowedBefor =await this.FollowedBefor(following.UserId,following.UserIdThatFollowed);
-            if (FollowedBefor==false)
-            {
+           
                 await _context.AddAsync(following);
                 await _context.SaveChangesAsync();
-            } 
+            
         }
 
         public async Task RemoveFollow(Following following)
         {
-            bool FollowedBefor =await this.FollowedBefor(following.UserId,following.UserIdThatFollowed);
-            if (FollowedBefor==true)
-            {
+           
                  _context.Remove(following);
                 await _context.SaveChangesAsync();
-            }
+            
         }
 
         public async Task<ICollection<Following>> GetFollows(int UserId)
