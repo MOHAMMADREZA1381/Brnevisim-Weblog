@@ -20,11 +20,13 @@ namespace BlogClean.Controllers
         private readonly IContentService _contentService;
         private readonly ICategoryService _categoryService;
         private readonly IViewCountService _viewCountService;
-        public ContentController(IContentService contentService, ICategoryService categoryService, IViewCountService viewCountService)
+        private readonly IFollowService _followService;
+        public ContentController(IContentService contentService, ICategoryService categoryService, IViewCountService viewCountService, IFollowService followService)
         {
             _contentService = contentService;
             _categoryService = categoryService;
             _viewCountService = viewCountService;
+            _followService = followService;
         }
         #endregion
 
@@ -43,6 +45,8 @@ namespace BlogClean.Controllers
         [Route("Content-Details")]
         public async Task<IActionResult> ContentDetails(int id,int? HowManyCaseShow, string? state)
         {
+
+
             TempData["MessageType"] = state;
             ///for load more case message
             if (HowManyCaseShow==null || HowManyCaseShow==0)
@@ -55,6 +59,8 @@ namespace BlogClean.Controllers
             var ContentViewModel = new ContentDetailsViewModel();
             if (ContentExist==true)
             {
+
+
                 var AddViewCount = new ViewCountViewModel();
                 AddViewCount.ContentId = id;
                 AddViewCount.UserIp = Request.HttpContext.Connection.RemoteIpAddress.ToString();
@@ -62,6 +68,10 @@ namespace BlogClean.Controllers
 
 
                 var Content = await _contentService.GetContentById(id);
+                   bool Exist= await _followService.FollowedBefor(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),Content.UserId);
+                   TempData["FollowBefor"] = Exist.ToString();
+
+
                 var Message = new MessageViewModel();
                 Message.ContentId = Content.id;
                 ContentViewModel.MessageViewModel= Message;

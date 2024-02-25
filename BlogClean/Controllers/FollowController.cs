@@ -22,10 +22,14 @@ namespace BlogClean.Controllers
 
         [Route("Following")]
         [HttpGet]
-        public IActionResult Index(string State)
+        [Authorize]
+        public async Task<IActionResult> Index(string? State)
         {
-            TempData["state"] = State;
-            return View();
+            TempData["MessageType"] = State;
+
+
+            var Followings = await _followService.GetFollows(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            return View(Followings);
         }
 
         [Route("Following")]
@@ -78,14 +82,12 @@ namespace BlogClean.Controllers
 
         [Authorize]
         [Route("UnFollow")]
-        public async Task<IActionResult> UnFollow(int FollowId,int UserIdWntFollow)
+        public async Task<IActionResult> UnFollow(int FollowId,int UserIdWntUnFollow)
         {
-            if (UserIdWntFollow == null || UserIdWntFollow == 0) return PartialView("_NotFoundError");
+            if (UserIdWntUnFollow == null || UserIdWntUnFollow == 0) return PartialView("_NotFoundError");
             if (FollowId == null || FollowId == 0) return PartialView("_NotFoundError");
-
-
             var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            bool FollowedBefor = await _followService.FollowedBefor(UserId, UserIdWntFollow);
+            bool FollowedBefor = await _followService.FollowedBefor(UserId, UserIdWntUnFollow);
             if (FollowedBefor == false) return PartialView("_NotFoundError");
 
             if (FollowedBefor == true)
@@ -95,5 +97,24 @@ namespace BlogClean.Controllers
             }
             return RedirectToAction("Index", new { id = UserId, State = "Error" });
         }
+
+        [Authorize]
+        [Route("UnFollow-ByUsersId")]
+        public async Task<IActionResult> UnByUsersIdFollow(int UserIdWntUnFollow)
+        {
+            if (UserIdWntUnFollow == null || UserIdWntUnFollow == 0) return PartialView("_NotFoundError");
+            var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            bool FollowedBefor = await _followService.FollowedBefor(UserId, UserIdWntUnFollow);
+            if (FollowedBefor == false) return PartialView("_NotFoundError");
+
+            if (FollowedBefor == true)
+            {
+                await _followService.RemoveByUsersId(UserId,UserIdWntUnFollow);
+                return RedirectToAction("Index", new { id = UserId, State = "Success" });
+            }
+            return RedirectToAction("Index", new { id = UserId, State = "Error" });
+        }
+
+
     }
 }

@@ -17,5 +17,7 @@ namespace Domain.ViewModels.Follow
         public string UserNameThatFollowed { get; set; }
         [Required]
         public int UserId { get; set; }
+
+        public string UserProfile { get; set; }
     }
 }

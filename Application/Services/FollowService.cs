@@ -46,12 +46,14 @@ namespace Application.Services
         public async Task RemoveFollow(int id)
         {
             var Model = await this.GetFollowByIdTask(id);
-            bool FollowedBefor = await this.FollowedBefor(Model.UserId, Model.UserIdThatFollowed);
-            if (FollowedBefor == true)
-            {
-                
-                await _followRepository.RemoveFollow(Model);
-            }
+            await _followRepository.RemoveFollow(Model);
+            
+        }
+
+        public async Task RemoveByUsersId(int userId, int UserIdFollowed)
+        {
+            var GetFollowEntity= await GetFollowByUsersId(userId, UserIdFollowed);
+            await _followRepository.RemoveFollow(GetFollowEntity);
         }
 
         public async Task<ICollection<FollowViewModel>> GetFollows(int UserId)
@@ -66,6 +68,7 @@ namespace Application.Services
                   UserId = itemFollowing.UserId,
                   UserIdThatFollowed = itemFollowing.UserIdThatFollowed,
                   UserNameThatFollowed = itemFollowing.UserNameThatFollowed,
+                  UserProfile = itemFollowing.User.UserImg,
               };
               FollowedList.Add(FollowedViewModel);
           }
@@ -85,6 +88,7 @@ namespace Application.Services
                     UserId = itemFollowing.UserId,
                     UserIdThatFollowed = itemFollowing.UserIdThatFollowed,
                     UserNameThatFollowed = itemFollowing.UserNameThatFollowed,
+                    UserProfile = itemFollowing.User.UserImg,
                 };
                 FollowedList.Add(FollowedViewModel);
             }
@@ -100,6 +104,11 @@ namespace Application.Services
         public async Task<Following> GetFollowByIdTask(int Id)
         {
             return await _followRepository.GetFollowing(Id);
+        }
+
+        public async Task<Following> GetFollowByUsersId(int userId, int UserIdFollowed)
+        {
+            return await _followRepository.GetFollowByUsersId(userId, UserIdFollowed);
         }
     }
 }

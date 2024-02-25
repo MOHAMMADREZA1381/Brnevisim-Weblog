@@ -10,4 +10,5 @@ public interface IFollowRepository
     public Task<ICollection<Following>> GetFollowers(int UserId);
     public Task<bool>FollowedBefor(int UserId,int UserIdWntToFollow);
     public Task<Following> GetFollowing(int id);
+    public Task<Following> GetFollowByUsersId(int UserId,int UserIdFollowed);
 }
