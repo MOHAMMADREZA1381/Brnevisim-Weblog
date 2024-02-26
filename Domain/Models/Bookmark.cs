@@ -7,7 +7,6 @@ public class Bookmark
     public int id { get; set; }
     public int UserId { get; set; }
     public int  ContentId { get; set; }
-
     #region Relations
     [ForeignKey("UserId")]
     public User User { get; set; }

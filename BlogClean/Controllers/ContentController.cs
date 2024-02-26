@@ -21,12 +21,14 @@ namespace BlogClean.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IViewCountService _viewCountService;
         private readonly IFollowService _followService;
-        public ContentController(IContentService contentService, ICategoryService categoryService, IViewCountService viewCountService, IFollowService followService)
+        private readonly IBookmarkService _bookmarkService;
+        public ContentController(IContentService contentService, ICategoryService categoryService, IViewCountService viewCountService, IFollowService followService, IBookmarkService bookmarkService)
         {
             _contentService = contentService;
             _categoryService = categoryService;
             _viewCountService = viewCountService;
             _followService = followService;
+            _bookmarkService = bookmarkService;
         }
         #endregion
 
@@ -43,38 +45,38 @@ namespace BlogClean.Controllers
 
         #region ContentDetails
         [Route("Content-Details")]
-        public async Task<IActionResult> ContentDetails(int id,int? HowManyCaseShow, string? state)
+        public async Task<IActionResult> ContentDetails(int id, int? HowManyCaseShow, string? state)
         {
 
 
             TempData["MessageType"] = state;
             ///for load more case message
-            if (HowManyCaseShow==null || HowManyCaseShow==0)
+            if (HowManyCaseShow == null || HowManyCaseShow == 0)
             {
                 HowManyCaseShow = 4;
             }
-            TempData["HowManyShowCase"]=HowManyCaseShow.Value;
+            TempData["HowManyShowCase"] = HowManyCaseShow.Value;
 
             bool ContentExist = await _contentService.IsAnyContent(id);
             var ContentViewModel = new ContentDetailsViewModel();
-            if (ContentExist==true)
+            if (ContentExist == true)
             {
-
-
                 var AddViewCount = new ViewCountViewModel();
                 AddViewCount.ContentId = id;
                 AddViewCount.UserIp = Request.HttpContext.Connection.RemoteIpAddress.ToString();
                 await _viewCountService.AddView(AddViewCount);
 
-
+                var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 var Content = await _contentService.GetContentById(id);
-                   bool Exist= await _followService.FollowedBefor(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),Content.UserId);
-                   TempData["FollowBefor"] = Exist.ToString();
+                bool Exist = await _followService.FollowedBefor(UserId, Content.UserId);
+                TempData["FollowBefor"] = Exist.ToString();
+                bool AddToBookmarkBefor = await _bookmarkService.AddBefor(Content.id, UserId);
+                TempData["AddToBookamrk"] = AddToBookmarkBefor.ToString();
 
 
                 var Message = new MessageViewModel();
                 Message.ContentId = Content.id;
-                ContentViewModel.MessageViewModel= Message;
+                ContentViewModel.MessageViewModel = Message;
 
                 var caseMessageViewModels = Content.CaseList.Take(HowManyCaseShow.Value);
                 Content.CaseList = caseMessageViewModels.ToList();

@@ -3,83 +3,133 @@
 @using System.Security.Claims
 @model Domain.ViewModels.Content.ContentDetailsViewModel
 
-    <!-- Hero Start -->
-    <section class="bg-half d-table w-100" style="background: url('@PathExtensions.ContentBannerOrgin@Model.Content.BannerName') center center;">
-        <div class="bg-overlay"></div>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12 text-center">
-                    <div class="page-next-level">
-                        <div class="page-next">
-                            <nav aria-label="breadcrumb" class="d-inline-block">
-                                <ul class="breadcrumb d-flex bg-white rounded shadow mb-0">
-                                    <li class=""><a class="link-dark" asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
-                                    <li class="bi bi-chevron-left"><a asp-action="Index" class="link-dark">وبلاگ</a></li>
-                                    <li class="bi bi-chevron-left" aria-current="page">جزئیات وبلاگ</li>
+<!-- Hero Start -->
+<section class="bg-half d-table w-100" style="background: url('@PathExtensions.ContentBannerOrgin@Model.Content.BannerName') center center;">
+    <div class="bg-overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center">
+                <div class="page-next-level">
+                    <div class="page-next">
+                        <nav aria-label="breadcrumb" class="d-inline-block">
+                            <ul class="breadcrumb d-flex bg-white rounded shadow mb-0">
+                                <li class=""><a class="link-dark" asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
+                                <li class="bi bi-chevron-left"><a asp-action="Index" class="link-dark">وبلاگ</a></li>
+                                <li class="bi bi-chevron-left" aria-current="page">جزئیات وبلاگ</li>
 
-                                </ul>
-                            </nav>
-                        </div>
+                            </ul>
+                        </nav>
                     </div>
-                </div><!--end col-->
-            </div><!--end row-->
-        </div> <!--end container-->
-    </section>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div> <!--end container-->
+</section>
 
 
-    <section class="section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="row">
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="row">
 
 
-                        <div class="col-md-10">
-                        @if (TempData["FollowBefor"] == "False")
+                    <div class="col-md-10">
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <a asp-route-id="@Model.Content.UserId" asp-controller="Follow" asp-action="Follow" class="btn btn-outline-success">دنبال کردن</a>
-                        }
-                        else
-                        {
-                            <a asp-route-UserIdWntUnFollow="@Model.Content.UserId" asp-controller="Follow"  asp-action="UnByUsersIdFollow" class="btn btn-danger"><i class=""></i>لغو دنبال کردن</a>
+                            @if (TempData["FollowBefor"] == "False")
+                            {
+                                <a asp-route-id="@Model.Content.UserId" asp-controller="Follow" asp-action="Follow" class="btn btn-outline-success">دنبال کردن</a>
+                            }
+                            else
+                            {
+                                <a asp-route-UserIdWntUnFollow="@Model.Content.UserId" asp-controller="Follow" asp-action="UnByUsersIdFollow" class="btn btn-danger"><i class=""></i>لغو دنبال کردن</a>
 
+                            }
+                            @if (TempData["AddToBookamrk"] == "False")
+                            {
+                                <a asp-route-ContentId="@Model.Content.id" asp-controller="Bookmark" asp-action="AddBookmark" class="btn btn-outline-info">افزودن به بوکمارک</a>
+                            }
+                            else
+                            {
+                             <a asp-route-ContentId="@Model.Content.id" asp-controller="Bookmark" asp-action="AddBookmark" class="btn btn-outline-warning">حذف از بوکمارک</a>
+
+                            }
                         }
                         <a class="btn btn-outline-primary">پروفایل</a>
 
+                        <p class="text-muted">@Model.Content.SubTitle</p>
 
-                            <p class="text-muted">@Model.Content.SubTitle</p>
-
-                            <ul class="list-unstyled d-flex justify-content-between mt-4">
-                                <li class="list-inline-item user me-2">
+                        <ul class="list-unstyled d-flex justify-content-between mt-4">
+                            <li class="list-inline-item user me-2">
                                 <a href="javascript:void(0)" class="text-muted">
                                     <i class="@(Model.Content.ProfilePicture == null ? "uil uil-user text-dark" : "")">
                                         @if (Model.Content.ProfilePicture != null)
                                         {
-                                            <img class="rounded-circle ProfilePicture" src="@PathExtensions.UserAvatarOrgin@Model.Content.ProfilePicture"/>
+                                            <img class="rounded-circle ProfilePicture" src="@PathExtensions.UserAvatarOrgin@Model.Content.ProfilePicture" />
                                         }
                                     </i> @Model.Content.UserName
                                 </a>
 
 
 
-                                <li class="list-inline-item date text-muted"><i class="uil uil-calendar-alt text-dark"></i>@ConvertDateToShamsi.ConvertDateToSh(@Model.Content.CreateDate)</li>
-                            </ul>
-                            <img src="@PathExtensions.ContentBannerOrgin@Model.Content.BannerName" class="img-fluid rounded-md shadow" alt="">
+                            <li class="list-inline-item date text-muted"><i class="uil uil-calendar-alt text-dark"></i>@ConvertDateToShamsi.ConvertDateToSh(@Model.Content.CreateDate)</li>
+                        </ul>
+                        <img src="@PathExtensions.ContentBannerOrgin@Model.Content.BannerName" class="img-fluid rounded-md shadow" alt="">
 
-                            <h5 class="mt-4">@Model.Content.Title</h5>
+                        <h5 class="mt-4">@Model.Content.Title</h5>
 
-                            <p class="text-muted">@Model.Content.ContentText</p>
-                            @if (Model.Content.CaseList.Count != 0)
-                            {
-                                <h5 class="mt-4">نظرات :</h5>
-                                <ul class="media-list list-unstyled mb-0">
+                        <p class="text-muted">@Model.Content.ContentText</p>
+                        @if (Model.Content.CaseList.Count != 0)
+                        {
+                            <h5 class="mt-4">نظرات :</h5>
+                            <ul class="media-list list-unstyled mb-0">
 
-                                    @foreach (var item in Model.Content.CaseList)
+                                @foreach (var item in Model.Content.CaseList)
+                                {
+                                    foreach (var message in item.Messages)
                                     {
-                                        foreach (var message in item.Messages)
+                                        if (message.IsFirstMessage == true)
                                         {
-                                            if (message.IsFirstMessage == true)
-                                            {
+                                            <li class="mt-4">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <a class="pe-3" href="#">
+                                                            @if (message.ProfileNamePic == null)
+                                                            {
+                                                                <img src="images/blog/user.png" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="@PathExtensions.UserAvatarOrgin@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                            }
+                                                        </a>
+                                                        <div class="flex-1 commentor-detail">
+                                                            <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">@message.Name</a></h6>
+                                                            <small class="text-muted">@ConvertDateToShamsi.ConvertDateToSh(message.CreateDate)</small>
+                                                        </div>
+                                                    </div>
+                                                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                                                    {
+                                                        @if (message.UserId == int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                                                        {
+                                                            <a class="text-danger Pointer Edit Delete" asp-controller="Message" asp-action="DeletMessage" asp-route-MessageId="@message.id" asp-route-ContentId="@Model.Content.id"><i class="bi bi-trash"></i> حذف </a>
+                                                            <a onclick="EditMessage(@message.id)" class="text-warning Pointer Edit" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i> ویرایش </a>
+                                                            <partial name="_EditMessageModal" model="Model.MessageViewModel" />
+
+                                                        }
+                                                        <a href="#scrollspyHeading1" onclick="Reply(@item.id)" class="text-muted Pointer"><i class="bi bi-reply"></i> پاسخ </a>
+                                                    }
+                                                </div>
+                                                <div class="mt-3">
+                                                    <p id="Comment+@message.id" class="text-muted fst-italic p-3 bg-light rounded">"@message.text"</p>
+                                                </div>
+                                            </li>
+                                        }
+
+                                        if (message.IsFirstMessage == false)
+                                        {
+                                            <ul class="list-unstyled ps-4 ps-md-5 sub-comment">
                                                 <li class="mt-4">
                                                     <div class="d-flex justify-content-between">
                                                         <div class="d-flex align-items-center">
@@ -93,7 +143,7 @@
                                                                     <img src="@PathExtensions.UserAvatarOrgin@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
                                                                 }
                                                             </a>
-                                                            <div class="flex-1 commentor-detail">
+                                                            <div class="commentor-detail">
                                                                 <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">@message.Name</a></h6>
                                                                 <small class="text-muted">@ConvertDateToShamsi.ConvertDateToSh(message.CreateDate)</small>
                                                             </div>
@@ -103,9 +153,9 @@
                                                             @if (message.UserId == int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
                                                             {
                                                                 <a class="text-danger Pointer Edit Delete" asp-controller="Message" asp-action="DeletMessage" asp-route-MessageId="@message.id" asp-route-ContentId="@Model.Content.id"><i class="bi bi-trash"></i> حذف </a>
-                                                                <a onclick="EditMessage(@message.id)" class="text-warning Pointer Edit" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i> ویرایش </a>
-                                                                <partial name="_EditMessageModal" model="Model.MessageViewModel"/>
 
+                                                                <a onclick="EditMessage(@message.id)" class="text-warning Pointer Edit" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i> ویرایش </a> @*Modal For Edit*@
+                                                                <partial name="_EditMessageModal" model="Model.MessageViewModel" />
                                                             }
                                                             <a href="#scrollspyHeading1" onclick="Reply(@item.id)" class="text-muted Pointer"><i class="bi bi-reply"></i> پاسخ </a>
                                                         }
@@ -114,68 +164,29 @@
                                                         <p id="Comment+@message.id" class="text-muted fst-italic p-3 bg-light rounded">"@message.text"</p>
                                                     </div>
                                                 </li>
-                                            }
-
-                                            if (message.IsFirstMessage == false)
-                                            {
-                                                <ul class="list-unstyled ps-4 ps-md-5 sub-comment">
-                                                    <li class="mt-4">
-                                                        <div class="d-flex justify-content-between">
-                                                            <div class="d-flex align-items-center">
-                                                                <a class="pe-3" href="#">
-                                                                    @if (message.ProfileNamePic == null)
-                                                                    {
-                                                                        <img src="images/blog/user.png" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <img src="@PathExtensions.UserAvatarOrgin@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                                                    }
-                                                                </a>
-                                                                <div class="commentor-detail">
-                                                                    <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">@message.Name</a></h6>
-                                                                    <small class="text-muted">@ConvertDateToShamsi.ConvertDateToSh(message.CreateDate)</small>
-                                                                </div>
-                                                            </div>
-                                                            @if (User.Identity != null && User.Identity.IsAuthenticated)
-                                                            {
-                                                                @if (message.UserId == int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
-                                                                {
-                                                                    <a class="text-danger Pointer Edit Delete" asp-controller="Message" asp-action="DeletMessage" asp-route-MessageId="@message.id" asp-route-ContentId="@Model.Content.id"><i class="bi bi-trash"></i> حذف </a>
-
-                                                                    <a onclick="EditMessage(@message.id)" class="text-warning Pointer Edit" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i> ویرایش </a> @*Modal For Edit*@
-                                                                    <partial name="_EditMessageModal" model="Model.MessageViewModel"/>
-                                                                }
-                                                                <a href="#scrollspyHeading1" onclick="Reply(@item.id)" class="text-muted Pointer"><i class="bi bi-reply"></i> پاسخ </a>
-                                                            }
-                                                        </div>
-                                                        <div class="mt-3">
-                                                            <p id="Comment+@message.id" class="text-muted fst-italic p-3 bg-light rounded">"@message.text"</p>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            }
+                                            </ul>
                                         }
                                     }
-                                </ul>
-                                <a onclick="ShowMoreCase()" href="javascript:void(0)" class="btn btn-outline-dark mt-2 me-2">نمایش بیشتر پیام ها</a>
-                            }
+                                }
+                            </ul>
+                            <a onclick="ShowMoreCase()" href="javascript:void(0)" class="btn btn-outline-dark mt-2 me-2">نمایش بیشتر پیام ها</a>
+                        }
 
-                            <form asp-controller="Content" asp-action="ContentDetails" id="ShowMore">
-                                <input type="hidden" id="Content" name="id" value="@Model.Content.id"/>
-                                <input type="hidden" id="HowMany" name="HowManyCaseShow" value="@TempData["HowManyShowCase"]"/>
-                                <input type="hidden" id="state" name="state" value="Success"/>
-                            </form>
+                        <form asp-controller="Content" asp-action="ContentDetails" id="ShowMore">
+                            <input type="hidden" id="Content" name="id" value="@Model.Content.id" />
+                            <input type="hidden" id="HowMany" name="HowManyCaseShow" value="@TempData["HowManyShowCase"]" />
+                            <input type="hidden" id="state" name="state" value="Success" />
+                        </form>
 
 
-                            <partial data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" class="mt-4" name="_AddMessage" model="Model.MessageViewModel"/>
+                        <partial data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" class="mt-4" name="_AddMessage" model="Model.MessageViewModel" />
 
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 
 @section Scripts

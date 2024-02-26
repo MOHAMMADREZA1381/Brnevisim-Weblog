@@ -29,4 +29,9 @@ public class BookmarkService:IBookmarkService
     {
        return await _bookmarkRepository.FiltertBookmarks(viewModel);
     }
+
+    public async Task<bool> AddBefor(int ContentId, int UserId)
+    {
+        return await _bookmarkRepository.AddeBefor(ContentId, UserId);
+    }
 }
