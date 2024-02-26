@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.IRepositories;
 using Domain.Models;
+using Domain.ViewModels.Follow;
 using Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -63,6 +64,41 @@ namespace Infra.Data.Repositories
         {
             var Follow = await _context.Followings.Where(a => a.UserId == UserId && a.UserIdThatFollowed ==UserIdFollowed).FirstOrDefaultAsync();
             return Follow;
+        }
+
+        public async  Task<FiltertFollowViewModel> GetFilterFollowViewModel(FiltertFollowViewModel model)
+        {
+             var List=  _context.Followings.Where(a => a.UserId == model.UserId).Include(a=>a.User).AsQueryable();
+             await model.Paging(List.Select(a => new FollowViewModel()
+             {
+                 UserId = a.UserId,
+                 Id = a.Id,
+                 UserIdThatFollowed = a.UserIdThatFollowed,
+                 UserProfile = a.User.UserImg,
+                 UserNameThatFollowed = a.UserNameThatFollowed,
+              
+             }
+             ));
+             model.Count = List.Count();
+
+            return model;
+        }
+
+        public async Task<FiltertFollowViewModel> GetFilterFollowersViewModel(FiltertFollowViewModel model)
+        {
+            var List = _context.Followings.Where(a => a.UserIdThatFollowed == model.UserId).Include(a => a.User).AsQueryable();
+            await model.Paging(List.Select(a => new FollowViewModel()
+            {
+                UserId = a.UserId,
+                Id = a.Id,
+                UserIdThatFollowed = a.UserIdThatFollowed,
+                UserProfile = a.User.UserImg,
+                UserNameThatFollowed = a.UserNameThatFollowed,
+
+            }
+            ));
+            model.Count=List.Count();
+            return model;
         }
     }
 }

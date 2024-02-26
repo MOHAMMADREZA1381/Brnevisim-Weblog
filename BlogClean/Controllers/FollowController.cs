@@ -21,37 +21,28 @@ namespace BlogClean.Controllers
         #endregion
 
         [Route("Following")]
-        [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Index(string? State)
+        public async Task<IActionResult> Index(FiltertFollowViewModel model,string? State)
         {
             TempData["MessageType"] = State;
-
-
-            var Followings = await _followService.GetFollows(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
-            return View(Followings);
+            var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            model.UserId = UserId;
+            model = await _followService.GetFilterFollowViewModel(model);
+            return View(model);
         }
 
-        [Route("Following")]
-        [HttpPost]
-        public IActionResult Index(int id)
-        {
-            return View();
-        }
-
-
+        
         [HttpGet]
         [Route("Followers")]
-        public IActionResult Followers()
+        public async Task<IActionResult> Followers(FiltertFollowViewModel viewModel, string? State)
         {
-            return View();
-        }
+            var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            TempData["MessageType"] = State;
+            
+            viewModel.UserId = UserId;
+            viewModel = await _followService.GetFilterFollowersViewModel(viewModel);
 
-        [HttpPost]
-        [Route("Followers")]
-        public async Task<IActionResult> Followers(int id)
-        {
-            return View();
+            return View(viewModel);
         }
 
         [Authorize]

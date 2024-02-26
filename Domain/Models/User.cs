@@ -48,6 +48,7 @@ namespace Domain.Models
         public ICollection<Content> Contents { get; set; }
         public ICollection<ContentViews>ViewsCollection { get; set; }
         public ICollection<Following> Followings { get; set; }
+        public ICollection<Bookmark> Bookmarks { get; set; }
 
         #endregion
     }

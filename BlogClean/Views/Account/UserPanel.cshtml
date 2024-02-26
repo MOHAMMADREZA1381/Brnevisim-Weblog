@@ -3,10 +3,7 @@
     ViewData["Title"] = "پنل کابری";
 
 }
-
-
-!-- Hero Start -->
-    <section class="bg-profile d-table w-100 bg-primary" style="background: url('images/account/bg.png') center center;">
+<section class="bg-profile d-table w-100 bg-primary" style="background: url('images/account/bg.png') center center;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -51,100 +48,41 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-12 d-lg-block d-none">
                     <div class="sidebar sticky-bar p-4 rounded shadow">
-                        <div class="widget">
-                            <h5 class="widget-title">فالوور :</h5>
-                            <div class="row mt-4">
-                                <div class="col-6 text-center">
-                                    <i data-feather="user-plus" class="fea icon-ex-md text-primary mb-1"></i>
-                                    <h5 class="mb-0">2588</h5>
-                                    <p class="text-muted mb-0">فالوو کننده</p>
-                                </div><!--end col-->
 
-                                <div class="col-6 text-center">
-                                    <i data-feather="users" class="fea icon-ex-md text-primary mb-1"></i>
-                                    <h5 class="mb-0">454</h5>
-                                    <p class="text-muted mb-0">فالووینگ </p>
-                                </div><!--end col-->
-                            </div><!--end row-->
-                        </div>
 
-                        <div class="widget mt-4 pt-2">
-                            <h5 class="widget-title">پروژه  :</h5>
-                            <div class="progress-box mt-4">
-                                <h6 class="title text-muted">پیش رفتن </h6>
-                                <div class="progress">
-                                    <div class="progress-bar position-relative bg-primary" style="width:50%;">
-                                        <div class="progress-value d-block text-muted h6">24 / 48</div>
-                                    </div>
-                                </div>
-                            </div><!--end process box-->
-                        </div>
+                    <div class="widget mt-4">
+                        <ul class="list-unstyled sidebar-nav mb-0" id="navmenu-nav">
+                            <li class="navbar-item account-menu px-0 active">
+                                <a asp-controller="Account" asp-action="UserPanel" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
+                                    <h6 class="mb-0 ms-2">پروفایل </h6>
+                                </a>
+                            </li>
 
-                        <div class="widget mt-4">
-                            <ul class="list-unstyled sidebar-nav mb-0" id="navmenu-nav">
-                                <li class="navbar-item account-menu px-0">
-                                    <a href="account-profile.html" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
-                                        <h6 class="mb-0 ms-2">پروفایل </h6>
-                                    </a>
-                                </li>
+                            <li class="navbar-item account-menu px-0 mt-2 ">
+                                <a asp-controller="Follow" asp-action="Follow" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-users-alt"></i></span>
+                                    <h6 class="mb-0 ms-2">کسانی را که دنبال می کنید </h6>
+                                </a>
+                            </li>
 
-                                <li class="navbar-item account-menu px-0 mt-2">
-                                    <a href="account-members.html" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="uil uil-users-alt"></i></span>
-                                        <h6 class="mb-0 ms-2">اعضا </h6>
-                                    </a>
-                                </li>
+                            <li class="navbar-item account-menu px-0 mt-2 ">
+                                <a asp-controller="Follow" asp-action="Followers" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-file"></i></span>
+                                    <h6 class="mb-0 ms-2">کسانی که شمارا دنبال می کنند</h6>
+                                </a>
+                            </li>
 
-                                <li class="navbar-item account-menu px-0 mt-2">
-                                    <a href="account-works.html" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="uil uil-file"></i></span>
-                                        <h6 class="mb-0 ms-2">نمونه کار </h6>
-                                    </a>
-                                </li>
 
-                                <li class="navbar-item account-menu px-0 mt-2">
-                                    <a href="account-messages.html" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="uil uil-envelope-star"></i></span>
-                                        <h6 class="mb-0 ms-2">پیام ها </h6>
-                                    </a>
-                                </li>
+                            <li class="navbar-item account-menu px-0 mt-2">
+                                <a asp-controller="Account" asp-action="Logout" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
+                                    <h6 class="mb-0 ms-2">خروج </h6>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
-                                <li class="navbar-item account-menu px-0 mt-2">
-                                    <a href="account-payments.html" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="uil uil-transaction"></i></span>
-                                        <h6 class="mb-0 ms-2">پرداخت ها </h6>
-                                    </a>
-                                </li>
-
-                                <li class="navbar-item account-menu px-0 mt-2">
-                                    <a href="account-setting.html" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="uil uil-setting"></i></span>
-                                        <h6 class="mb-0 ms-2">تنظیمات </h6>
-                                    </a>
-                                </li>
-
-                                <li class="navbar-item account-menu px-0 mt-2">
-                                    <a asp-controller="Account" asp-action="Logout" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
-                                        <h6 class="mb-0 ms-2">خروج </h6>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="widget mt-4 pt-2">
-                            <h5 class="widget-title">دنبال کردن ما :</h5>
-                            <ul class="list-unstyled social-icon mb-0 mt-4">
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="linkedin" class="fea icon-sm fea-social"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="github" class="fea icon-sm fea-social"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="youtube" class="fea icon-sm fea-social"></i></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i data-feather="gitlab" class="fea icon-sm fea-social"></i></a></li>
-                            </ul><!--end icon-->
-                        </div>
                     </div>
                 </div><!--end col-->
 

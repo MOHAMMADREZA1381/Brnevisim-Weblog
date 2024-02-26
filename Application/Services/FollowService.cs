@@ -18,6 +18,8 @@ namespace Application.Services
 
         private readonly IFollowRepository _followRepository;
         private readonly IUserService _userService;
+    
+
         public FollowService(IFollowRepository followRepository,IUserService userService)
         {
             _followRepository = followRepository;
@@ -109,6 +111,17 @@ namespace Application.Services
         public async Task<Following> GetFollowByUsersId(int userId, int UserIdFollowed)
         {
             return await _followRepository.GetFollowByUsersId(userId, UserIdFollowed);
+        }
+
+        public async Task<FiltertFollowViewModel> GetFilterFollowViewModel(FiltertFollowViewModel model)
+        {
+           var list= await _followRepository.GetFilterFollowViewModel(model);
+           return list;
+        }
+
+        public async Task<FiltertFollowViewModel> GetFilterFollowersViewModel(FiltertFollowViewModel model)
+        {
+           return await _followRepository.GetFilterFollowersViewModel(model);
         }
     }
 }

@@ -1,2 +1,117 @@
-﻿@model dynamic
+﻿@model Domain.ViewModels.Follow.FiltertFollowViewModel
+@using Application.ImageTools
 
+<!-- Hero Start -->
+<section class="bg-profile d-table w-100 bg-primary" style="background: url('images/account/bg.png') center center;">
+    <div class="container">
+        <div class="row">
+        </div><!--end row-->
+    </div><!--ed container-->
+</section><!--end section-->
+<!-- Hero End -->
+
+
+
+<section class="section mt-60">
+    <div class="container mt-lg-3">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-12 d-lg-block d-none">
+                <div class="sidebar sticky-bar p-4 rounded shadow">
+                    <div class="widget">
+                        <h5 class="widget-title">شما را دنبال می کنند :</h5>
+                        <div class="row mt-4">
+                            <div class=" text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus fea icon-ex-md text-primary mb-1"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                <h5 class="mb-0">@Model.Count</h5>
+                                <p class="text-muted mb-0">دنبال کننده</p>
+                            </div><!--end col-->
+
+                        </div><!--end row-->
+                    </div>
+
+
+                    <div class="widget mt-4">
+                        <ul class="list-unstyled sidebar-nav mb-0" id="navmenu-nav">
+                            <li class="navbar-item account-menu px-0">
+                                <a asp-controller="Account" asp-action="UserPanel" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
+                                    <h6 class="mb-0 ms-2">پروفایل </h6>
+                                </a>
+                            </li>
+
+                            <li class="navbar-item account-menu px-0 mt-2 ">
+                                <a asp-controller="Follow" asp-action="Follow" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-users-alt"></i></span>
+                                    <h6 class="mb-0 ms-2">کسانی را که دنبال می کنید </h6>
+                                </a>
+                            </li>
+
+                            <li class="navbar-item account-menu px-0 mt-2 active">
+                                <a asp-controller="Follow" asp-action="Followers" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-file"></i></span>
+                                    <h6 class="mb-0 ms-2">کسانی که شمارا دنبال می کنند</h6>
+                                </a>
+                            </li>
+
+
+                            <li class="navbar-item account-menu px-0 mt-2">
+                                <a asp-controller="Account" asp-action="Logout" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
+                                    <h6 class="mb-0 ms-2">خروج </h6>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div><!--end col-->
+
+            <div class="col-lg-8 col-12">
+                <div class="rounded shadow p-4">
+                    <h5>کسانی که شما را دنبال می کنند:</h5>
+                    <div class="row">
+
+                        <form asp-area="" asp-controller="Follow" asp-action="Followers" id="FilterForm" style="max-width: 800px;">
+                            <input type="hidden" asp-for="PageId" id="PageId" />
+                        </form><!--end form-->
+                        @foreach (var item in Model.Entities)
+                        {
+                            <div class="col-lg-6 col-md-4 mt-4 pt-2">
+                                <div class="text-center">
+                                    @if (item.UserProfile != null)
+                                    {
+                                        <img src="@PathExtensions.UserAvatarThumb@item.UserProfile" style="width: 10% !important" class="avatar avatar-medium shadow-lg rounded-pill" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img src="images/blog/user.png" class=" shadow-lg rounded-pill" alt="">
+
+                                    }
+                                    <div class="content mt-3">
+                                        <p>
+                                            <a href="javascript:void(0)" class="h5 text-dark">@item.UserNameThatFollowed</a>
+                                        </p>
+                                        <a href="javascript:void(0)" class="btn btn-primary"><i class=""></i>مشاهده پروفایل</a>
+
+                                        </div>
+                                </div>
+                            </div>
+
+                            <!--end col-->
+                        }
+                        @if (Model.Entities.Count != 0)
+                        {
+                            <partial name="_Pagination" model="Model.GetCurrentPaging()" />
+                        }
+                        else
+                        {
+                            <p>شما کسی را دنبال نکرده اید!</p>
+                        }
+
+                    </div><!--end row-->
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+</section>
+<script src="~/js/custom.js"></script>

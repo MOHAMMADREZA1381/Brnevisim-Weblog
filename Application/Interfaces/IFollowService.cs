@@ -14,4 +14,9 @@ public interface IFollowService
     public Task<bool> FollowedBefor(int UserId, int UserIdWntToFollow);
     public Task<Following> GetFollowByIdTask(int Id);
     public Task<Following> GetFollowByUsersId(int userId, int UserIdFollowed);
+
+    public Task<FiltertFollowViewModel> GetFilterFollowViewModel(FiltertFollowViewModel model);
+    public Task<FiltertFollowViewModel> GetFilterFollowersViewModel(FiltertFollowViewModel model);
+
+
 }
