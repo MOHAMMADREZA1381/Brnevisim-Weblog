@@ -5,7 +5,7 @@ using Domain.ViewModels.Bookmark;
 
 namespace Application.Services;
 
-public class BookmarkService:IBookmarkService
+public class BookmarkService : IBookmarkService
 {
     #region Repository
     private readonly IBookmarkRepository _bookmarkRepository;
@@ -27,11 +27,24 @@ public class BookmarkService:IBookmarkService
 
     public async Task<FilterBookmarkViewModel> GettBookmarkList(FilterBookmarkViewModel viewModel)
     {
-       return await _bookmarkRepository.FiltertBookmarks(viewModel);
+        return await _bookmarkRepository.FiltertBookmarks(viewModel);
     }
 
     public async Task<bool> AddBefor(int ContentId, int UserId)
     {
         return await _bookmarkRepository.AddeBefor(ContentId, UserId);
+    }
+
+    public async Task RemoveFromBookmark(Bookmark model)
+    {
+    
+       await _bookmarkRepository.RemoveFromBookmark(model);
+    }
+
+    public async Task<Bookmark> getBookmark(int ContentId, int UserId)
+    {
+        var Bookmark = await _bookmarkRepository.getBookmark(ContentId, UserId);
+   
+        return Bookmark;
     }
 }

@@ -19,11 +19,12 @@ namespace BlogClean.Controllers
         #endregion
         [Authorize]
         [Route("my-boomarks")]
-        public async Task<IActionResult> Index(FilterBookmarkViewModel model)
+        public async Task<IActionResult> Index(FilterBookmarkViewModel model,string? state)
         {
             int UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             model.UserId = UserId;
             model = await _bookmark.GettBookmarkList(model);
+            TempData["MessageType"] = state;
             return View(model);
         }
         [Authorize]
@@ -40,7 +41,22 @@ namespace BlogClean.Controllers
                 ContentId = ContentId,
             };
             await _bookmark.AddBookmark(Bookmark);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { state = "Success" });
+        }
+
+        [Authorize]
+        [Route("Remove-Bookmark")]
+        public async Task<IActionResult> RemoveBookmark(int ContentId)
+        {
+            if (ContentId == 0 || ContentId == null) return PartialView("_NotFoundError");
+            bool ContentExist=await _contentService.IsAnyContent(ContentId);
+            if (ContentExist==false) return PartialView("_NotFoundError");
+
+            int UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var Bookmark = await _bookmark.getBookmark(ContentId, UserId);
+            await _bookmark.RemoveFromBookmark(Bookmark);
+            var Filter = new FilterBookmarkViewModel();
+            return RedirectToAction("Index", new {state = "Success"});
         }
     }
 }

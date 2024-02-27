@@ -44,4 +44,16 @@ public class BookmarkRepository:IBookmarkRepository
     {
         return _blogContext.Bookmarks.Any(a => a.ContentId == ContentId && a.UserId == UserId);
     }
+
+    public async Task RemoveFromBookmark(Bookmark model)
+    {
+         _blogContext.Bookmarks.Remove(model);
+        await _blogContext.SaveChangesAsync();
+    }
+
+    public async Task<Bookmark> getBookmark(int ContentId, int UserId)
+    {
+        return await _blogContext.Bookmarks.Where(a => a.ContentId == ContentId && a.UserId == UserId).Include(a => a.Content).ThenInclude(a => a.ContentViewsCollection).Include(a => a.User).FirstOrDefaultAsync();
+
+    }
 }
