@@ -37,26 +37,34 @@
                     <div class="col-md-10">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            @if (TempData["FollowBefor"] == "False")
-                            {
-                                <a asp-route-id="@Model.Content.UserId" asp-controller="Follow" asp-action="Follow" class="btn btn-outline-success">دنبال کردن</a>
-                            }
-                            else
-                            {
-                                <a asp-route-UserIdWntUnFollow="@Model.Content.UserId" asp-controller="Follow" asp-action="UnByUsersIdFollow" class="btn btn-danger"><i class=""></i>لغو دنبال کردن</a>
+                            <div class="btn-group dropdown-info me-2 mt-2 mb-5">
+                                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    بیشتر
+                                </button>
+                                <div class="dropdown-menu" style="margin: 0px;">
+                                    @if (TempData["FollowBefor"] == "False")
+                                    {
+                                        <a asp-route-id="@Model.Content.UserId" asp-controller="Follow" asp-action="Follow" class="dropdown-item">دنبال کردن</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-route-UserIdWntUnFollow="@Model.Content.UserId" asp-controller="Follow" asp-action="UnByUsersIdFollow" class="dropdown-item"><i class=""></i>لغو دنبال کردن</a>
 
-                            }
-                            @if (TempData["AddToBookamrk"] == "False")
-                            {
-                                <a asp-route-ContentId="@Model.Content.id" asp-controller="Bookmark" asp-action="AddBookmark" class="btn btn-outline-info">افزودن به بوکمارک</a>
-                            }
-                            else
-                            {
-                                <a asp-route-ContentId="@Model.Content.id" asp-controller="Bookmark" asp-action="RemoveBookmark" class="btn btn-outline-warning">حذف از بوکمارک</a>
+                                    }
+                                    @if (TempData["AddToBookamrk"] == "False")
+                                    {
+                                        <a asp-route-ContentId="@Model.Content.id" asp-controller="Bookmark" asp-action="AddBookmark" class="dropdown-item">افزودن به بوکمارک</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-route-ContentId="@Model.Content.id" asp-controller="Bookmark" asp-action="RemoveBookmark" class="dropdown-item">حذف از بوکمارک</a>
 
-                            }
+                                    }
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javascript:void(0)" class="dropdown-item">تماس با ما</a>
+                                </div>
+                            </div>
                         }
-                        <a class="btn btn-outline-primary">پروفایل</a>
 
                         <p class="text-muted">@Model.Content.SubTitle</p>
 
@@ -69,6 +77,34 @@
                                             <img class="rounded-circle ProfilePicture" src="@PathExtensions.UserAvatarOrgin@Model.Content.ProfilePicture" />
                                         }
                                     </i> @Model.Content.UserName
+
+                                    <!-- Button trigger modal -->
+                                    <span data-bs-toggle="modal" data-bs-target="#exampleModal" class="badge bg-soft-danger me-2 mt-2"> گرازش</span>
+
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">ارسال گزارش </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form asp-controller="Content" asp-action="ReportContent">
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="ContentId" value="@Model.Content.id" />
+                                                        <input type="text" class="form-control ps-5" name="ReportText"  placeholder="علت گزارش" />
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                                                        <button type="submit" class="btn btn-primary">ارسال </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </a>
 
 
@@ -78,6 +114,10 @@
                         <img src="@PathExtensions.ContentBannerOrgin@Model.Content.BannerName" class="img-fluid rounded-md shadow" alt="">
 
                         <h5 class="mt-4">@Model.Content.Title</h5>
+
+
+
+
 
                         <p class="text-muted">@Model.Content.ContentText</p>
                         @if (Model.Content.CaseList.Count != 0)
@@ -225,6 +265,7 @@
             TextArea.value = Message;
         }
     </script>
+
 
 }
 

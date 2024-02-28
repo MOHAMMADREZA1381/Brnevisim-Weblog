@@ -8,7 +8,7 @@ using System.Security.Claims;
 using Application.ImageTools.Common;
 using Domain.Models;
 using Domain.ViewModels.Message;
-
+using Domain.ViewModels.Report;
 using Microsoft.AspNetCore.HttpOverrides;
 
 namespace BlogClean.Controllers
@@ -22,13 +22,15 @@ namespace BlogClean.Controllers
         private readonly IViewCountService _viewCountService;
         private readonly IFollowService _followService;
         private readonly IBookmarkService _bookmarkService;
-        public ContentController(IContentService contentService, ICategoryService categoryService, IViewCountService viewCountService, IFollowService followService, IBookmarkService bookmarkService)
+        private readonly IReportContentService _reportContent;
+        public ContentController(IContentService contentService, ICategoryService categoryService, IViewCountService viewCountService, IFollowService followService, IBookmarkService bookmarkService, IReportContentService reportContent)
         {
             _contentService = contentService;
             _categoryService = categoryService;
             _viewCountService = viewCountService;
             _followService = followService;
             _bookmarkService = bookmarkService;
+            _reportContent = reportContent;
         }
         #endregion
 
@@ -179,6 +181,23 @@ namespace BlogClean.Controllers
             }
             // todo : return redirect to ContentDetails if State=Failed
             return RedirectToAction("Index");
+        }
+
+        #endregion
+
+        #region Report-Content
+        [Route("Report-Content")]
+        [Authorize]
+        public async Task<IActionResult> ReportContent(AddReportViewModel model)
+        {
+            bool ExistContent = await _contentService.IsAnyContent(model.ContentId);
+            if (ExistContent == false) return PartialView("_NotFoundError");
+            if (ModelState.IsValid)
+            {
+                await _reportContent.AddReport(model);
+                return RedirectToAction("ContentDetails",new {id=model.ContentId,state="Success"});
+            }
+            return RedirectToAction("ContentDetails", new { id = model.ContentId, state = "Error" });
         }
 
         #endregion
