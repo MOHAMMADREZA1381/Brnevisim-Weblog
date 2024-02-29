@@ -34,6 +34,6 @@ namespace Domain.ViewModels.User
         public IFormFile? UserImg { get; set; }
 
         public string ActivateCode { get; set; }
-
+        public bool IsAdmin { get; set; }
     }
 }

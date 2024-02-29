@@ -65,6 +65,7 @@ public class UserService : IUserService
             UserViewModel.picProfile = User.UserImg;
             UserViewModel.UserName = User.UserName;
             UserViewModel.ActivateCode= User.ActivateCode;
+            UserViewModel.IsAdmin = User.IsAdmin;
         }
         return UserViewModel;
     }

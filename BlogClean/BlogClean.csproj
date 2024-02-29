@@ -158,4 +158,8 @@
     <_ContentIncludedByDefault Remove="Views\Follow\Followers.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="HttpSecurity\" />
+  </ItemGroup>
+
 </Project>
