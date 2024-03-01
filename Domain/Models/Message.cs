@@ -10,6 +10,10 @@ namespace Domain.Models
         [Key]
         public int Id { get; set; }
         public DateTime CreateTime { get; set; }
+        [Display(Name = "متن")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        [MinLength(5,ErrorMessage = "{0} نباید کم تر از 5 حرف باشد")]
+        [MaxLength(255,ErrorMessage = "{0} نباید بیشتر از 255 حرف باشد")]
         public string Text { get; set; }
         public bool IsDelete{ get; set; }
         public int UserId { get; set; }
