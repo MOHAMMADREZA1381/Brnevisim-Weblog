@@ -43,12 +43,12 @@ namespace Infra.Data.Repositories
 
         public async Task<ICollection<Content>> AllContents()
         {
-            return _context.Contents.Include(a => a.User).Include(a => a.Category).Where(a => a.IsDeleted == false).ToList();
+            return _context.Contents.Include(a => a.User).Include(a => a.Category).Where(a => a.IsDeleted == false).Where(a=>a.User.IsDelete==false).ToList();
         }
 
         public async Task<FilterContentViewModel> GetAllContentWithFilter(FilterContentViewModel model)
         {
-            var Contents = _context.Contents.Where(a => a.IsDeleted == false).AsQueryable();
+            var Contents = _context.Contents.Where(a => a.IsDeleted == false && a.User.IsDelete==false).AsQueryable();
             if (!string.IsNullOrEmpty(model.Title))
             {
                 Contents = Contents.Where(a => EF.Functions.Like(a.Title, $"%{model.Title}%"));

@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AngleSharp.Attributes;
+using BlogClean.HttpSecurity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlogClean.Areas.AdminPanel.Controllers
 {
-    [Area("AdminPanel")]
-    public class HomeController : Controller
+   
+    public class HomeController : BaseController
     {
-       
+    
         public IActionResult Index()
         {
             return View();

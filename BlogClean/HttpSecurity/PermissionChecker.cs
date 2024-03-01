@@ -7,24 +7,18 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace BlogClean.HttpSecurity;
 
-public class PermissionChecker:AuthorizeAttribute,IAuthorizationFilter
+public  class PermissionChecker:AuthorizeAttribute,IAuthorizationFilter
 {
-    private readonly IUserService _service;
-
-    public PermissionChecker(IUserService service)
+    public async  void OnAuthorization(AuthorizationFilterContext context)
     {
-        _service = service;
-    }
-    public async void OnAuthorization(AuthorizationFilterContext context)
-    {
-        var userRepo = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
+        var userRepo = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
 
 
         if (context.HttpContext.User.Identity.IsAuthenticated)
         {
             var userEmail = context.HttpContext.User.GetCurrentUserEmail();
 
-            var user =await  _service.GetUserEmail(userEmail);
+            var user = await userRepo.GetUserEmail(userEmail);
             if (!user.IsAdmin)
             {
                 context.Result = new RedirectResult("/");

@@ -68,7 +68,7 @@ namespace Infra.Data.Repositories
 
         public async Task<FilterUserViewModel> GetFilterUserViewModel(FilterUserViewModel filterUserViewModel)
         {
-            var users =  _context.Users.AsQueryable();
+            var users =  _context.Users.Where(a=>a.IsDelete==false).AsQueryable();
             if (!string.IsNullOrEmpty(filterUserViewModel.Email))
             {
                 users = users.Where(a => EF.Functions.Like(a.Email, $"%{filterUserViewModel.Email}%"));

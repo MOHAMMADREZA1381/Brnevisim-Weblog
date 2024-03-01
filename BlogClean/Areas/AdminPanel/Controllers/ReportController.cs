@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogClean.Areas.AdminPanel.Controllers
 {
-    [Area("AdminPanel")]
-    public class ReportController : Controller
+  
+    public class ReportController : BaseController
     {
         #region Service
 

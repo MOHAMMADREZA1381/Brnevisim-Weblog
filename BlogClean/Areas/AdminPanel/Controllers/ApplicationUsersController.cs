@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogClean.Areas.AdminPanel.Controllers
 {
-    [Area("AdminPanel")]
-    public class ApplicationUsersController : Controller
+  
+    public class ApplicationUsersController : BaseController
     {
         private readonly IUserService _userService;
         public ApplicationUsersController(IUserService userService)

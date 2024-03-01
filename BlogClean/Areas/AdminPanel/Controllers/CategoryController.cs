@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogClean.Areas.AdminPanel.Controllers
 {
-    [Area("AdminPanel")]
-    public class CategoryController : Controller
+    
+    public class CategoryController : BaseController
     {
         #region Ctor
         private readonly ICategoryService _categoryService;
