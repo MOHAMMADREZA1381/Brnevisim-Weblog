@@ -1,0 +1,65 @@
+﻿@model Domain.ViewModels.Report.FilterReportViewModel
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+<div class="row g-4 mb-4">
+    <div class="card">
+        <h5 class="card-header">جدول حاشیه دار</h5>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>عنوان محتوا</th>
+                        <th>دلیل گزارش</th>
+                        <th>عملیات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <form asp-area="AdminPanel" asp-controller="Report" asp-action="Index" id="FilterForm">
+                        <input type="hidden" asp-for="PageId" id="PageId" />
+                    </form>
+
+                    @foreach (var item in Model.Entities)
+                    {
+                        <tr>
+                            <td>
+                                <i class=" ti-lg text-danger me-3"></i>
+                                <span class="fw-medium">@item.Title</span>
+                            </td>
+                            <td>
+                                <i class=" ti-lg text-danger me-3"></i>
+                                <span class="fw-medium">@item.ReportText</span>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" type="button">
+                                        <i class="ti ti-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Content" asp-action="ContentDetails" asp-route-id="@item.contentId">
+                                            <i class="ti ti-pencil me-1"></i>
+                                             دیدن محتوا
+                                        </a>
+                                        <a class="dropdown-item" asp-action="remove" asp-route-id="@item.Id">
+                                            <i class="ti ti-trash me-1"></i>
+                                            حذف
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+              
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="dataTables_paginate paging_simple_numbers m-auto d-table" id="DataTables_Table_0_paginate">
+            <partial name="_Pagination" model="Model.GetCurrentPaging()"/>
+        </div>
+    </div>
+
+</div>
+</div>

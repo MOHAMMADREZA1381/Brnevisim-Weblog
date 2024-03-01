@@ -38,4 +38,9 @@ public class ReportContentService:IReportContentService
     
           return Report;
     }
+
+    public async Task<FilterReportViewModel> GetLisTask(FilterReportViewModel viewModel)
+    {
+       return await _repository.GetFilterReport(viewModel);
+    }
 }

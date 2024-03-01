@@ -1,5 +1,6 @@
 ﻿using Domain.IRepositories;
 using Domain.Models;
+using Domain.ViewModels.Report;
 using Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,5 +34,18 @@ public class ReportRepository:IReportRepository
     public async Task<ReportContent> GetReport(int id)
     {
       return  await _blogContext.ReportContents.Where(a => a.id == id).Include(a=>a.Content).FirstOrDefaultAsync();
+    }
+
+    public async Task<FilterReportViewModel> GetFilterReport(FilterReportViewModel model)
+    {
+        var list =  _blogContext.ReportContents.Include(a=>a.Content).AsQueryable();
+        await model.Paging(list.Select(a => new ReportViewModel()
+        {
+            Id = a.id,
+            ReportText = a.ReportText,
+            Title = a.Content.Title,
+            contentId = a.ContentId
+        }));
+        return model;
     }
 }

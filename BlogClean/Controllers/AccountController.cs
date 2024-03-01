@@ -108,11 +108,22 @@ namespace BlogClean.Controllers
             return NotFound();
         }
 
-        [HttpGet("Profile"), Authorize]
-        public async Task<IActionResult> UserPanel()
+        [HttpGet("Profile")]
+        public async Task<IActionResult> UserPanel(int UserClaims)
         {
-            var UserClaims = User.Claims.FirstOrDefault().Value;
-            var user = await _userService.GetUserById(int.Parse(UserClaims));
+            if (UserClaims == null || UserClaims == 0)
+            {
+                UserClaims = int.Parse(User.Claims.FirstOrDefault().Value);
+            }
+            bool ExistUser = await _userService.IsUserExistById(UserClaims);
+            if (ExistUser == false) return PartialView("_NotFoundError");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                TempData["CurrentUseId"] = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            }
+
+            var user = await _userService.GetUserById(UserClaims);
             return View(user);
         }
 
@@ -122,8 +133,6 @@ namespace BlogClean.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("Login");
         }
-
-
 
 
 

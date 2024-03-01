@@ -67,13 +67,16 @@ namespace BlogClean.Controllers
                 AddViewCount.ContentId = id;
                 AddViewCount.UserIp = Request.HttpContext.Connection.RemoteIpAddress.ToString();
                 await _viewCountService.AddView(AddViewCount);
-
-                var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                ;
                 var Content = await _contentService.GetContentById(id);
-                bool Exist = await _followService.FollowedBefor(UserId, Content.UserId);
-                TempData["FollowBefor"] = Exist.ToString();
-                bool AddToBookmarkBefor = await _bookmarkService.AddBefor(Content.id, UserId);
-                TempData["AddToBookamrk"] = AddToBookmarkBefor.ToString();
+                if (User.Identity.IsAuthenticated)
+                {
+                    var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    bool Exist = await _followService.FollowedBefor(UserId, Content.UserId);
+                    TempData["FollowBefor"] = Exist.ToString();
+                    bool AddToBookmarkBefor = await _bookmarkService.AddBefor(Content.id, UserId);
+                    TempData["AddToBookamrk"] = AddToBookmarkBefor.ToString();
+                }
 
 
                 var Message = new MessageViewModel();
@@ -195,7 +198,7 @@ namespace BlogClean.Controllers
             if (ModelState.IsValid)
             {
                 await _reportContent.AddReport(model);
-                return RedirectToAction("ContentDetails",new {id=model.ContentId,state="Success"});
+                return RedirectToAction("ContentDetails", new { id = model.ContentId, state = "Success" });
             }
             return RedirectToAction("ContentDetails", new { id = model.ContentId, state = "Error" });
         }

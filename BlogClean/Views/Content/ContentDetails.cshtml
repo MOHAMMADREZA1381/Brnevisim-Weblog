@@ -70,16 +70,19 @@
 
                         <ul class="list-unstyled d-flex justify-content-between mt-4">
                             <li class="list-inline-item user me-2">
-                                <a href="javascript:void(0)" class="text-muted">
+                                <a asp-controller="Account" asp-action="UserPanel" asp-route-UserClaims="@Model.Content.UserId" class="text-muted">
                                     <i class="@(Model.Content.ProfilePicture == null ? "uil uil-user text-dark" : "")">
                                         @if (Model.Content.ProfilePicture != null)
                                         {
                                             <img class="rounded-circle ProfilePicture" src="@PathExtensions.UserAvatarOrgin@Model.Content.ProfilePicture" />
                                         }
-                                    </i> @Model.Content.UserName
-
+                                    </i>  @Model.Content.UserName
+                                </a>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
                                     <!-- Button trigger modal -->
-                                    <span data-bs-toggle="modal" data-bs-target="#exampleModal" class="badge bg-soft-danger me-2 mt-2"> گرازش</span>
+                                    <span data-bs-toggle="modal" data-bs-target="#exampleModal" class="badge bg-soft-danger me-2 mt-2 Pointer"> گرازش</span>
+                                    }
 
 
                                     <!-- Modal -->
@@ -105,7 +108,6 @@
                                     </div>
 
 
-                                </a>
 
 
 
