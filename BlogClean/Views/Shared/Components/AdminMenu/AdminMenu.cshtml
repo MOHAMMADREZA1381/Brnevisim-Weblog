@@ -1,0 +1,15 @@
+﻿@model Domain.ViewModels.User.UserViewModel
+
+
+
+@if ( Model.IsAdmin == true)
+{
+<li class="has-submenu parent-menu-item">
+    <a href="javascript:void(0)"> ادمین </a><span class="submenu-arrow"></span>
+    <ul class="submenu">
+        <li><a asp-area="AdminPanel" asp-controller="Home" asp-action="Index" class="sub-menu-item text-danger">لیست کاربران سمت ادمین</a></li>
+        <li><a asp-area="" asp-controller="Content" asp-action="CreateContent" class="sub-menu-item text-danger">افزودن محتوا</a></li>
+        <li><a asp-area="" asp-controller="Content" asp-action="Index" class="sub-menu-item text-danger">محتوا ها</a></li>
+    </ul>
+</li>
+}
