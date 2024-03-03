@@ -52,11 +52,22 @@
                                     <h6 class="mb-0 ms-2">کسانی که شمارا دنبال می کنند</h6>
                                 </a>
                             </li>
-
-
+                            
+                            <li class="navbar-item account-menu px-0 mt-2 ">
+                                <a asp-controller="Bookmark" asp-action="Index" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="uil uil-users-alt"></i></span>
+                                    <h6 class="mb-0 ms-2"> بوکمارک ها </h6>
+                                </a>
+                            </li>
+                            <li class="navbar-item account-menu px-0 mt-2 ">
+                                <a asp-controller="Account" asp-action="EditUserInfo" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                    <span class="h4 mb-0"><i class="bi bi-pen"></i></span>
+                                    <h6 class="mb-0 ms-2"> ویرایش حساب</h6>
+                                </a>
+                            </li>
                             <li class="navbar-item account-menu px-0 mt-2">
                                 <a asp-controller="Account" asp-action="Logout" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                    <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
+                                    <span class="h4 mb-0"><i class="bi bi-bookmark"></i></span>
                                     <h6 class="mb-0 ms-2">خروج </h6>
                                 </a>
                             </li>

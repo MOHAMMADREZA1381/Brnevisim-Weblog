@@ -24,7 +24,7 @@ public class BookmarkRepository:IBookmarkRepository
 
     public async Task<FilterBookmarkViewModel> FiltertBookmarks(FilterBookmarkViewModel model)
     {
-        var BookamrkList =  _blogContext.Bookmarks.Where(a => a.UserId == model.UserId).Include(a=>a.User).Include(a=>a.Content).Where(a => a.Content.IsDeleted == false).Include(a=>a.Content).ThenInclude(a => a.ContentViewsCollection).AsQueryable();
+        var BookamrkList =  _blogContext.Bookmarks.Where(a => a.UserId == model.UserId && a.Content.IsDeleted==false).Include(a=>a.User).Include(a=>a.Content).Where(a => a.Content.IsDeleted == false).Include(a=>a.Content).ThenInclude(a => a.ContentViewsCollection).AsQueryable();
         await model.Paging(BookamrkList.Select(a => new BookmarkViewModel()
         {
             UserId = a.UserId,

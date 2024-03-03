@@ -26,6 +26,10 @@ namespace Domain.ViewModels.User
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public int? Phone { get; set; }
 
+        [Display(Name = "بایو")]
+        [MinLength(15, ErrorMessage = "{0} نباید کمتر از 15 حرف باشد")]
+        [MaxLength(250, ErrorMessage = "{0} نباید بیشتر از ۲۵۰ حرف باشد")]
+        public string? Bio { get; set; }
 
         [Display(Name = "عکس کاربر")]
         public string? picProfile { get; set; }

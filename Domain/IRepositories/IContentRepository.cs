@@ -11,4 +11,6 @@ public interface IContentRepository
     public Task<ICollection<Content>> AllContents();
     public Task<FilterContentViewModel> GetAllContentWithFilter(FilterContentViewModel model);
     public Task<bool> IsAnyContentByIdTask(int id);
+    public Task<UserPanelContents> GetUserContent(UserPanelContents contents);
+   public  Task<ICollection<Content>> GetContentsByUserId(int userId);
 }

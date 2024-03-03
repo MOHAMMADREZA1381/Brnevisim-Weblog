@@ -187,6 +187,11 @@ public class ContentService : IContentService
 
     }
 
+    public async Task<UserPanelContents> GetUserContents(UserPanelContents contents)
+    {
+        return await _contentRepository.GetUserContent(contents);
+    }
+
     public async Task<State> DeletContent(int id, int UserId)
     {
         var Content = await GetContentForEdit(id);
@@ -205,5 +210,30 @@ public class ContentService : IContentService
         return await _contentRepository.IsAnyContentByIdTask(id);
     }
 
-   
+    public async Task<ICollection<ContentViewModel>> GetUserContentsById(int UserId)
+    {
+        var Contents = await _contentRepository.GetContentsByUserId(UserId);
+        var ContentsViewModelList = new List<ContentViewModel>();
+        var Sanity = new HtmlSanitizer();
+        foreach (var Content in Contents)
+        {
+            var ContentViewModel = new ContentViewModel()
+            {
+                id = Content.id,
+                BannerName = Content.Banner,
+                CategoryId = Content.CategoryId,
+                ContentText = Sanity.Sanitize(Content.ContentText),
+                CreateDate = Content.CreateDate,
+                SubTitle = Content.SubTitle,
+                Tag = Content.Tag,
+                Title = Content.Title,
+                UserId = Content.UserId,
+                UserName = Content.User.UserName,
+                ViewCount = Content.ContentViewsCollection.Count,
+            };
+            ContentsViewModelList.Add(ContentViewModel);
+        }
+
+        return (ICollection<ContentViewModel>) ContentsViewModelList.Take(2);
+    }
 }

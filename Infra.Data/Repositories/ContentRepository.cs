@@ -77,5 +77,31 @@ namespace Infra.Data.Repositories
             return _context.Contents.Any(a => a.id == id);
         }
 
+        public async Task<UserPanelContents> GetUserContent(UserPanelContents contents)
+        {
+            var Contents =  _context.Contents.Where(a => a.UserId == contents.UserId && a.IsDeleted==false).AsQueryable();
+            await contents.Paging(Contents.Select(a => new ContentViewModel()
+                {
+                    UserName = a.User.UserName,
+                    id = a.id,
+                    BannerName = a.Banner,
+                    UserId = a.UserId,
+                    CategoryId = a.CategoryId,
+                    SubTitle = a.SubTitle,
+                    ContentText = a.ContentText,
+                    CreateDate = a.CreateDate,
+                    Tag = a.Tag,
+                    ViewCount = a.ContentViewsCollection.Count,
+                    Title = a.Title,
+                }
+            ));
+            return contents;
+        }
+
+        public async Task<ICollection<Content>> GetContentsByUserId(int userId)
+        {
+            var Contents = await _context.Contents.Where(a => a.UserId == userId && a.IsDeleted==false).Include(a=>a.User).Include(a=>a.ContentViewsCollection).ToListAsync();
+            return Contents;
+        }
     }
 }

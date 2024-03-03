@@ -205,5 +205,17 @@ namespace BlogClean.Controllers
 
         #endregion
 
+        #region MyContents
+        [Authorize]
+        [Route("my-contents")]
+        public async Task<IActionResult>MyContents(UserPanelContents contents)
+        {
+            contents.UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var Contents = await _contentService.GetUserContents(contents);
+            return View(Contents);
+        }
+
+        #endregion
+
     }
 }

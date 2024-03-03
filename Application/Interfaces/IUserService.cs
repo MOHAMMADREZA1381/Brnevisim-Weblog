@@ -17,4 +17,5 @@ public interface IUserService
     public Task<FilterUserViewModel> FilterUser(FilterUserViewModel filterUser);
     public Task ForgotPassword(ForgotPasswordViewModel model);
     public Task<bool> IsUserExistById(int Id);
+    public Task EditUserInfo(EditUserViewModel model,int id);
 }

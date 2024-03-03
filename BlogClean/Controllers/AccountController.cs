@@ -109,8 +109,10 @@ namespace BlogClean.Controllers
         }
 
         [HttpGet("Profile")]
-        public async Task<IActionResult> UserPanel(int UserClaims)
+        public async Task<IActionResult> UserPanel(int UserClaims,string? state)
         {
+            TempData["MessageType"] = state;
+
             if (UserClaims == null || UserClaims == 0)
             {
                 UserClaims = int.Parse(User.Claims.FirstOrDefault().Value);
@@ -122,9 +124,12 @@ namespace BlogClean.Controllers
             {
                 TempData["CurrentUseId"] = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             }
-
             var user = await _userService.GetUserById(UserClaims);
-            return View(user);
+            var UserPanelViewModel = new UserPanelViewModel()
+            {
+                UserViewModel = user,
+            };
+            return View(UserPanelViewModel);
         }
 
         [HttpGet("logout")]
@@ -193,10 +198,35 @@ namespace BlogClean.Controllers
 
             return View();
         }
+        [Authorize]
+        [HttpGet("Edit-MyInfo")]
+        public async Task<IActionResult> EditUserInfo()
+        {
+            var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var UserEntity = await _userService.GetUserById(UserId);
+            var UserViewModel = new EditUserViewModel()
+            {
+                Bio = UserEntity.Bio,
+                UserImage = UserEntity.picProfile,
+                UserName = UserEntity.UserName,
+                phoneNumber = UserEntity.Phone,
+                Email = UserEntity.Email,
+            };
+            return View(UserViewModel);
+        }
 
-
-
-
+        [Authorize]
+        [HttpPost("Edit-MyInfo")]
+        public async Task<IActionResult> EditUserInfo(EditUserViewModel editUserViewModel)
+        {
+            var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (ModelState.IsValid)
+            {
+                await _userService.EditUserInfo(editUserViewModel, UserId);
+                return RedirectToAction("UserPanel", new {state = "Success"});
+            }
+            return View();
+        }
 
     }
 }

@@ -43,7 +43,10 @@ namespace Domain.Models
 
         public bool IsDelete { get; set; }
         public bool IsAdmin { get; set; }
-
+        [Display(Name = "بایو")]
+        [MinLength(15,ErrorMessage = "{0} نباید کمتر از 15 حرف باشد")]
+        [MaxLength(250,ErrorMessage = "{0} نباید بیشتر از ۲۵۰ حرف باشد")]
+        public string? Bio { get; set; }
         #region Relations
         public ICollection<Content> Contents { get; set; }
         public ICollection<ContentViews>ViewsCollection { get; set; }

@@ -142,6 +142,7 @@ public class UserService : IUserService
         User.IsDelete = viewModel.IsDeleted;
         User.IsAdmin = viewModel.IsAdmin;
         User.IsActive = viewModel.IsActive;
+        User.Bio=viewModel.Bio;
         User.ActivateCode = Guid.NewGuid().ToString();
         await _userRepository.EditUser(User);
     }
@@ -163,5 +164,22 @@ public class UserService : IUserService
     public async Task<bool> IsUserExistById(int Id)
     {
         return await _userRepository.IsUserExistById(Id);
+    }
+
+    public async Task EditUserInfo(EditUserViewModel model,int id)
+    {
+        var User = await _userRepository.GetUserById(id);
+        User.UserName = model.UserName;
+        User.Bio = model.Bio;
+        if (model.Image?.Length > 0)
+        {
+            var galleryImage = "";
+            galleryImage = Guid.NewGuid().ToString("N") + Path.GetExtension(model.Image.FileName);
+            model.Image.AddImageToServer(galleryImage, PathExtensions.UserAvatarOrginServer, 300, 300, PathExtensions.UserAvatarThumbServer);
+            User.UserImg = galleryImage;
+        }
+        User.Phone = model.phoneNumber;
+        User.ActivateCode=Guid.NewGuid().ToString();
+        await _userRepository.EditUser(User);
     }
 }
