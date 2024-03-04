@@ -10,7 +10,7 @@
                 <div class="card public-profile border-0 rounded shadow" style="z-index: 1;">
                     <div class="card-body">
                         <div class="row align-items-center">
-                            @if (Model.UserImage != null)
+                            @if (Model.UserImage.Length > 0)
                             {
                                 <div class="col-lg-2 col-md-3 text-md-start text-center">
                                     <img src="@PathExtensions.UserAvatarOrgin@Model.UserImage" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">

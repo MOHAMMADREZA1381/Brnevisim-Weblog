@@ -5,9 +5,9 @@ namespace Domain.ViewModels.Home;
 
 public class HomeViewModel
 {
-    public ICollection<CategoryViewModel> CategoryViewModels { get; set; }
-    public ICollection<ContentViewModel> MostViewContent { get; set; }
-    public ICollection<ContentViewModel> LastContent { get; set; }
-    public ICollection<ContentViewModel> AllContent { get; set; }
+  
+    public IEnumerable<ContentViewModel> MostViewContent { get; set; }
+    public IEnumerable<ContentViewModel> LastContent { get; set; }
+    public IEnumerable<ContentViewModel> AllContent { get; set; }
     
 }

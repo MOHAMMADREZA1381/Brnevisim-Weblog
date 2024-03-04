@@ -95,6 +95,7 @@ public class UserService : IUserService
             IsDeleted = user.IsDelete,
             ActivateCode = user.ActivateCode,
             IsActive = user.IsActive,
+            Bio = user.Bio
         };
         return UserViewModel;
     }

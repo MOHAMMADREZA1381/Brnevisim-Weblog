@@ -43,7 +43,7 @@ namespace Infra.Data.Repositories
 
         public async Task<ICollection<Content>> AllContents()
         {
-            return _context.Contents.Include(a => a.User).Include(a => a.Category).Where(a => a.IsDeleted == false).Where(a=>a.User.IsDelete==false).ToList();
+            return _context.Contents.Include(a => a.User).Include(a => a.Category).Where(a => a.IsDeleted == false).Where(a=>a.User.IsDelete==false).Include(a=>a.ContentViewsCollection).ToList();
         }
 
         public async Task<FilterContentViewModel> GetAllContentWithFilter(FilterContentViewModel model)

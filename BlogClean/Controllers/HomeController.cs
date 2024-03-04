@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Application.Interfaces;
+using Domain.ViewModels.Home;
 
 namespace BlogClean.Controllers
 {
@@ -18,11 +19,13 @@ namespace BlogClean.Controllers
         }
     
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            
-
-            return View();
+            var HomeViewModel = new HomeViewModel();
+            HomeViewModel.MostViewContent = await _contentService.MostViewContent();
+            HomeViewModel.LastContent=await _contentService.LastContent();
+            HomeViewModel.AllContent = await _contentService.getAllContents();
+            return View(HomeViewModel);
         }
 
         public IActionResult Privacy()

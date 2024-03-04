@@ -1,15 +1,16 @@
-﻿@{
+﻿@using Application.ImageTools
+@using Application.Convertor
+@model Domain.ViewModels.Home.HomeViewModel
+@{
     ViewData["Title"] = "صفحه اصلی";
 }
 
 
-<!DOCTYPE html>
-<html lang="en">
 
 
 
 
-<body>
+
     <!-- Loader -->
     <!-- <div id="preloader">
         <div id="status">
@@ -143,74 +144,32 @@
             </div><!--end row-->
 
             <div class="row">
+                @foreach (var item in Model.MostViewContent)
+                {
                 <div class="col-lg-4 col-md-6 mt-4 pt-2">
                     <div class="card blog rounded border-0 shadow overflow-hidden">
                         <div class="position-relative">
-                            <img src="images/blog/01.jpg" class="card-img-top" alt="...">
+                            <img src="@PathExtensions.ContentBannerOrgin@item.BannerName" class="BannerContent card-img-top" alt="...">
                             <div class="overlay rounded-top bg-dark"></div>
                         </div>
                         <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
+                            <h5><a href="javascript:void(0)" class="card-title title text-dark">@item.Title</a></h5>
                             <div class="post-meta d-flex justify-content-between mt-3">
                                 <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
+                                    <li class="list-inline-item bi bi-eye me-2 mb-0 "><span class="ms-1">@item.ViewCount</span></li>
                                 </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                                <a asp-controller="Content" asp-action="ContentDetails" asp-route-id="@item.id" class="text-muted readmore">ادامه مطلب <i class="uil uil-angle-left-b align-middle"></i></a>
                             </div>
                         </div>
                         <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
+                            <small class="text-light user d-block"><i class="uil uil-user"></i>@item.UserName</small>
+                            <small class="text-light date"><i class="uil uil-calendar-alt"></i>@ConvertDateToShamsi.ConvertDateToSh(item.CreateDate)</small>
                         </div>
                     </div>
                 </div><!--end col-->
+                }
 
-                <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="images/blog/02.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه ها چگونه دنیای اطلاعات را تغییر می دهند</a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                            </div>
-                        </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                        </div>
-                    </div>
-                </div><!--end col-->
 
-                <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="images/blog/03.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">هوشمندترین برنامه ها برای تجارت و کار </a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                            </div>
-                        </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                        </div>
-                    </div>
-                </div><!--end col-->
             </div><!--end row-->
         </div><!--end container-->
 
@@ -231,74 +190,30 @@
             </div><!--end row-->
 
             <div class="row">
-                <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="images/blog/04.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه ها چگونه دنیای اطلاعات را تغییر می دهند</a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                @foreach (var item in Model.LastContent)
+                {
+                    <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                        <div class="card blog rounded border-0 shadow overflow-hidden">
+                            <div class="position-relative">
+                            <img src="@PathExtensions.ContentBannerOrgin@item.BannerName" class="BannerContent card-img-top" alt="...">
+                                <div class="overlay rounded-top bg-dark"></div>
+                            </div>
+                            <div class="card-body content">
+                                <h5><a href="javascript:void(0)" class="card-title title text-dark">@item.Title</a></h5>
+                                <div class="post-meta d-flex justify-content-between mt-3">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="list-inline-item bi bi-eye me-2 mb-0 "><span class="ms-1">@item.ViewCount</span></li>
+                                    </ul>
+                                    <a asp-controller="Content" asp-action="ContentDetails" asp-route-id="@item.id" class="text-muted readmore">ادامه مطلب <i class="uil uil-angle-left-b align-middle"></i></a>
+                                </div>
+                            </div>
+                            <div class="author">
+                                <small class="text-light user d-block"><i class="uil uil-user"></i>@item.UserName</small>
+                                <small class="text-light date"><i class="uil uil-calendar-alt"></i>@ConvertDateToShamsi.ConvertDateToSh(item.CreateDate)</small>
                             </div>
                         </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                        </div>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="images/blog/05.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                            </div>
-                        </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                        </div>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="images/blog/06.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">هوشمندترین برنامه ها برای تجارت و کار </a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                            </div>
-                        </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                        </div>
-                    </div>
-                </div><!--end col-->
+                    </div><!--end col-->
+                }
             </div><!--end row-->
         </div><!--end container-->
         <!-- Cta start -->
@@ -330,143 +245,31 @@
             </div><!--end row-->
 
             <div class="row">
-                <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="images/blog/01.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                @foreach (var item in Model.AllContent)
+                {
+                    <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                        <div class="card blog rounded border-0 shadow overflow-hidden">
+                            <div class="position-relative">
+                            <img src="@PathExtensions.ContentBannerOrgin@item.BannerName" class="BannerContent card-img-top" alt="...">
+                                <div class="overlay rounded-top bg-dark"></div>
+                            </div>
+                            <div class="card-body content">
+                                <h5><a href="javascript:void(0)" class="card-title title text-dark">@item.Title</a></h5>
+                                <div class="post-meta d-flex justify-content-between mt-3">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="list-inline-item bi bi-eye me-2 mb-0 "><span class="ms-1">@item.ViewCount</span></li>
+                                    </ul>
+                                    <a asp-controller="Content" asp-action="ContentDetails" asp-route-id="@item.id" class="text-muted readmore">ادامه مطلب <i class="uil uil-angle-left-b align-middle"></i></a>
+                                </div>
+                            </div>
+                            <div class="author">
+                                <small class="text-light user d-block"><i class="uil uil-user"></i>@item.UserName</small>
+                                <small class="text-light date"><i class="uil uil-calendar-alt"></i>@ConvertDateToShamsi.ConvertDateToSh(item.CreateDate)</small>
                             </div>
                         </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                        </div>
-                    </div>
-                </div><!--end col-->
+                    </div><!--end col-->
+                }
 
-                <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="images/blog/02.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه ها چگونه دنیای اطلاعات را تغییر می دهند</a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                            </div>
-                        </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                        </div>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="images/blog/03.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">هوشمندترین برنامه ها برای تجارت و کار </a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                            </div>
-                        </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                        </div>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="images/blog/04.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه ها چگونه دنیای اطلاعات را تغییر می دهند</a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                            </div>
-                        </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                        </div>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="images/blog/05.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                            </div>
-                        </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                        </div>
-                    </div>
-                </div><!--end col-->
-
-                <div class="col-lg-4 col-md-6 mt-4 pt-2">
-                    <div class="card blog rounded border-0 shadow overflow-hidden">
-                        <div class="position-relative">
-                            <img src="images/blog/06.jpg" class="card-img-top" alt="...">
-                            <div class="overlay rounded-top bg-dark"></div>
-                        </div>
-                        <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">هوشمندترین برنامه ها برای تجارت و کار </a></h5>
-                            <div class="post-meta d-flex justify-content-between mt-3">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                </ul>
-                                <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
-                            </div>
-                        </div>
-                        <div class="author">
-                            <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
-                            <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
-                        </div>
-                    </div>
-                </div><!--end col-->
 
                 <div class="col-12 mt-4 pt-2">
                     <div class="text-center">
@@ -480,6 +283,3 @@
     <!-- Back to top -->
     <a href="#" onclick="topFunction()" id="back-to-top" class="btn btn-icon btn-primary back-to-top"><i data-feather="arrow-up" class="icons"></i></a>
     <!-- Back to top -->
-</body>
-
-</html>

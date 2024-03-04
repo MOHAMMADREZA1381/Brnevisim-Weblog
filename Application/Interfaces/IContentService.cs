@@ -15,4 +15,9 @@ public interface IContentService
     public Task<State> DeletContent(int id, int UserId);
     public Task<bool> IsAnyContent(int id);
     public Task<ICollection<ContentViewModel>> GetUserContentsById(int UserId);
+    public Task<IEnumerable<ContentViewModel>> MostViewContent();
+    public Task<IEnumerable<ContentViewModel>> LastContent();
+    public Task<IEnumerable<ContentViewModel>> getAllContents();
+
+
 }

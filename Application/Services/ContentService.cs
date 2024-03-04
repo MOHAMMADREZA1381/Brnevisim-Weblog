@@ -234,6 +234,93 @@ public class ContentService : IContentService
             ContentsViewModelList.Add(ContentViewModel);
         }
 
-        return (ICollection<ContentViewModel>) ContentsViewModelList.Take(2);
+        return (ICollection<ContentViewModel>)ContentsViewModelList.Take(2);
+    }
+
+    public async Task<IEnumerable<ContentViewModel>> MostViewContent()
+    {
+        var Contents = await _contentRepository.AllContents();
+        var ContentsViewModel = new List<ContentViewModel>();
+        var Sanity = new HtmlSanitizer();
+        foreach (var Content in Contents)
+        {
+            var ViewModel = new ContentViewModel()
+            {
+                id = Content.id,
+                BannerName = Content.Banner,
+                CategoryId = Content.CategoryId,
+                ContentText = Sanity.Sanitize(Content.ContentText),
+                CreateDate = Content.CreateDate,
+                SubTitle = Content.SubTitle,
+                Tag = Content.Tag,
+                Title = Content.Title,
+                UserId = Content.UserId,
+                UserName = Content.User.UserName,
+                ViewCount = Content.ContentViewsCollection.Count,
+            };
+            ContentsViewModel.Add(ViewModel);
+        }
+
+        var contentView = ContentsViewModel.OrderByDescending(a => a.ViewCount).Take(3);
+        return contentView;
+    }
+
+    public async Task<IEnumerable<ContentViewModel>> LastContent()
+    {
+        var Contents = await _contentRepository.AllContents();
+        var ContentsViewModel = new List<ContentViewModel>();
+        var Sanity = new HtmlSanitizer();
+        foreach (var Content in Contents)
+        {
+            var ViewModel = new ContentViewModel()
+            {
+                id = Content.id,
+                BannerName = Content.Banner,
+                CategoryId = Content.CategoryId,
+                ContentText = Sanity.Sanitize(Content.ContentText),
+                CreateDate = Content.CreateDate,
+                SubTitle = Content.SubTitle,
+                Tag = Content.Tag,
+                Title = Content.Title,
+                UserId = Content.UserId,
+                UserName = Content.User.UserName,
+                ViewCount = Content.ContentViewsCollection.Count,
+            };
+            ContentsViewModel.Add(ViewModel);
+        }
+
+
+        var contentView = ContentsViewModel.OrderByDescending(a => a.CreateDate).Take(3);
+        return contentView;
+    }
+
+    public async Task<IEnumerable<ContentViewModel>> getAllContents()
+    {
+
+        var Contents = await _contentRepository.AllContents();
+        var ContentsViewModel = new List<ContentViewModel>();
+        var Sanity = new HtmlSanitizer();
+        foreach (var Content in Contents)
+        {
+            var ViewModel = new ContentViewModel()
+            {
+                id = Content.id,
+                BannerName = Content.Banner,
+                CategoryId = Content.CategoryId,
+                ContentText = Sanity.Sanitize(Content.ContentText),
+                CreateDate = Content.CreateDate,
+                SubTitle = Content.SubTitle,
+                Tag = Content.Tag,
+                Title = Content.Title,
+                UserId = Content.UserId,
+                UserName = Content.User.UserName,
+                ViewCount = Content.ContentViewsCollection.Count,
+            };
+            ContentsViewModel.Add(ViewModel);
+        }
+
+
+        var contentView = ContentsViewModel.OrderBy(a => a.CreateDate).Take(6);
+        return contentView;
     }
 }

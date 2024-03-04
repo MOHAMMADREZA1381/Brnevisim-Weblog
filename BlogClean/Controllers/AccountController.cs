@@ -225,7 +225,16 @@ namespace BlogClean.Controllers
                 await _userService.EditUserInfo(editUserViewModel, UserId);
                 return RedirectToAction("UserPanel", new {state = "Success"});
             }
-            return View();
+            var UserEntity = await _userService.GetUserById(UserId);
+            var UserViewModel = new EditUserViewModel()
+            {
+                Bio = UserEntity.Bio,
+                UserImage = UserEntity.picProfile,
+                UserName = UserEntity.UserName,
+                phoneNumber = UserEntity.Phone,
+                Email = UserEntity.Email,
+            };
+            return View(UserViewModel);
         }
 
     }

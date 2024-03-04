@@ -98,6 +98,12 @@ a {
     margin-right: -20%;
 }
 
+.BannerContent {
+    object-fit: cover !important;
+    height: 236px !important;
+    width: 100% !important;
+}
+
 @media only screen and (min-width:400px) and (max-width:900px) {
 
     .Edit {
