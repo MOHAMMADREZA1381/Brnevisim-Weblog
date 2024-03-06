@@ -6,6 +6,6 @@ public interface IContactUsRepository
 {
     public  Task AddContactUs(ContactUs contactUs);
     public Task<ContactUs> GetContactUsById(int id);
-    public Task DeleteContactUs(int id);
-
+    public Task DeleteContactUs(ContactUs contactUs);
+    public Task<ICollection<ContactUs>> GetAll();
 }

@@ -25,7 +25,7 @@ namespace Domain.Models
         [Display(Name = "شماره تلفن همراه")]
        
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
-        public int? Phone { get; set; }
+        public string? Phone { get; set; }
 
         [Display(Name = "کد فعال سازی")]
         public string ActivateCode { get; set; }
@@ -41,6 +41,8 @@ namespace Domain.Models
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string Password { get; set; }
 
+        public string MobileActivateCode { get; set; }
+        public bool MobileActivated { get; set; }
         public bool IsDelete { get; set; }
         public bool IsAdmin { get; set; }
         [Display(Name = "بایو")]

@@ -67,6 +67,8 @@ namespace Infra.Data.Repositories
                 Tag = a.Tag,
                 ViewCount = a.ContentViewsCollection.Count,
                 Title = a.Title,
+                ShowInGallery = a.ShowInGallery
+                
             }
             ));
             return model;
@@ -102,6 +104,11 @@ namespace Infra.Data.Repositories
         {
             var Contents = await _context.Contents.Where(a => a.UserId == userId && a.IsDeleted==false).Include(a=>a.User).Include(a=>a.ContentViewsCollection).ToListAsync();
             return Contents;
+        }
+
+        public async Task<ICollection<Content>> GetContentForGaller()
+        {
+            return await _context.Contents.Where(a => a.ShowInGallery == true).Include(a=>a.User).ToListAsync();
         }
     }
 }

@@ -18,6 +18,8 @@ public interface IContentService
     public Task<IEnumerable<ContentViewModel>> MostViewContent();
     public Task<IEnumerable<ContentViewModel>> LastContent();
     public Task<IEnumerable<ContentViewModel>> getAllContents();
-
+    public Task AddContentToGallery(List<int> ContentsId);
+    public Task RemoveContentFromGallery(List<int> ContentsId);
+    public Task<List<ContentViewModel>> GetContentForGallery();
 
 }

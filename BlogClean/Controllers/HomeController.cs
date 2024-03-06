@@ -25,6 +25,7 @@ namespace BlogClean.Controllers
             HomeViewModel.MostViewContent = await _contentService.MostViewContent();
             HomeViewModel.LastContent=await _contentService.LastContent();
             HomeViewModel.AllContent = await _contentService.getAllContents();
+            HomeViewModel.GalleryCollection = await _contentService.GetContentForGallery();
             return View(HomeViewModel);
         }
 

@@ -40,6 +40,25 @@ public class ContactUsService : IContactUsService
 
     public async Task DeleteContactUs(int id)
     {
-       await _contactUs.DeleteContactUs(id);
+        var ContactUs = await _contactUs.GetContactUsById(id);
+        ContactUs.IsDelete = true;
+        await _contactUs.DeleteContactUs(ContactUs);
+    }
+
+    public async Task<ICollection<ContactUsViewModel>> GetAllContatcs()
+    {
+        var Contatcs = await _contactUs.GetAll();
+        var ContactListViewModel = new List<ContactUsViewModel>();
+        foreach (var item in Contatcs)
+        {
+            var ContactUsViewModel=new ContactUsViewModel();
+            ContactUsViewModel.Email=item.Email;
+            ContactUsViewModel.Title=item.Title;
+            ContactUsViewModel.FullName=item.FullName;
+            ContactUsViewModel.Text=item.Text;
+            ContactUsViewModel.id = item.Id;
+            ContactListViewModel.Add(ContactUsViewModel);
+        }
+        return ContactListViewModel;
     }
 }

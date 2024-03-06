@@ -46,6 +46,7 @@ namespace Domain.Models
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
+        public bool ShowInGallery  { get; set; }
         public ICollection<CaseMessage>? CaseMessages { get; set; }
         public ICollection<ContentViews> ContentViewsCollection { get; set; }
         public ICollection<Bookmark> Bookmarks { get; set; }

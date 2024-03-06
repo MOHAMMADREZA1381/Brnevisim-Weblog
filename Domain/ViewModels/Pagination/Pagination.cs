@@ -5,7 +5,7 @@
         public Pagination()
         {
             PageId = 1;
-            TakeEntity = 10;
+            TakeEntity = 9;
             HowManyShowAfterAndBefore = 5;
             Entities = new List<T>();
         }

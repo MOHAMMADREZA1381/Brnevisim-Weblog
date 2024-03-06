@@ -1,6 +1,7 @@
 ﻿using Domain.IRepositories;
 using Domain.Models;
 using Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace Infra.Data.Repositories;
@@ -30,10 +31,14 @@ public class ContactUsRepository:IContactUsRepository
 
     }
 
-    public async Task DeleteContactUs(int id)
+    public async Task DeleteContactUs(ContactUs contactUs)
     {
-        var ContactUs =await GetContactUsById(id);
-        ContactUs.IsDelete = true;
-        _context.Update(ContactUs);
+        _context.Update(contactUs);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<ICollection<ContactUs>> GetAll()
+    {
+        return await _context.ContactUs.Where(a => a.IsDelete == false).ToListAsync();
     }
 }

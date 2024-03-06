@@ -1,0 +1,33 @@
+﻿@model Domain.ViewModels.ContactUs.EmailViewModel
+<div class="row mb-4">
+    <h4 class="py-3 mb-4"> ارسال ایمیل </h4>
+    <form asp-area="AdminPanel" asp-controller="Contact" asp-action="EmailSenderTask">
+        <div class="col-12">
+            <div class="card mb-4">
+                <h5 class="card-header"> فرم ارسال ایمیل</h5>
+                <div class="card-body">
+                    <div class="form-floating mt-2">
+                        <input asp-for="Email"  class="form-control"  placeholder="ایمیل" type="email">
+                        <label for="floatingInput">ایمیل</label>
+                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mt-2">
+                        <input asp-for="@Model.Title"  class="form-control"  placeholder="عنوان" type="text">
+                        <label for="floatingInput">عنوان</label>
+                        <span asp-validation-for="@Model.Title" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-floating mt-2">
+                        <input asp-for="@Model.Text"  class="form-control" placeholder="متن اصلی" type="text">
+                        <label for="floatingInput">متن اصلی</label>
+                        <span asp-validation-for="@Model.Text" class="text-danger"></span>
+
+                        <div class="form-text" id="floatingInputHelp"> ما هرگز اطلاعات شما را در اختیار کسی نمی‌گذاریم.</div>
+                    </div>
+                    <input type="submit" class="btn btn-outline-info mt-2" value="ارسال">
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

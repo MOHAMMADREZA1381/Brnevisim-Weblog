@@ -24,7 +24,7 @@ namespace Domain.ViewModels.User
 
         [Display(Name = "شماره تلفن همراه")]
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
-        public int? Phone { get; set; }
+        public string? Phone { get; set; }
 
         [Display(Name = "بایو")]
         [MinLength(15, ErrorMessage = "{0} نباید کمتر از 15 حرف باشد")]
@@ -38,6 +38,8 @@ namespace Domain.ViewModels.User
         public IFormFile? UserImg { get; set; }
 
         public string ActivateCode { get; set; }
+        public string mobileActiveCode { get; set; }
         public bool IsAdmin { get; set; }
+        public bool MobileActivated { get; set; }
     }
 }

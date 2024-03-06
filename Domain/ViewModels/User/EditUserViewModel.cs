@@ -15,11 +15,12 @@ public class EditUserViewModel
     public IFormFile? Image { get; set; }
     [Display(Name = "شماره تلفن همراه")]
     [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
-    public int? phoneNumber { get; set; }
+    public string? phoneNumber { get; set; }
     [Display(Name = "بایو")]
     [MinLength(15, ErrorMessage = "{0} نباید کمتر از 15 حرف باشد")]
     [MaxLength(250, ErrorMessage = "{0} نباید بیشتر از ۲۵۰ حرف باشد")]
     public string? Bio { get; set; }
 
     public string? Email { get; set; }
+    public bool MobileActivated { get; set; }
 }

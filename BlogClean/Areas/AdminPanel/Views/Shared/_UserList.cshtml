@@ -40,42 +40,42 @@
                 </form>
             </div><table class="datatables-users table dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
                 <thead class="border-top">
-                    <tr>
-                        <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 131.5px;" aria-sort="descending" aria-label="ایمیل: activate to sort column ascending">پروفایل</th>
-                        <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 131.5px;" aria-sort="descending" aria-label="ایمیل: activate to sort column ascending">ایمل</th>
-                        <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 131.5px;" aria-sort="descending" aria-label="نام کاربری: activate to sort column ascending">نام کاربری</th>
-                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 168.438px;" aria-label="ادمین">ادمین</th>
-                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 168.438px;" aria-label="عملیات">عملیات</th>
-                    </tr>
+                <tr>
+                    <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 131.5px;" aria-sort="descending" aria-label="ایمیل: activate to sort column ascending">پروفایل</th>
+                    <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 131.5px;" aria-sort="descending" aria-label="ایمیل: activate to sort column ascending">ایمل</th>
+                    <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 131.5px;" aria-sort="descending" aria-label="نام کاربری: activate to sort column ascending">نام کاربری</th>
+                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 168.438px;" aria-label="ادمین">ادمین</th>
+                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 168.438px;" aria-label="عملیات">عملیات</th>
+                </tr>
                 </thead>
                 <tbody>
 
-                    @foreach (var item in Model.Entities)
-                    {
-                        <tr class="">
-                            <td class="avatar ">
-                               @if (item.picProfile != null)
-                               {
-                                   <img class="h-auto rounded-circle PicProfile" src="@PathExtensions.UserAvatarOrgin@item.picProfile"/>
-                               }
-                               else
-                               {
-                                    <img class="h-auto rounded-circle PicProfile" src="~/images/blog/user.png" />
-                               }
-                            </td>
-                            <td class="">@item.Email</td>
-                            <td class="">@item.UserName</td>
-                            <td class="">
-                                <input type="checkbox" class="form-check-input" asp-for="@item.IsAdmin" disabled />
-                            </td>
-                            <td class="">
-                                <a asp-route-id="@item.id" asp-action="DeleteUser" class="btn btn-outline-danger m-0">حذف</a>
-                                <a asp-controller="ApplicationUsers" asp-action="EditUser" asp-route-id="@item.id" class="btn btn-outline-warning m-0">ویرایش</a>
-                            </td>
+                @foreach (var item in Model.Entities)
+                {
+                    <tr class="">
+                        <td class="avatar ">
+                            @if (item.picProfile != null)
+                            {
+                                <img class="h-auto rounded-circle PicProfile" src="@PathExtensions.UserAvatarOrgin@item.picProfile"/>
+                            }
+                            else
+                            {
+                                <img class="h-auto rounded-circle PicProfile" src="~/images/blog/user.png" />
+                            }
+                        </td>
+                        <td class="">@item.Email</td>
+                        <td class="">@item.UserName</td>
+                        <td class="">
+                            <input type="checkbox" class="form-check-input" asp-for="@item.IsAdmin" disabled />
+                        </td>
+                        <td class="">
+                            <a asp-route-id="@item.id" asp-action="DeleteUser" class="btn btn-outline-danger m-0">حذف</a>
+                            <a asp-controller="ApplicationUsers" asp-action="EditUser" asp-route-id="@item.id" class="btn btn-outline-warning m-0">ویرایش</a>
+                        </td>
 
-                        </tr>
+                    </tr>
 
-                    }
+                }
                 </tbody>
             </table>
             <div class="row mx-2">
@@ -83,12 +83,14 @@
                     <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6">
-                    <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                       <partial name="_Pagination" model="Model.GetCurrentPaging()"/>
-                    </div>
-                </div>
+                <nav  class="d-flex align-items-center justify-content-center">
+                    <ul class="pagination">
+                        <partial name="_Pagination" model="Model.GetCurrentPaging()" />
+
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
 </div>
+<script src="~/js/custom.js"></script>

@@ -323,4 +323,55 @@ public class ContentService : IContentService
         var contentView = ContentsViewModel.OrderBy(a => a.CreateDate).Take(6);
         return contentView;
     }
+
+    public async Task AddContentToGallery(List<int> ContentsId)
+    {
+        var Contents = new List<Content>();
+        foreach (var id in ContentsId)
+        {
+            var Content=await _contentRepository.GetContentById(id);
+            Content.ShowInGallery = true;
+            await _contentRepository.Edit(Content);
+        }
+
+
+    }
+
+    public async Task RemoveContentFromGallery(List<int> ContentsId)
+    {
+        var Contents = new List<Content>();
+        foreach (var id in ContentsId)
+        {
+            var Content = await _contentRepository.GetContentById(id);
+            Content.ShowInGallery = false;
+            await _contentRepository.Edit(Content);
+        }
+    }
+
+    public async Task<List<ContentViewModel>> GetContentForGallery()
+    {
+       var Contents= await _contentRepository.GetContentForGaller();
+       var ContentsViewModel = new List<ContentViewModel>();
+       var Sanity = new HtmlSanitizer();
+       foreach (var Content in Contents)
+       {
+           var ViewModel = new ContentViewModel()
+           {
+               id = Content.id,
+               BannerName = Content.Banner,
+               CategoryId = Content.CategoryId,
+               ContentText = Sanity.Sanitize(Content.ContentText),
+               CreateDate = Content.CreateDate,
+               SubTitle = Content.SubTitle,
+               Tag = Content.Tag,
+               Title = Content.Title,
+               UserId = Content.UserId,
+               UserName = Content.User.UserName,
+               ViewCount = Content.ContentViewsCollection.Count,
+           };
+           ContentsViewModel.Add(ViewModel);
+       }
+
+       return ContentsViewModel;
+    }
 }

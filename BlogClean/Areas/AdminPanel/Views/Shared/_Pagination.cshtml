@@ -1,12 +1,12 @@
 ﻿@model Domain.ViewModels.Paging.Pagination.PagingViewModel
 
-<nav class="mt-1" aria-label="پیمایش صفحه">
-    <ul class="pagination">
-        @for (int i=Model.StartPage;i<=Model.EndPage;i++)
-        {
-            <li class="page-item @(Model.CurrentPage==i?"active":"")">
-                <a onclick="fillPage(@i)" class="page-link waves-effect" href="javascript:void(0);">@i</a>
-            </li>
-        }
-    </ul> 
-</nav>
+<ul class="pagination justify-content-center mb-0 mt-5">
+    <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="fillPage(@Model.CurrentPage-1)" aria-label="Previous">قبلی </a></li>
+    @for (int i = Model.StartPage; i <= Model.EndPage; i++)
+    {
+        <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+            <a class="page-link" onclick="fillPage(@i)" href="javascript:void(0);">@i</a>
+        </li>
+    }
+    <li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="fillPage(@Model.CurrentPage+1)" aria-label="Next">بعدی </a></li>
+</ul>

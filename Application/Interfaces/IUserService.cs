@@ -18,4 +18,6 @@ public interface IUserService
     public Task ForgotPassword(ForgotPasswordViewModel model);
     public Task<bool> IsUserExistById(int Id);
     public Task EditUserInfo(EditUserViewModel model,int id);
+
+    public Task ActiveMobile(int UserId,string Code);
 }

@@ -13,4 +13,5 @@ public interface IContentRepository
     public Task<bool> IsAnyContentByIdTask(int id);
     public Task<UserPanelContents> GetUserContent(UserPanelContents contents);
    public  Task<ICollection<Content>> GetContentsByUserId(int userId);
+   public Task<ICollection<Content>> GetContentForGaller();
 }

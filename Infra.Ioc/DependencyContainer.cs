@@ -24,6 +24,7 @@ namespace Infra.Ioc
             services.AddScoped<IFollowService, FollowService>();
             services.AddScoped<IBookmarkService, BookmarkService>();
             services.AddScoped<IReportContentService, ReportContentService>();
+            services.AddScoped<ISmsService, SmsService>();
 
 
             //    <---Data Layer --->

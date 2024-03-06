@@ -15,10 +15,12 @@ namespace BlogClean.Controllers
         #region Service
         private readonly IUserService _userService;
         private readonly IRenderService _Render;
-        public AccountController(IUserService userService, IRenderService Render)
+        private readonly ISmsService _smsService;
+        public AccountController(IUserService userService, IRenderService Render, ISmsService Smsservice)
         {
             _userService = userService;
             _Render = Render;
+            _smsService = Smsservice;
         }
         #endregion
 
@@ -104,12 +106,11 @@ namespace BlogClean.Controllers
                 await _userService.GiveUserActiveRole(user);
                 return RedirectToAction("Login");
             }
-
             return NotFound();
         }
 
         [HttpGet("Profile")]
-        public async Task<IActionResult> UserPanel(int UserClaims,string? state)
+        public async Task<IActionResult> UserPanel(int UserClaims, string? state)
         {
             TempData["MessageType"] = state;
 
@@ -200,8 +201,9 @@ namespace BlogClean.Controllers
         }
         [Authorize]
         [HttpGet("Edit-MyInfo")]
-        public async Task<IActionResult> EditUserInfo()
+        public async Task<IActionResult> EditUserInfo(string? state)
         {
+            TempData["MessageType"] = state;
             var UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var UserEntity = await _userService.GetUserById(UserId);
             var UserViewModel = new EditUserViewModel()
@@ -211,6 +213,7 @@ namespace BlogClean.Controllers
                 UserName = UserEntity.UserName,
                 phoneNumber = UserEntity.Phone,
                 Email = UserEntity.Email,
+                MobileActivated = UserEntity.MobileActivated,
             };
             return View(UserViewModel);
         }
@@ -223,7 +226,7 @@ namespace BlogClean.Controllers
             if (ModelState.IsValid)
             {
                 await _userService.EditUserInfo(editUserViewModel, UserId);
-                return RedirectToAction("UserPanel", new {state = "Success"});
+                return RedirectToAction("EditUserInfo",new {state = "Success"});
             }
             var UserEntity = await _userService.GetUserById(UserId);
             var UserViewModel = new EditUserViewModel()
@@ -233,9 +236,53 @@ namespace BlogClean.Controllers
                 UserName = UserEntity.UserName,
                 phoneNumber = UserEntity.Phone,
                 Email = UserEntity.Email,
+                MobileActivated = UserEntity.MobileActivated,
             };
             return View(UserViewModel);
         }
+
+
+        [Authorize]
+        public async Task<IActionResult> VerifyPhone()
+        {
+            var Id = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var UserEntity = await _userService.GetUserById(Id);
+            await _smsService.SendVerificationCode(UserEntity.Phone, UserEntity.mobileActiveCode);
+
+            return RedirectToAction("Verify", "Account");
+        }
+
+
+        [Authorize]
+        [HttpGet("verify-me")]
+        public async Task<IActionResult> Verify()
+        {
+
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost("verify-me")]
+        public async Task<IActionResult> Verify(ActiveMobileCodeViewModel code)
+        {
+            var Id = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (code.ActiveCode == null) ModelState.AddModelError("ActiveCode", errorMessage: "لطفا کد را وارد کنید");
+
+            if (ModelState.IsValid)
+            {
+                var UserEntity = await _userService.GetUserById(Id);
+                if (UserEntity.mobileActiveCode==code.ActiveCode)
+                {
+                    await _userService.ActiveMobile(Id, code.ActiveCode);
+                    return RedirectToAction("EditUserInfo",new {state="Success"});
+                }
+                ModelState.AddModelError("ActiveCode", errorMessage: "  کد وارد شده معتبر نمی باشد ");
+            }
+
+            return View();
+
+        }
+
 
     }
 }

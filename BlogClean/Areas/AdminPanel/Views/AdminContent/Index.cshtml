@@ -1,0 +1,121 @@
+﻿@using Application.ImageTools
+@model Domain.ViewModels.Content.FilterContentViewModel
+<div class="content-wrapper">
+
+
+    <!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+
+
+    <div class="card p-0 mb-4">
+        <div class="card-body d-flex flex-column flex-md-row justify-content-between p-0 pt-4">
+            <div class="app-academy-md-50 card-body d-flex align-items-md-center flex-column text-md-center">
+                <h3 class="card-title mb-4 lh-sm px-md-5 lh-lg">
+
+                    عنوان خود را جستجو کنید
+
+                </h3>
+                <form asp-area="AdminPanel"  asp-controller="AdminContent" asp-action="Index" id="FilterForm">
+                    <div class="d-flex align-items-center justify-content-between app-academy-md-80">
+                        <input type="hidden" asp-for="PageId" id="PageId" />
+                        <input asp-for="Title" class="form-control me-2" placeholder="محتوا خود را جستجو کنید" type="search">
+                        <button class="btn btn-primary btn-icon waves-effect waves-light" type="submit">
+                            <i class="ti ti-search"></i>
+                        </button>
+                    </div>
+                </form>
+                <button onclick="AddRogallery()" class="btn btn-outline-info mt-3">افزودن به گالری</button>
+                <button onclick="RemoveFromGaller()" class="btn btn-outline-danger mt-3">حذف از گالری</button>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <h4 class="py-3 mb-4">
+        <span class="text-muted fw-light">همه محتوا ها</span>
+    </h4>
+    <form asp-action="AddToGallery" id="Gal">
+
+        <div class="app-academy">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row gy-4 mb-4">
+                        @foreach (var item in Model.Entities)
+                        {
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="card p-2 h-100 shadow-none border">
+                                    <div class="rounded-2 text-center mb-3">
+                                        <a href="app-academy-course-details.html">
+                                            <img alt="بنر" class="img-fluid BannerContent" src="@PathExtensions.ContentBannerOrgin@item.BannerName">
+                                        </a>
+                                    </div>
+                                    <div class="card-body p-3 pt-2">
+                                        <a class="h5" asp-area="" asp-controller="Content" asp-action="ContentDetails" asp-route-id="@item.id">
+                                            @if (item.Title.Length > 30)
+                                            {
+                                                item.Title = item.Title.Substring(0, 28) + "...";
+                                                @item.Title
+                                                ;
+                                            }
+                                            else
+                                            {
+                                                @item.Title
+                                            }
+                                        </a>
+                                        <p class="mt-2">@item.SubTitle</p>
+                                        <div class="d-flex flex-column flex-md-row gap-2 text-nowrap">
+                                            <a asp-area="" asp-controller="Content" asp-action="ContentDetails" asp-route-id="@item.id" class="app-academy-md-50 btn btn-label-primary d-flex align-items-center waves-effect">
+                                                <span class="me-2">ادامه</span>
+                                                <i class="ti ti-chevron-right scaleX-n1-rtl ti-sm"></i>
+                                            </a>
+                                            <a asp-area="" asp-controller="Content" asp-action="DeleteContent" asp-route-id="@item.id" class="app-academy-md-50  d-flex align-items-center waves-effect btn btn-danger">
+                                                <span class="me-2">حذف</span>
+                                                <i class="ti ti-chevron-right scaleX-n1-rtl ti-sm"></i>
+                                            </a>
+                                        </div>
+                                        <div class="form-check form-check-primary mt-3 ">
+                                            <input checked="@item.ShowInGallery" name="ContentsId" class="form-check-input" id="customCheckPrimary" type="checkbox" value="@item.id">
+                                            <label class="form-check-label">افزودن به گالری</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                     
+                        <nav class="d-flex align-items-center justify-content-center">
+                            <ul class="pagination">
+                                <partial name="_Pagination" model="Model.GetCurrentPaging()"/>
+
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+</div>
+    <!-- / Content -->
+    @section AdminFooterSection
+    {
+        <script>
+            function AddRogallery() {
+                document.getElementById("Gal").submit();
+            }
+        </script>
+        <script>
+            function RemoveFromGaller() {
+               var Form= document.getElementById("Gal");
+               Form.action = "AdminContent/RemoveFromGallery";
+               Form.submit();
+            }
+        </script>
+    }

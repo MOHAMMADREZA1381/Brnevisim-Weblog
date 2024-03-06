@@ -10,7 +10,7 @@
                 <div class="card public-profile border-0 rounded shadow" style="z-index: 1;">
                     <div class="card-body">
                         <div class="row align-items-center">
-                            @if (Model.UserImage.Length > 0)
+                            @if (Model.UserImage != null)
                             {
                                 <div class="col-lg-2 col-md-3 text-md-start text-center">
                                     <img src="@PathExtensions.UserAvatarOrgin@Model.UserImage" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
@@ -137,8 +137,13 @@
                                         <div class="form-icon position-relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check fea icon-sm icons"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
                                             <input asp-for="phoneNumber" id="last" type="number" class="form-control ps-5" placeholder=" تلفن همراه :">
-                                             <span asp-validation-for="phoneNumber" class="text-danger"></span>
-                                        </div>
+                                            <span asp-validation-for="phoneNumber" class="text-danger"></span>
+                                            @if (Model.MobileActivated == false && Model.phoneNumber != null)
+                                            {
+                                            <span class="text-danger">لطفا شماره همراه خود را تایید کنید</span>
+                                            }
+
+                                            </div>
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-lg-12">
@@ -156,6 +161,11 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <input type="submit" id="submit" name="send" class="btn btn-primary" value="ذخیره تغییرات">
+                                    @if (Model.phoneNumber != null && Model.MobileActivated==false)
+                                    {
+                                    <a class="btn btn-warning" asp-controller="Account" asp-action="VerifyPhone">تایید تلفن</a>
+                                    }
+
                                 </div><!--end col-->
                             </div><!--end row-->
                         </form><!--end form-->

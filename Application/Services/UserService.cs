@@ -29,6 +29,7 @@ public class UserService : IUserService
             Password = PasswordHelper.EncodePasswordSha256(viewModel.Password),
             Email = viewModel.Email.ToLower().Trim(),
             ActivateCode = Guid.NewGuid().ToString("N"),
+            MobileActivateCode = new Random().Next(10000,99999).ToString()
         };
         await _userRepository.Register(User);
         return State.Success;
@@ -95,7 +96,9 @@ public class UserService : IUserService
             IsDeleted = user.IsDelete,
             ActivateCode = user.ActivateCode,
             IsActive = user.IsActive,
-            Bio = user.Bio
+            Bio = user.Bio,
+            mobileActiveCode = user.MobileActivateCode,
+            MobileActivated = user.MobileActivated,
         };
         return UserViewModel;
     }
@@ -145,6 +148,8 @@ public class UserService : IUserService
         User.IsActive = viewModel.IsActive;
         User.Bio=viewModel.Bio;
         User.ActivateCode = Guid.NewGuid().ToString();
+        User.MobileActivateCode = viewModel.mobileActiveCode;
+        User.MobileActivated = viewModel.MobileActivated;
         await _userRepository.EditUser(User);
     }
 
@@ -179,8 +184,24 @@ public class UserService : IUserService
             model.Image.AddImageToServer(galleryImage, PathExtensions.UserAvatarOrginServer, 300, 300, PathExtensions.UserAvatarThumbServer);
             User.UserImg = galleryImage;
         }
+
+        if (User.Phone!=model.phoneNumber)
+        {
+            User.MobileActivated = false;
+            User.MobileActivateCode = new Random().Next(10000, 99999).ToString();
+        }
+
+
         User.Phone = model.phoneNumber;
         User.ActivateCode=Guid.NewGuid().ToString();
         await _userRepository.EditUser(User);
+    }
+
+    public async Task ActiveMobile(int UserId, string Code)
+    {
+       var User= await GetUserById(UserId);
+       User.MobileActivated = true;
+       User.ActivateCode = new Random().Next(10000, 99999).ToString();
+       await  EditUser(User);
     }
 }
