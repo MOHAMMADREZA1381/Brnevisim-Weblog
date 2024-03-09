@@ -245,6 +245,11 @@ namespace BlogClean.Controllers
         [Authorize]
         public async Task<IActionResult> VerifyPhone()
         {
+            decimal BalanceLine = await _smsService.GetBalnce();
+            if (BalanceLine<10)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var Id = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var UserEntity = await _userService.GetUserById(Id);
             await _smsService.SendVerificationCode(UserEntity.Phone, UserEntity.mobileActiveCode);

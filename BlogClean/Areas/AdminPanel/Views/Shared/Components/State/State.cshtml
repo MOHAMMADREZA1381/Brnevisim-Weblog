@@ -1,0 +1,59 @@
+﻿@model Domain.ViewModels.Admin.StateViewModel
+<div class=" col-12 mb-3">
+    <div class="card h-100">
+        <div class="card-header">
+            <div class="d-flex justify-content-between mb-3">
+                <h5 class="card-title mb-0">آمار</h5>
+                <small class="text-muted">آخرین آپدیت 1 روز پیش</small>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row gy-3">
+                <div class="col-md-3 col-6">
+                    <div class="d-flex align-items-center">
+                        <div class="badge rounded-pill bg-label-primary me-3 p-2">
+                            <i class="ti ti-chart-pie-2 ti-sm"></i>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0">@Model.TodayView</h5>
+                            <small>تعداد بازدید امروز</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="d-flex align-items-center">
+                        <div class="badge rounded-pill bg-label-info me-3 p-2">
+                            <i class="ti ti-folder"></i>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0">@Model.AllContent</h5>
+                            <small>تعداد محتوا ها</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="d-flex align-items-center">
+                        <div class="badge rounded-pill bg-label-danger me-3 p-2">
+                            <i class="ti ti-messages"></i>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0">@Model.MessagesCount</h5>
+                            <small>همه نظرات</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="d-flex align-items-center">
+                        <div class="badge rounded-pill bg-label-success me-3 p-2">
+                            <i class="ti ti-users"></i>
+                        </div>
+                        <div class="card-info">
+                            <h5 class="mb-0">@Model.UserCount</h5>
+                            <small> تعداد یوزر</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -37,5 +37,9 @@ namespace Application.Services
             return await _countRepository.IsAnyIp(UserIp, ContentId);
         }
 
+        public async Task<int> ViewCount()
+        {
+            return await _countRepository.ViewCount();
+        }
     }
 }

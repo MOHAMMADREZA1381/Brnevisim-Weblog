@@ -29,5 +29,6 @@ namespace Infra.Data.Context
         public DbSet<Following> Followings { get; set; }
         public DbSet<ReportContent> ReportContents { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
+        public DbSet<UseFulLink> UseFulLinks { get; set; }
     }
 }

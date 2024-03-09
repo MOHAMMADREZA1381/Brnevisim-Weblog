@@ -1,0 +1,74 @@
+﻿@using Application.ImageTools
+@model Domain.ViewModels.Admin.UserInfoViewModel
+
+
+<li class="nav-item navbar-dropdown dropdown-user dropdown">
+    <a class="nav-link dropdown-toggle hide-arrow" data-bs-toggle="dropdown" href="javascript:void(0);">
+    @if (Model.UserViewModel.UserName.Length == 0)
+    {
+        <div class="avatar avatar-online">
+            <img alt class="h-auto rounded-circle" src="~/images/blog/1.png"/>
+        </div>
+    }
+    else
+    {
+            <div class="avatar avatar-online">
+                <img alt class="h-auto rounded-circle" src="@PathExtensions.UserAvatarOrgin@Model.UserViewModel.picProfile" />
+            </div>
+        }
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <a class="dropdown-item" href="#">
+                <div class="d-flex">
+                    <div class="flex-shrink-0 me-3">
+                        @if (Model.UserViewModel.UserName.Length == 0)
+                        {
+                        <div class="avatar avatar-online">
+                            <img alt class="h-auto rounded-circle" src="../../assets/img/avatars/1.png"/>
+                        </div>
+                        }
+                        else
+                        {
+                            <div class="avatar avatar-online">
+                                <img alt class="h-auto rounded-circle" src="@PathExtensions.UserAvatarOrgin@Model.UserViewModel.picProfile"/>
+                            </div>
+                        }
+                    </div>
+                    <div class="flex-grow-1">
+                        <span class="fw-semibold d-block mb-1">@Model.UserViewModel.Email</span>
+                        <small class="text-muted">مدیرکل</small>
+
+                    </div>
+
+                </div>
+            </a>
+        </li>
+        <li>
+            <div class="dropdown-divider"></div>
+        </li>
+        <li>
+            <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="UserPanel">
+                <i class="ti ti-user-check me-2 ti-sm"></i>
+                <span class="align-middle">پروفایل من</span>
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item">
+                <i class="ti ti-pig-money"></i>                <span class="align-middle"> موجودی خط: @Model.BalanceSms</span>
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">
+                <i class="ti ti-box"></i>
+                <span class="align-middle"> صفحه اصلی برنامه </span>
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">
+                <i class="ti ti-logout me-2 ti-sm"></i>
+                <span class="align-middle">خروج از حساب</span>
+            </a>
+        </li>
+    </ul>
+</li>

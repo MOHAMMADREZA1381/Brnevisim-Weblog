@@ -1,0 +1,5 @@
+﻿@model ICollection<Domain.ViewModels.Admin.UseFulLinks.LinksViewModel>
+   @foreach (var item in Model)
+    {
+        <li><a href="@item.Address" class="text-foot"><i class="uil uil-angle-left-b me-1"></i>@item.LinkName</a></li>
+    }

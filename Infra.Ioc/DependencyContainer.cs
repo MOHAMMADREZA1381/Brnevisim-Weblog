@@ -25,6 +25,7 @@ namespace Infra.Ioc
             services.AddScoped<IBookmarkService, BookmarkService>();
             services.AddScoped<IReportContentService, ReportContentService>();
             services.AddScoped<ISmsService, SmsService>();
+            services.AddScoped<IUseFulLinksService, UseFulLinksService>();
 
 
             //    <---Data Layer --->
@@ -38,6 +39,7 @@ namespace Infra.Ioc
             services.AddScoped<IFollowRepository, FollowRepository>();
             services.AddScoped<IBookmarkRepository, BookmarkRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<IUseFulLinksRepository, UseFulLinksRepository>();
 
 
         }

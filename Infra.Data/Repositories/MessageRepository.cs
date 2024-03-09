@@ -1,6 +1,7 @@
 ﻿using Domain.IRepositories;
 using Domain.Models;
 using Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Data.Repositories;
 
@@ -38,5 +39,11 @@ public class MessageRepository:IMessageRepository
     {
          bool isThere = _context.Messages.Any(a => a.Id == id);
          return isThere;
+    }
+
+    public async Task<int> MessageCount()
+    {
+           var Message= await _context.Messages.Where(a => a.IsDelete == false).ToListAsync();
+           return Message.Count;
     }
 }

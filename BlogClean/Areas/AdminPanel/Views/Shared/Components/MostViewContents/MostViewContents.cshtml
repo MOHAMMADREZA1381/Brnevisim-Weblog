@@ -1,0 +1,39 @@
+﻿@using Application.ImageTools
+@model IEnumerable<Domain.ViewModels.Content.ContentViewModel>
+<div class="col-12 mb-4">
+    <div class="card h-100">
+        <div class="card-header d-flex justify-content-between">
+            <div class="card-title m-0 me-2">
+                <h5 class="m-0 me-2"> ۳ محتوا برتر</h5>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="p-0 m-0">
+                @foreach (var item in Model)
+                {
+                    <li class="d-flex mb-4 pb-1">
+                        <div class="me-3">
+                            <img alt="عکس بنر" class="rounded" src="@PathExtensions.ContentBannerOrgin@item.BannerName" width="46">
+                        </div>
+                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                                <h6 class="mb-0">@item.Title</h6>
+                                <small class="text-muted d-block">@item.UserName</small>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                                <p class="mb-0 fw-medium">
+                                    <a asp-area="" asp-controller="Content" asp-action="ContentDetails" asp-route-id="@item.id" class="btn btn-outline-info">بازدید</a>
+                                    <bdi>
+                                        تعداد بازدید :
+                                        @item.ViewCount
+                                    </bdi>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>

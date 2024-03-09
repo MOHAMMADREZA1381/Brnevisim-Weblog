@@ -1,0 +1,48 @@
+﻿@model Domain.ViewModels.Admin.UseFulLinks.ManageLinksViewModel
+<div class="container">
+    <div class="row">
+
+        <div class="col mt-4 pt-2" id="tables">
+            <div class="component-wrapper rounded shadow">
+                <div class="p-4 border-bottom">
+                    <h4 class="title mb-0"> جدول </h4>
+                </div>
+
+                <div class="p-4">
+                    <div class="table-responsive bg-white shadow rounded">
+                        <table class="table mb-0 table-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="border-bottom">نام</th>
+                                    <th scope="col" class="border-bottom">آدرس</th>
+                                    <th scope="col" class="border-bottom">برای فوتر</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                          
+                            @foreach (var item in Model.UseFulLinkViewModels)
+                            {
+                                <tr>
+                                    <td>@item.LinkName</td>
+                                    <td>@item.Address</td>
+                                    <td><input type="checkbox" disabled checked="@item.Footer"/></td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col mt-4 pt-2" id="forms">
+            <div class="component-wrapper rounded shadow">
+                <div class="p-4 border-bottom">
+                    <h4 class="title mb-0"> فرم  </h4>
+                </div>
+                <partial name="_AddLink" model="Model.LinksViewModel" />
+
+            </div>
+        </div>
+    </div>
+</div>

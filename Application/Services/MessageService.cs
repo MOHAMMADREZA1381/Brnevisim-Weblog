@@ -85,5 +85,8 @@ public class MessageService : IMessageService
         return MessageBlongToUser;
     }
 
-  
+    public async Task<int> messageCount()
+    {
+        return await _messageRepository.MessageCount();
+    }
 }
