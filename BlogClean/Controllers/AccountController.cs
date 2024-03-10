@@ -51,12 +51,12 @@ namespace BlogClean.Controllers
         }
 
 
-        [HttpGet("SignIn")]
+        [HttpGet("login")]
         public async Task<IActionResult> Login()
         {
             return View();
         }
-        [HttpPost("SignIn"), ValidateAntiForgeryToken]
+        [HttpPost("login")]
         public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
 
@@ -113,7 +113,9 @@ namespace BlogClean.Controllers
         public async Task<IActionResult> UserPanel(int UserClaims, string? state)
         {
             TempData["MessageType"] = state;
-
+            if (!User.Identity.IsAuthenticated && UserClaims == 0 || UserClaims == null)
+                return RedirectToAction("Login");
+            
             if (UserClaims == null || UserClaims == 0)
             {
                 UserClaims = int.Parse(User.Claims.FirstOrDefault().Value);

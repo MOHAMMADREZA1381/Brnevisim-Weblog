@@ -1,6 +1,19 @@
 ﻿@model IEnumerable<Domain.ViewModels.Category.CategoryViewModel>
 @foreach (var item in Model)
 {
-    <li><a href="index-it-solution.html" class="sub-menu-item"> @item.Name </a></li>
+    <li onclick="getContent(@item.id)"><a class="sub-menu-item Pointer"> @item.Name </a></li>
 
 }
+<form id="SendCategory" asp-controller="Content" asp-action="Index">
+    <input id="CategoryId" type="hidden" name="CategoryId" />
+</form>
+
+
+<script>
+    function getContent(CategoryId) {
+        var CategoryInput = document.getElementById("CategoryId");
+        CategoryInput.value = CategoryId;
+        var Form = document.getElementById("SendCategory");
+        Form.submit();
+    }
+</script>

@@ -2,7 +2,12 @@
 @model Domain.ViewModels.User.UserPanelViewModel
 @{
     ViewData["Title"] = "پنل کابری";
-    int CurrentUserId = (int)TempData["CurrentUseId"];
+    int CurrentUserId = 0;
+    if (User.Identity.IsAuthenticated)
+    {
+
+        CurrentUserId = (int)TempData["CurrentUseId"];
+    }
 
 }
 <section class="bg-profile d-table w-100 bg-primary" style="background: url('images/account/bg.png') center center;">
@@ -61,39 +66,42 @@
                                     <h6 class="mb-0 ms-2">پروفایل </h6>
                                 </a>
                             </li>
-                            @if (CurrentUserId == Model.UserViewModel.id)
+                            @if (User.Identity.IsAuthenticated)
                             {
-                                <li class="navbar-item account-menu px-0 mt-2 ">
-                                    <a asp-controller="Follow" asp-action="Index" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="uil uil-users-alt"></i></span>
-                                        <h6 class="mb-0 ms-2">کسانی را که دنبال می کنید </h6>
-                                    </a>
-                                </li>
+                                @if (CurrentUserId == Model.UserViewModel.id)
+                                {
+                                    <li class="navbar-item account-menu px-0 mt-2 ">
+                                        <a asp-controller="Follow" asp-action="Index" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                            <span class="h4 mb-0"><i class="uil uil-users-alt"></i></span>
+                                            <h6 class="mb-0 ms-2">کسانی را که دنبال می کنید </h6>
+                                        </a>
+                                    </li>
 
-                                <li class="navbar-item account-menu px-0 mt-2 ">
-                                    <a asp-controller="Follow" asp-action="Followers" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="uil uil-file"></i></span>
-                                        <h6 class="mb-0 ms-2">کسانی که شمارا دنبال می کنند</h6>
-                                    </a>
-                                </li>
-                                <li class="navbar-item account-menu px-0 mt-2 ">
-                                    <a asp-controller="Bookmark" asp-action="Index" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="bi bi-bookmark"></i></span>
-                                        <h6 class="mb-0 ms-2"> بوکمارک ها </h6>
-                                    </a>
-                                </li>
-                                <li class="navbar-item account-menu px-0 mt-2 ">
-                                    <a asp-controller="Account" asp-action="EditUserInfo" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="bi bi-pen"></i></span>
-                                        <h6 class="mb-0 ms-2"> ویرایش حساب</h6>
-                                    </a>
-                                </li>
-                                <li class="navbar-item account-menu px-0 mt-2">
-                                    <a asp-controller="Account" asp-action="Logout" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
-                                        <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
-                                        <h6 class="mb-0 ms-2">خروج </h6>
-                                    </a>
-                                </li>
+                                    <li class="navbar-item account-menu px-0 mt-2 ">
+                                        <a asp-controller="Follow" asp-action="Followers" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                            <span class="h4 mb-0"><i class="uil uil-file"></i></span>
+                                            <h6 class="mb-0 ms-2">کسانی که شمارا دنبال می کنند</h6>
+                                        </a>
+                                    </li>
+                                    <li class="navbar-item account-menu px-0 mt-2 ">
+                                        <a asp-controller="Bookmark" asp-action="Index" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                            <span class="h4 mb-0"><i class="bi bi-bookmark"></i></span>
+                                            <h6 class="mb-0 ms-2"> بوکمارک ها </h6>
+                                        </a>
+                                    </li>
+                                    <li class="navbar-item account-menu px-0 mt-2 ">
+                                        <a asp-controller="Account" asp-action="EditUserInfo" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                            <span class="h4 mb-0"><i class="bi bi-pen"></i></span>
+                                            <h6 class="mb-0 ms-2"> ویرایش حساب</h6>
+                                        </a>
+                                    </li>
+                                    <li class="navbar-item account-menu px-0 mt-2">
+                                        <a asp-controller="Account" asp-action="Logout" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                            <span class="h4 mb-0"><i class="uil uil-dashboard"></i></span>
+                                            <h6 class="mb-0 ms-2">خروج </h6>
+                                        </a>
+                                    </li>
+                                }
                             }
                         </ul>
                     </div>
@@ -117,9 +125,16 @@
 
                 <h5 class="mt-4 mb-0">پست ها و اخبار :</h5>
                 <div class="row">
-                    @await Component.InvokeAsync("ContentsUserPanel",Model.UserViewModel.id)
+                    @await Component.InvokeAsync("ContentsUserPanel", Model.UserViewModel.id)
                     <div class="col-12 mt-4 pt-2">
-                        <a asp-controller="Content" asp-action="MyContents" class="btn btn-primary">نمایش بیشتر <i class="uil uil-angle-left-b align-middle"></i></a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-controller="Content" asp-action="MyContents" class="btn btn-primary">نمایش بیشتر <i class="uil uil-angle-left-b align-middle"></i></a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Content" asp-action="ContentUser" asp-route-UserId="@Model.UserViewModel.id" class="btn btn-primary">نمایش بیشتر <i class="uil uil-angle-left-b align-middle"></i></a>
+                        }
                     </div><!--end col-->
                 </div><!--end row-->
             </div><!--end col-->

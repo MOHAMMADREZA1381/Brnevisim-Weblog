@@ -51,9 +51,13 @@ namespace Infra.Data.Repositories
             var Contents = _context.Contents.Where(a => a.IsDeleted == false && a.User.IsDelete==false).AsQueryable();
             if (!string.IsNullOrEmpty(model.Title))
             {
-                Contents = Contents.Where(a => EF.Functions.Like(a.Title, $"%{model.Title}%"));
+                Contents = Contents.Where(a => EF.Functions.Like(a.Title, $"%{model.Title}%")|| EF.Functions.Like(a.Tag, $"%{model.Title}%"));
+                
             }
-
+            if (model.CategoryId!=0)
+            {
+                Contents = Contents.Where(a=>a.CategoryId==model.CategoryId);
+            }
             await model.Paging(Contents.Select(a => new ContentViewModel()
             {
                 UserName = a.User.UserName,
@@ -108,7 +112,7 @@ namespace Infra.Data.Repositories
 
         public async Task<ICollection<Content>> GetContentForGaller()
         {
-            return await _context.Contents.Where(a => a.ShowInGallery == true).Include(a=>a.User).ToListAsync();
+            return await _context.Contents.Where(a => a.ShowInGallery == true && a.IsDeleted==false).Include(a=>a.User).ToListAsync();
         }
     }
 }

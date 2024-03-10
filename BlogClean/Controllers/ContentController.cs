@@ -202,7 +202,6 @@ namespace BlogClean.Controllers
             }
             return RedirectToAction("ContentDetails", new { id = model.ContentId, state = "Error" });
         }
-
         #endregion
 
         #region MyContents
@@ -216,6 +215,18 @@ namespace BlogClean.Controllers
         }
 
         #endregion
+
+        public async Task<IActionResult> ContentUser(UserPanelContents contents,int UserId)
+        {
+            if (UserId==0 || UserId==null)
+            {
+                return PartialView("_NotFoundError");
+            }
+
+            contents.UserId = UserId;
+            var Contents = await _contentService.GetUserContents(contents);
+            return View(Contents);
+        }
 
     }
 }

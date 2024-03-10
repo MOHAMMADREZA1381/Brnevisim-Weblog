@@ -60,6 +60,8 @@
                                         <a asp-route-ContentId="@Model.Content.id" asp-controller="Bookmark" asp-action="RemoveBookmark" class="dropdown-item">حذف از بوکمارک</a>
 
                                     }
+
+                                    @await Component.InvokeAsync("ContentOwner",Model.Content.id)
                                     <div class="dropdown-divider"></div>
                                     <a href="javascript:void(0)" class="dropdown-item">تماس با ما</a>
                                 </div>

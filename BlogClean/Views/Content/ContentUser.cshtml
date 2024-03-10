@@ -1,8 +1,11 @@
 ﻿@using Application.ImageTools
+@using Persia_.NET_Core
+@using Calendar = Persia_.NET_Core.Calendar
 @using Application.Convertor
-@model Domain.ViewModels.Content.FilterContentViewModel
+@model Domain.ViewModels.Content.UserPanelContents
 @{
     ViewData["Title"] = "همه محتوا ها";
+
 }
 
 <section class="bg-half bg-light d-table w-100">
@@ -33,10 +36,10 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <div class="text-center subcribe-form">
-                            <form asp-area="" asp-controller="Content" asp-action="Index" id="FilterForm" style="max-width: 800px;">
+                            <form asp-area="" asp-controller="Content" asp-action="ContentUser" id="FilterForm" style="max-width: 800px;">
                                 <input type="hidden" asp-for="PageId" id="PageId" />
-                                <input type="text" asp-for="Title" class="rounded-pill shadow-md bg-white" placeholder="جستجوی کلمه کلیدی...">
-                                <button type="submit" class="btn btn-pills btn-primary">جستجو </button>
+                                <input type="hidden" asp-for="UserId"  />
+
                             </form><!--end form-->
                         </div>
                     </div><!--end col-->
@@ -58,7 +61,9 @@
                             <div class="overlay rounded-top bg-dark"></div>
                         </div>
                         <div class="card-body content">
-                            <h5><a href="javascript:void(0)" class="card-title title text-dark">@if (item.Title.Length > 30)
+                            <h5>
+                                <a href="javascript:void(0)" class="card-title title text-dark">
+                                    @if (item.Title.Length > 30)
                                     {
                                         item.Title = item.Title.Substring(0, 28) + "...";
                                         @item.Title
@@ -67,7 +72,9 @@
                                     else
                                     {
                                         @item.Title
-                                    }</a></h5>
+                                    }
+                                </a>
+                            </h5>
                             <div class="post-meta d-flex justify-content-between mt-3">
                                 <ul class="list-unstyled mb-0">
                                     <li class="list-inline-item bi bi-eye me-2 mb-0 "><span class="ms-1">@item.ViewCount</span></li>

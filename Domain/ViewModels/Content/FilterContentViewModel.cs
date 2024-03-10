@@ -6,4 +6,5 @@ public class FilterContentViewModel:Pagination<ContentViewModel>
 {
     public int page { get; set; }
     public string Title { get; set; }
+    public int CategoryId { get; set; }
 }

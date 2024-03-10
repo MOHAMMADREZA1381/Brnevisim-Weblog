@@ -1,5 +1,4 @@
 ﻿ <!-- Navbar STart -->
-
  <header id="topnav" class="defaultscroll sticky ">
     <div class="container">
         <!-- Logo container-->
@@ -22,7 +21,7 @@
             </div>
             <!--end login button-->
         }
-    <!-- End Logo container-->
+        <!-- End Logo container-->
         <div class="menu-extras">
             <div class="menu-item">
                 <!-- Mobile menu toggle-->
@@ -46,35 +45,35 @@
                     <ul class="submenu megamenu">
                         <li>
                             <ul>
-                                @await Component.InvokeAsync("CategoryMenu",0)
-                                
-                            </ul>
-                        </li>
-
-                        <li>
-                            <ul>
-                                @await Component.InvokeAsync("CategoryMenu",7)
+                                @await Component.InvokeAsync("CategoryMenu", 0)
 
                             </ul>
                         </li>
 
                         <li>
                             <ul>
-                                @await Component.InvokeAsync("CategoryMenu",14)
+                                @await Component.InvokeAsync("CategoryMenu", 7)
 
                             </ul>
                         </li>
 
                         <li>
                             <ul>
-                                @await Component.InvokeAsync("CategoryMenu",21)
+                                @await Component.InvokeAsync("CategoryMenu", 14)
 
                             </ul>
                         </li>
 
                         <li>
                             <ul>
-                                @await Component.InvokeAsync("CategoryMenu",28)
+                                @await Component.InvokeAsync("CategoryMenu", 21)
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <ul>
+                                @await Component.InvokeAsync("CategoryMenu", 28)
 
                             </ul>
                         </li>
@@ -86,104 +85,29 @@
                     <ul class="submenu">
                         @if (User.Identity.IsAuthenticated)
                         {
-                        @await Component.InvokeAsync("AdminMenu")
+                            @await Component.InvokeAsync("AdminMenu")
                         }
-                        
-                        @if (User.Identity.IsAuthenticated)
-                        {
                         <li class="has-submenu parent-menu-item">
                             <a href="javascript:void(0)"> حساب کاربری </a><span class="submenu-arrow"></span>
                             <ul class="submenu">
-                                <li><a href="account-profile.html" class="sub-menu-item">پروفایل </a></li>
-                                <li><a href="account-members.html" class="sub-menu-item">اعضا </a></li>
-                                <li><a href="account-works.html" class="sub-menu-item">کارها</a></li>
-                                <li><a href="account-messages.html" class="sub-menu-item">پیام ها </a></li>
-                                <li><a href="account-payments.html" class="sub-menu-item">پرداخت ها </a></li>
-                                <li><a href="account-setting.html" class="sub-menu-item">تنظیمات </a></li>
-                                <li><a href="page-invoice.html" class="sub-menu-item">صورتحساب </a></li>
+                                <li><a asp-controller="Account" asp-action="UserPanel" class="sub-menu-item">پروفایل </a></li>
+                                <li><a asp-controller="Follow" asp-action="Follow" class="sub-menu-item"> کسانی را که دنبال می کنید </a></li>
+                                <li><a asp-controller="Follow" asp-action="Followers" class="sub-menu-item"> کسانی که شمارا دنبال می کنند </a></li>
+                                <li><a asp-controller="Account" asp-action="EditUserInfo" class="sub-menu-item">ویرایش حساب کاربری</a></li>
+
                             </ul>
                         </li>
-                        }
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> همه محتواها </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="shop-grids.html" class="sub-menu-item">گرید محصولات </a></li>
-                                <li><a href="shop-lists.html" class="sub-menu-item">محصولات لیستی </a></li>
-                                <li><a href="shop-product-detail.html" class="sub-menu-item">جزئیات محصول </a></li>
-                                <li><a href="shop-cart.html" class="sub-menu-item">سبد خرید </a></li>
-                                <li><a href="shop-checkouts.html" class="sub-menu-item">پرداختی ها </a></li>
-                                <li><a href="shop-myaccount.html" class="sub-menu-item">حساب من </a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> درباره ما </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="helpcenter-overview.html" class="sub-menu-item">مرکز ارتباط </a></li>
-                                <li><a href="helpcenter-faqs.html" class="sub-menu-item">گفت و گو </a></li>
-                                <li><a href="helpcenter-guides.html" class="sub-menu-item">راهنماها </a></li>
-                                <li><a href="helpcenter-support-request.html" class="sub-menu-item">پشتیبانی تماسی </a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> داستان خودت رو بنویس! </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="forums.html" class="sub-menu-item">بررسی اجمالی </a></li>
-                                <li><a href="forums-topic.html" class="sub-menu-item">موضوع انجمن </a></li>
-                                <li><a href="forums-comments.html" class="sub-menu-item">نظرات انجمن </a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> کسانی که دنبال می کنید</a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="email-confirmation.html" class="sub-menu-item">تائیدیه </a></li>
-                                <li><a href="email-password-reset.html" class="sub-menu-item">بازیابی رمز عبور</a></li>
-                                <li><a href="email-alert.html" class="sub-menu-item">هشدار </a></li>
-                                <li><a href="email-invoice.html" class="sub-menu-item">صورتحساب </a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> بوکمارک ها </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="page-jobs.html" class="sub-menu-item">کارها </a></li>
-                                <li><a href="page-jobs-sidebar.html" class="sub-menu-item">کارها - سایدبار</a></li>
-                                <li><a href="page-job-detail.html" class="sub-menu-item">جزئیات کار</a></li>
-                                <li><a href="page-job-apply.html" class="sub-menu-item">اعمال کار </a></li>
-                                <li><a href="page-job-company-list.html" class="sub-menu-item">لیست شرکت </a></li>
-                                <li><a href="page-job-company.html" class="sub-menu-item">جزئیات شرکت</a></li>
-                                <li><a href="page-job-candidate-list.html" class="sub-menu-item">لیست نامزدها </a></li>
-                                <li><a href="page-job-candidate.html" class="sub-menu-item">جزئیات نامزد </a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> وبلاگ </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="page-blog-grid.html" class="sub-menu-item">گرید وبلاگ </a></li>
-                                <li><a href="page-blog-sidebar.html" class="sub-menu-item">وبلاگ با سایدبار </a></li>
-                                <li><a href="page-blog-list.html" class="sub-menu-item">وبلاگ فهرستی</a></li>
-                                <li><a href="page-blog-list-sidebar.html" class="sub-menu-item">فهرست وبلاگ و سایدبار</a></li>
-                                <li><a href="page-blog-detail.html" class="sub-menu-item">جزئیات وبلاگ </a></li>
-                                <li><a href="page-blog-detail-two.html" class="sub-menu-item">جزئیات وبلاگ 2 </a></li>
-                            </ul>
-                        </li>
-                 
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> تماس با ما </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="page-contact-detail.html" class="sub-menu-item">جزئیات تماس </a></li>
-                                <li><a href="page-contact-one.html" class="sub-menu-item">تماس 1</a></li>
-                                <li><a href="page-contact-two.html" class="sub-menu-item">تماس 2</a></li>
-                                <li><a href="page-contact-three.html" class="sub-menu-item">تماس 3</a></li>
-                            </ul>
-                        </li>
+                        <li><a asp-controller="Content" asp-action="CreateContent" class="sub-menu-item">داستان خودت رو بنویس!</a></li>
+                        <li><a asp-controller="Content" asp-action="Index" class="sub-menu-item"> همه محتوا ها </a></li>
+                        <li><a asp-controller="Bookmark" asp-action="Index" class="sub-menu-item">بوکمارک ها </a></li>
                         @await Component.InvokeAsync("HeaderLink")
+                        <li><a asp-controller="ContactUs" asp-action="Index" class="sub-menu-item">  ارتباط با ما </a></li>
+                        <li><a asp-controller="Account" asp-action="Logout" class="sub-menu-item">خروج</a></li>
 
                     </ul>
                 </li>
-           
+
             </ul><!--end navigation menu-->
-            <div class="buy-menu-btn d-none">
-                <a href="https://www.rtl-theme.com/?p=133270" target="_blank" class="btn btn-primary">خرید از راست چین </a>
-            </div><!--end login button-->
         </div><!--end navigation-->
     </div><!--end container-->
 </header><!--end header-->

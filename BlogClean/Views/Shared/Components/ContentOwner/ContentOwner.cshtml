@@ -1,0 +1,10 @@
+﻿@model bool
+@{
+   int ContentId=(int)TempData["ContentId"];
+}
+@if (Model == true)
+{
+    <a asp-route-id="@ContentId" asp-controller="Content" asp-action="EditContent" class="dropdown-item"> ویرایش </a>
+    <a asp-route-id="@ContentId" asp-controller="Content" asp-action="DeleteContent" class="dropdown-item text-danger"> حذف </a>
+
+}
