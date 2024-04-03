@@ -24,12 +24,14 @@ public class ReportContentService:IReportContentService
             ReportText = content.ReportText,
         };
         await _repository.AddReport(Report);
+        await _repository.SaveAsync();
     }
 
     public async Task RemoveReport(int id)
     {
         var Report =await GetReport(id);
         await _repository.RemoveReport(Report);
+        await _repository.SaveAsync();
     }
 
     public async Task<ReportContent> GetReport(int id)

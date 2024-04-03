@@ -21,7 +21,7 @@ public class ContactUsRepository:IContactUsRepository
     public async Task AddContactUs(ContactUs contactUs)
     {
         _context.Add(contactUs);
-        _context.SaveChanges();
+        
     }
 
     public async Task<ContactUs> GetContactUsById(int id)
@@ -34,11 +34,16 @@ public class ContactUsRepository:IContactUsRepository
     public async Task DeleteContactUs(ContactUs contactUs)
     {
         _context.Update(contactUs);
-        await _context.SaveChangesAsync();
+       
     }
 
     public async Task<ICollection<ContactUs>> GetAll()
     {
         return await _context.ContactUs.Where(a => a.IsDelete == false).ToListAsync();
+    }
+
+    public async Task SaveAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }

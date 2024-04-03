@@ -21,8 +21,7 @@ public class CaseMessageRepository:ICaseMessageRepository
     public async Task<CaseMessage> CreateCaseMessage(CaseMessage caseMessage)
     {
        await _context.AddAsync(caseMessage);
-       await _context.SaveChangesAsync();
-        return caseMessage;
+       return caseMessage;
     }
 
 
@@ -40,5 +39,10 @@ public class CaseMessageRepository:ICaseMessageRepository
     public async Task<bool> IsCreatedBefor(int id)
     {
         return await _context.CaseMessages.AnyAsync(a => a.Id == id);
+    }
+
+    public async Task SaveAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }

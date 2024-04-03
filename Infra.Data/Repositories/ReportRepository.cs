@@ -22,13 +22,12 @@ public class ReportRepository:IReportRepository
     public async Task AddReport(ReportContent content)
     {
         await _blogContext.AddAsync(content);
-        await _blogContext.SaveChangesAsync();
+      
     }
 
     public async Task RemoveReport(ReportContent content)
     {
          _blogContext.Remove(content);
-         await _blogContext.SaveChangesAsync();
     }
 
     public async Task<ReportContent> GetReport(int id)
@@ -47,5 +46,9 @@ public class ReportRepository:IReportRepository
             contentId = a.ContentId
         }));
         return model;
+    }
+    public async Task SaveAsync()
+    {
+        await _blogContext.SaveChangesAsync();
     }
 }

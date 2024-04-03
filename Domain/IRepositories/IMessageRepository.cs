@@ -10,5 +10,6 @@ public interface IMessageRepository
     public Task<Message> GetMessageById(int id);
     public Task<bool> CreatedMessageBefor(int id);
     public Task<int> MessageCount();
+    public Task SaveAsync();
 
 }

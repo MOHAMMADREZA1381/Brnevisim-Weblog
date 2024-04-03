@@ -19,7 +19,7 @@ public class BookmarkRepository:IBookmarkRepository
     public async Task AddBookmark(Bookmark bookmark)
     {
        await _blogContext.AddAsync(bookmark);
-       await _blogContext.SaveChangesAsync();
+       
     }
 
     public async Task<FilterBookmarkViewModel> FiltertBookmarks(FilterBookmarkViewModel model)
@@ -48,12 +48,17 @@ public class BookmarkRepository:IBookmarkRepository
     public async Task RemoveFromBookmark(Bookmark model)
     {
          _blogContext.Bookmarks.Remove(model);
-        await _blogContext.SaveChangesAsync();
+       
     }
 
     public async Task<Bookmark> getBookmark(int ContentId, int UserId)
     {
         return await _blogContext.Bookmarks.Where(a => a.ContentId == ContentId && a.UserId == UserId).Include(a => a.Content).ThenInclude(a => a.ContentViewsCollection).Include(a => a.User).FirstOrDefaultAsync();
 
+    }
+
+    public async Task SaveAsync()
+    {
+        await _blogContext.SaveChangesAsync();
     }
 }

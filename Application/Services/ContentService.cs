@@ -48,6 +48,7 @@ public class ContentService : IContentService
 
 
         await _contentRepository.CreateContentTask(Content);
+        await _contentRepository.SaveAsync();
     }
 
     public async Task Edit(EditContentViewModel content)
@@ -73,6 +74,7 @@ public class ContentService : IContentService
         Content.id = content.id;
         Content.UserId = content.UserId;
         await _contentRepository.Edit(Content);
+        await _contentRepository.SaveAsync();
     }
 
     public async Task<ContentViewModel> GetContentById(int id)
@@ -332,6 +334,7 @@ public class ContentService : IContentService
             var Content=await _contentRepository.GetContentById(id);
             Content.ShowInGallery = true;
             await _contentRepository.Edit(Content);
+            await _contentRepository.SaveAsync();
         }
 
 
@@ -345,6 +348,7 @@ public class ContentService : IContentService
             var Content = await _contentRepository.GetContentById(id);
             Content.ShowInGallery = false;
             await _contentRepository.Edit(Content);
+            await _contentRepository.SaveAsync();
         }
     }
 

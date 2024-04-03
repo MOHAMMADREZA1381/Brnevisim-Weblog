@@ -22,7 +22,7 @@ namespace Infra.Data.Repositories
         public async Task Register(User user)
         {
             _context.Users.Add(user);
-            _context.SaveChanges();
+            
         }
 
         public async Task<bool> IsEmailAlreadyRegistered(string email)
@@ -40,7 +40,7 @@ namespace Infra.Data.Repositories
         public async Task GiveUserActiveRole(User user)
         {
             _context.Users.Update(user);
-            _context.SaveChanges();
+        
         }
 
         public async Task<User> GetUserEmail(string Email)
@@ -63,7 +63,7 @@ namespace Infra.Data.Repositories
         public async Task EditUser(User user)
         {
             _context.Update(user);
-            _context.SaveChanges();
+         
         }
 
         public async Task<FilterUserViewModel> GetFilterUserViewModel(FilterUserViewModel filterUserViewModel)
@@ -98,7 +98,10 @@ namespace Infra.Data.Repositories
             }));
             return filterUserViewModel;
         }
-
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
         public async Task<bool> IsUserExistById(int Id)
         {
             return await _context.Users.AnyAsync(a => a.Id == Id);

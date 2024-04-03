@@ -23,6 +23,7 @@ public class CategoryService : ICategoryService
         Category.Name = category.Name;
 
         await _categoryRepository.AddCategory(Category);
+        await _categoryRepository.SaveAsync();
     }
 
     public async Task EditCategory(EditCategoryViewModel category)
@@ -32,6 +33,7 @@ public class CategoryService : ICategoryService
         Category.id = category.id;
         Category.IsDeleted = category.IsDeleted;
         await _categoryRepository.EditCategory(Category);
+        await _categoryRepository.SaveAsync();
     }
 
     public async Task<CategoryViewModel> GetCategoryViewModelById(int id)
@@ -70,5 +72,6 @@ public class CategoryService : ICategoryService
         var Category = await GetCategoryById(id);
         Category.IsDeleted = true;
         await _categoryRepository.EditCategory(Category);
+        await _categoryRepository.SaveAsync();
     }
 }

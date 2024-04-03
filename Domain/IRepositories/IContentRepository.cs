@@ -14,4 +14,6 @@ public interface IContentRepository
     public Task<UserPanelContents> GetUserContent(UserPanelContents contents);
    public  Task<ICollection<Content>> GetContentsByUserId(int userId);
    public Task<ICollection<Content>> GetContentForGaller();
+   public Task SaveAsync();
+
 }

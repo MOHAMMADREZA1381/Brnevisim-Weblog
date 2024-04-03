@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Data.Repositories;
 
-public class ViewCountRepository:IViewCountRepository
+public class ViewCountRepository : IViewCountRepository
 {
     #region Context
     private readonly BlogContext _context;
@@ -20,7 +20,7 @@ public class ViewCountRepository:IViewCountRepository
     public async Task AddView(ContentViews contentViews)
     {
         await _context.AddAsync(contentViews);
-            await _context.SaveChangesAsync();
+            
     }
 
     public async Task<bool> IsAnyIp(string UserIp,int ContentId)
@@ -28,9 +28,14 @@ public class ViewCountRepository:IViewCountRepository
         return await _context.Views.AnyAsync(a=>a.UserIp==UserIp && a.ContentId==ContentId);
     }
 
+    public async Task SaveAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<int> ViewCount()
     {
-      var Views= await _context.Views.Where(a => a.ViewDate == DateTime.Now).ToListAsync();
+      var Views= await _context.Views.Where(a => a.ViewDate == DateTime.Now.Date).ToListAsync();
       return Views.Count();
     }
 }

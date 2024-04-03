@@ -32,6 +32,7 @@ public class UserService : IUserService
             MobileActivateCode = new Random().Next(10000,99999).ToString()
         };
         await _userRepository.Register(User);
+        await _userRepository.SaveAsync();
         return State.Success;
 
     }
@@ -52,6 +53,7 @@ public class UserService : IUserService
         user.IsActive = true;
         user.ActivateCode = Guid.NewGuid().ToString("N");
         await _userRepository.GiveUserActiveRole(user);
+        await _userRepository.SaveAsync();
     }
 
     public async Task<UserViewModel> GetUserEmail(string Email)
@@ -151,6 +153,7 @@ public class UserService : IUserService
         User.MobileActivateCode = viewModel.mobileActiveCode;
         User.MobileActivated = viewModel.MobileActivated;
         await _userRepository.EditUser(User);
+        await _userRepository.SaveAsync();
     }
 
     public async Task<FilterUserViewModel> FilterUser(FilterUserViewModel filterUser)
@@ -165,6 +168,7 @@ public class UserService : IUserService
         User.Password = NewPassword;
         User.ActivateCode = Guid.NewGuid().ToString();
         await _userRepository.EditUser(User);
+        await _userRepository.SaveAsync();
     }
 
     public async Task<bool> IsUserExistById(int Id)
@@ -195,6 +199,7 @@ public class UserService : IUserService
         User.Phone = model.phoneNumber;
         User.ActivateCode=Guid.NewGuid().ToString();
         await _userRepository.EditUser(User);
+        await _userRepository.SaveAsync();
     }
 
     public async Task ActiveMobile(int UserId, string Code)

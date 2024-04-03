@@ -24,7 +24,7 @@ namespace Infra.Data.Repositories
         {
            
                 await _context.AddAsync(following);
-                await _context.SaveChangesAsync();
+              
             
         }
 
@@ -32,7 +32,6 @@ namespace Infra.Data.Repositories
         {
            
                  _context.Remove(following);
-                await _context.SaveChangesAsync();
             
         }
 
@@ -95,6 +94,10 @@ namespace Infra.Data.Repositories
             ));
             model.Count=List.Count();
             return model;
+        }
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

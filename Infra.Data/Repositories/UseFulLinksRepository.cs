@@ -19,14 +19,13 @@ public class UseFulLinksRepository:IUseFulLinksRepository
     public async Task AddLink(UseFulLink link)
     {
         await _blogContext.AddAsync(link);
-        await _blogContext.SaveChangesAsync();
     }
 
     public async Task Delete(int id)
     {
         var Links = await Get(id);
         _blogContext.Remove(Links);
-        _blogContext.SaveChangesAsync();
+        
     }
 
     public async Task<UseFulLink> Get(int id)
@@ -44,7 +43,10 @@ public class UseFulLinksRepository:IUseFulLinksRepository
     {
         return await _blogContext.UseFulLinks.Where(a => a.Footer == true).ToListAsync();
     }
-
+    public async Task SaveAsync()
+    {
+        await _blogContext.SaveChangesAsync();
+    }
     public async Task<ICollection<UseFulLink>> GetHeaderLinks()
     {
         return await _blogContext.UseFulLinks.Where(a => a.Footer == false).ToListAsync();

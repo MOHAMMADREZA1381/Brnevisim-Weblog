@@ -8,4 +8,5 @@ public interface ICategoryRepository
     public Task EditCategory(Category category);
     public Task<Category> GetCategoryById(int id);
     public Task<List<Category>> GetAllCategories();
+    public Task SaveAsync();
 }

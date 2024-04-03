@@ -20,13 +20,13 @@ namespace Infra.Data.Repositories
         public async Task CreateContentTask(Content content)
         {
             _context.Add(content);
-            _context.SaveChanges();
+           
         }
 
         public async Task Edit(Content content)
         {
             _context.Update(content);
-            _context.SaveChanges();
+         
         }
 
         public Task<Content> GetContentById(int id)
@@ -113,6 +113,10 @@ namespace Infra.Data.Repositories
         public async Task<ICollection<Content>> GetContentForGaller()
         {
             return await _context.Contents.Where(a => a.ShowInGallery == true && a.IsDeleted==false).Include(a=>a.User).ToListAsync();
+        }
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

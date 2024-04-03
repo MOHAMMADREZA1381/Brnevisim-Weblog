@@ -23,7 +23,7 @@ public class ContactUsService : IContactUsService
         Contact.FullName = contactUs.FullName;
         Contact.Text = contactUs.Text;
         await _contactUs.AddContactUs(Contact);
-
+        await _contactUs.SaveAsync();
     }
 
     public async Task<ContactUsViewModel> GetContactUsById(int id)
@@ -43,6 +43,7 @@ public class ContactUsService : IContactUsService
         var ContactUs = await _contactUs.GetContactUsById(id);
         ContactUs.IsDelete = true;
         await _contactUs.DeleteContactUs(ContactUs);
+        await _contactUs.SaveAsync();
     }
 
     public async Task<ICollection<ContactUsViewModel>> GetAllContatcs()

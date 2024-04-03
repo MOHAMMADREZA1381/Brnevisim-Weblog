@@ -23,6 +23,7 @@ public class BookmarkService : IBookmarkService
 
         };
         await _bookmarkRepository.AddBookmark(Bookmark);
+        await _bookmarkRepository.SaveAsync();
     }
 
     public async Task<FilterBookmarkViewModel> GettBookmarkList(FilterBookmarkViewModel viewModel)
@@ -39,6 +40,7 @@ public class BookmarkService : IBookmarkService
     {
     
        await _bookmarkRepository.RemoveFromBookmark(model);
+       await _bookmarkRepository.SaveAsync();
     }
 
     public async Task<Bookmark> getBookmark(int ContentId, int UserId)

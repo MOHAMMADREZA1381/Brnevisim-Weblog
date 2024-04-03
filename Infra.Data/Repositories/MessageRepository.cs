@@ -20,13 +20,13 @@ public class MessageRepository:IMessageRepository
     {
 
         await _context.AddAsync(message); 
-        await _context.SaveChangesAsync();
+        
     }
 
     public async Task EditMessage(Message message)
     {
          _context.Update(message);
-       await _context.SaveChangesAsync();
+      
     }
 
     public async Task<Message> GetMessageById(int id)
@@ -45,5 +45,9 @@ public class MessageRepository:IMessageRepository
     {
            var Message= await _context.Messages.Where(a => a.IsDelete == false).ToListAsync();
            return Message.Count;
+    }
+    public async Task SaveAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }

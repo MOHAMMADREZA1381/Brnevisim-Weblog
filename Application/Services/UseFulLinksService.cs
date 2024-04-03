@@ -24,11 +24,13 @@ public class UseFulLinksService:IUseFulLinksService
         link.Footer= LinkViewModel.Footer;
         link.LinkName= LinkViewModel.LinkName;
         await _service.AddLink(link);
+        await _service.SaveAsync();
     }
 
     public async Task Delete(int id)
     {
        await _service.Delete(id);
+       await _service.SaveAsync();
     }
 
     public async Task<List<UseFulLinkViewModel>> GetLinks()

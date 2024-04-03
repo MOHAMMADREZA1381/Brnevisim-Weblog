@@ -22,14 +22,13 @@ namespace Infra.Data.Repositories
         public async Task AddCategory(Category category)
         {
             _context.Add(category);
-            _context.SaveChanges();
+           
         }
 
         public async Task EditCategory(Category category)
         {
             _context.Update(category);
-            _context.SaveChanges();
-
+            
         }
 
         public async Task<Category> GetCategoryById(int id)
@@ -42,6 +41,11 @@ namespace Infra.Data.Repositories
         public async Task<List<Category>> GetAllCategories()
         {
             return _context.Categories.Where(a=>a.IsDeleted==false).ToList();
+        }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

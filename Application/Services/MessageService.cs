@@ -47,6 +47,7 @@ public class MessageService : IMessageService
                 IsFirstMesage = message.IsFirstMessage,
             };
             await _messageRepository.AddMessage(MessageModel);
+            await _messageRepository.SaveAsync();
         }
     }
 
@@ -56,6 +57,8 @@ public class MessageService : IMessageService
         message.CaseId = Message.CaseId;
         Message.Text = message.text;
         await _messageRepository.EditMessage(Message);
+        await _messageRepository.SaveAsync();
+
     }
 
     public async Task DeleteMessage(int id)
@@ -66,10 +69,12 @@ public class MessageService : IMessageService
             var Case = await _caseMessageRepository.GetCaseMessage(Message.CaseId);
             Case.IsDelete = true;
            await _caseMessageRepository.EditCaseMessage(Case);
+           
         }
 
         Message.IsDelete = true;
         await _messageRepository.EditMessage(Message);
+        await _caseMessageRepository.SaveAsync();
     }
 
     public async Task<bool> CreatedBefor(int id)

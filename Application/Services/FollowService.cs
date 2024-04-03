@@ -42,6 +42,7 @@ namespace Application.Services
                 };
 
                 await _followRepository.AddFollow(FollowUser);
+                await _followRepository.SaveAsync();
             }
         }
 
@@ -49,7 +50,7 @@ namespace Application.Services
         {
             var Model = await this.GetFollowByIdTask(id);
             await _followRepository.RemoveFollow(Model);
-            
+            await _followRepository.SaveAsync();
         }
 
         public async Task RemoveByUsersId(int userId, int UserIdFollowed)

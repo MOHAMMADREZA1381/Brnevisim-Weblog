@@ -26,6 +26,7 @@ public class CaseMessageService:ICaseMessageService
             UserId = caseMessage.UserId,
         };
         await _caseMessage.CreateCaseMessage(Case);
+        await _caseMessage.SaveAsync();
         return caseMessage;
     }
 

@@ -14,5 +14,6 @@ public interface IFollowRepository
     public Task<Following> GetFollowByUsersId(int UserId,int UserIdFollowed);
     public Task<FiltertFollowViewModel> GetFilterFollowViewModel(FiltertFollowViewModel model);
     public Task<FiltertFollowViewModel> GetFilterFollowersViewModel(FiltertFollowViewModel model);
+    public Task SaveAsync();
 
 }

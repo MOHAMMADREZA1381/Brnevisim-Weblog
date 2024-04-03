@@ -28,7 +28,9 @@ namespace Application.Services
                 var ViewCount = new ContentViews();
                 ViewCount.ContentId = model.ContentId;
                 ViewCount.UserIp = model.UserIp;
+                ViewCount.ViewDate=DateTime.Now.Date;
                 await _countRepository.AddView(ViewCount);
+                await _countRepository.SaveAsync();
             }
         }
 

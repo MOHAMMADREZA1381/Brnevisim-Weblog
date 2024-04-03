@@ -10,6 +10,7 @@ public interface IUseFulLinksRepository
     public Task<ICollection<UseFulLink>> GetLinks();
     public Task<ICollection<UseFulLink>> GetFooterLinks();
     public Task<ICollection<UseFulLink>> GetHeaderLinks();
+    public Task SaveAsync();
 
 
 }
