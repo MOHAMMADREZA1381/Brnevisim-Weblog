@@ -17,6 +17,8 @@ namespace Domain.Models
         public string UserNameThatFollowed { get; set; }
         public int  UserId { get; set; }
 
+        public string? ImageProfile { get; set; }
+
         #region Relations
         [ForeignKey("UserId")]
         public User User { get; set; }

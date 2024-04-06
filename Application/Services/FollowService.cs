@@ -38,7 +38,7 @@ namespace Application.Services
                     UserId = followViewModel.UserId,
                     UserIdThatFollowed = followViewModel.UserIdThatFollowed,
                     UserNameThatFollowed = UserWntFollow.UserName,
-                    
+                    ImageProfile =UserWntFollow.picProfile
                 };
 
                 await _followRepository.AddFollow(FollowUser);

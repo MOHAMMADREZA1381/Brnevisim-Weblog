@@ -1,5 +1,5 @@
 ﻿ <!-- Navbar STart -->
- <header id="topnav" class="defaultscroll sticky ">
+<header id="topnav" class="defaultscroll sticky ">
     <div class="container">
         <!-- Logo container-->
         <div>
@@ -79,34 +79,35 @@
                         </li>
                     </ul>
                 </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="has-submenu parent-parent-menu-item">
+                        <a href="javascript:void(0)">صفحات </a><span class="menu-arrow"></span>
+                        <ul class="submenu">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @await Component.InvokeAsync("AdminMenu")
+                            }
 
-                <li class="has-submenu parent-parent-menu-item">
-                    <a href="javascript:void(0)">صفحات </a><span class="menu-arrow"></span>
-                    <ul class="submenu">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            @await Component.InvokeAsync("AdminMenu")
-                        }
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> حساب کاربری </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a asp-controller="Account" asp-action="UserPanel" class="sub-menu-item">پروفایل </a></li>
-                                <li><a asp-controller="Follow" asp-action="Follow" class="sub-menu-item"> کسانی را که دنبال می کنید </a></li>
-                                <li><a asp-controller="Follow" asp-action="Followers" class="sub-menu-item"> کسانی که شمارا دنبال می کنند </a></li>
-                                <li><a asp-controller="Account" asp-action="EditUserInfo" class="sub-menu-item">ویرایش حساب کاربری</a></li>
+                            <li class="has-submenu parent-menu-item">
+                                <a href="javascript:void(0)"> حساب کاربری </a><span class="submenu-arrow"></span>
+                                <ul class="submenu">
+                                    <li><a asp-controller="Account" asp-action="UserPanel" class="sub-menu-item">پروفایل </a></li>
+                                    <li><a asp-controller="Account" asp-action="EditUserInfo" class="sub-menu-item">ویرایش حساب کاربری</a></li>
 
-                            </ul>
-                        </li>
-                        <li><a asp-controller="Content" asp-action="CreateContent" class="sub-menu-item">داستان خودت رو بنویس!</a></li>
-                        <li><a asp-controller="Content" asp-action="Index" class="sub-menu-item"> همه محتوا ها </a></li>
-                        <li><a asp-controller="Bookmark" asp-action="Index" class="sub-menu-item">بوکمارک ها </a></li>
-                        @await Component.InvokeAsync("HeaderLink")
-                        <li><a asp-controller="ContactUs" asp-action="Index" class="sub-menu-item">  ارتباط با ما </a></li>
-                        <li><a asp-controller="Account" asp-action="Logout" class="sub-menu-item">خروج</a></li>
+                                </ul>
+                            </li>
 
-                    </ul>
-                </li>
+                            <li><a asp-controller="Content" asp-action="CreateContent" class="sub-menu-item">داستان خودت رو بنویس!</a></li>
+                            <li><a asp-controller="Content" asp-action="Index" class="sub-menu-item"> همه محتوا ها </a></li>
+                            <li><a asp-controller="Bookmark" asp-action="Index" class="sub-menu-item">بوکمارک ها </a></li>
+                            @await Component.InvokeAsync("HeaderLink")
+                            <li><a asp-controller="ContactUs" asp-action="Index" class="sub-menu-item"> ارتباط با ما </a></li>
+                            <li><a asp-controller="Account" asp-action="Logout" class="sub-menu-item">خروج</a></li>
 
+                        </ul>
+                    </li>
+                }
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
     </div><!--end container-->

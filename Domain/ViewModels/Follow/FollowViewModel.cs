@@ -18,6 +18,6 @@ namespace Domain.ViewModels.Follow
         [Required]
         public int UserId { get; set; }
 
-        public string UserProfile { get; set; }
+        public string? UserProfile { get; set; }
     }
 }

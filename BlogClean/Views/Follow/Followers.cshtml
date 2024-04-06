@@ -52,7 +52,7 @@
                                     <h6 class="mb-0 ms-2">کسانی که شمارا دنبال می کنند</h6>
                                 </a>
                             </li>
-                            
+
                             <li class="navbar-item account-menu px-0 mt-2 ">
                                 <a asp-controller="Bookmark" asp-action="Index" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                     <span class="h4 mb-0"><i class="uil uil-users-alt"></i></span>
@@ -91,23 +91,21 @@
                                 <div class="text-center">
                                     @if (item.UserProfile != null)
                                     {
-                                        <img src="@PathExtensions.UserAvatarThumb@item.UserProfile" style="width: 10% !important" class="avatar avatar-medium shadow-lg rounded-pill" alt="">
+                                        <img src="@PathExtensions.UserAvatarThumb@item.UserProfile" class="FollowImages avatar avatar-medium shadow-lg rounded-pill" alt="">
                                     }
                                     else
                                     {
-                                        <img src="images/blog/user.png" class=" shadow-lg rounded-pill" alt="">
+                                        <img src="images/blog/user.png" class="FollowImages shadow-lg rounded-pill" alt="">
 
                                     }
                                     <div class="content mt-3">
                                         <p>
                                             <a href="javascript:void(0)" class="h5 text-dark">@item.UserNameThatFollowed</a>
                                         </p>
-                                        <a href="javascript:void(0)" class="btn btn-primary"><i class=""></i>مشاهده پروفایل</a>
-
-                                        </div>
+                                        <a asp-controller="Account" asp-action="UserPanel" asp-route-UserClaims="@item.UserId" class="btn btn-primary"><i class=""></i>مشاهده پروفایل</a>
+                                    </div>
                                 </div>
                             </div>
-
                             <!--end col-->
                         }
                         @if (Model.Entities.Count != 0)

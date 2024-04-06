@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Data.Repositories
 {
-    public class FollowRepository:IFollowRepository
+    public class FollowRepository : IFollowRepository
     {
         #region Context
 
-        
+
 
         private readonly BlogContext _context;
 
@@ -22,59 +22,60 @@ namespace Infra.Data.Repositories
         #endregion
         public async Task AddFollow(Following following)
         {
-           
-                await _context.AddAsync(following);
-              
-            
+
+            await _context.AddAsync(following);
+
+
         }
 
         public async Task RemoveFollow(Following following)
         {
-           
-                 _context.Remove(following);
-            
+
+            _context.Remove(following);
+
         }
 
         public async Task<ICollection<Following>> GetFollows(int UserId)
         {
-            return await _context.Followings.Where(a => a.UserId == UserId).Include(a=>a.User).ToListAsync();
+            return await _context.Followings.Where(a => a.UserId == UserId).Include(a => a.User).ToListAsync();
         }
 
         public async Task<ICollection<Following>> GetFollowers(int UserId)
         {
-            return await _context.Followings.Where(a => a.UserIdThatFollowed == UserId).Include(a=>a.User).ToListAsync();
+            return await _context.Followings.Where(a => a.UserIdThatFollowed == UserId).Include(a => a.User).ToListAsync();
         }
 
         public async Task<bool> FollowedBefor(int UserId, int UserIdWntToFollow)
         {
-            return await _context.Followings.AnyAsync(a => a.UserId == UserId && a.UserIdThatFollowed==UserIdWntToFollow);
+            return await _context.Followings.AnyAsync(a => a.UserId == UserId && a.UserIdThatFollowed == UserIdWntToFollow);
         }
 
         public async Task<Following> GetFollowing(int id)
         {
-           return await _context.Followings.Where(a => a.Id == id).FirstOrDefaultAsync();
+            return await _context.Followings.Where(a => a.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<Following> GetFollowByUsersId(int UserId, int UserIdFollowed)
         {
-            var Follow = await _context.Followings.Where(a => a.UserId == UserId && a.UserIdThatFollowed ==UserIdFollowed).FirstOrDefaultAsync();
+            var Follow = await _context.Followings.Where(a => a.UserId == UserId && a.UserIdThatFollowed == UserIdFollowed).FirstOrDefaultAsync();
             return Follow;
         }
 
-        public async  Task<FiltertFollowViewModel> GetFilterFollowViewModel(FiltertFollowViewModel model)
+        public async Task<FiltertFollowViewModel> GetFilterFollowViewModel(FiltertFollowViewModel model)
         {
-             var List=  _context.Followings.Where(a => a.UserId == model.UserId).Include(a=>a.User).AsQueryable();
-             await model.Paging(List.Select(a => new FollowViewModel()
-             {
-                 UserId = a.UserId,
-                 Id = a.Id,
-                 UserIdThatFollowed = a.UserIdThatFollowed,
-                 UserProfile = a.User.UserImg,
-                 UserNameThatFollowed = a.UserNameThatFollowed,
-              
-             }
-             ));
-             model.Count = List.Count();
+            var List = _context.Followings.Where(a => a.UserId == model.UserId).Include(a => a.User).AsQueryable();
+            
+            await model.Paging(List.Select(a => new FollowViewModel()
+            {
+                UserId = a.UserId,
+                Id = a.Id,
+                UserIdThatFollowed = a.UserIdThatFollowed,
+                UserNameThatFollowed = a.UserNameThatFollowed,
+                UserProfile = a.ImageProfile
+            }
+            
+            ));
+            model.Count = List.Count();
 
             return model;
         }
@@ -88,11 +89,11 @@ namespace Infra.Data.Repositories
                 Id = a.Id,
                 UserIdThatFollowed = a.UserIdThatFollowed,
                 UserProfile = a.User.UserImg,
-                UserNameThatFollowed = a.UserNameThatFollowed,
+                UserNameThatFollowed = a.User.UserName,
 
             }
             ));
-            model.Count=List.Count();
+            model.Count = List.Count();
             return model;
         }
         public async Task SaveAsync()
