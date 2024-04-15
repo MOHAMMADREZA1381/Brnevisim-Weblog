@@ -1,6 +1,9 @@
 ﻿@using Application.ImageTools
 @model Domain.ViewModels.User.EditUserViewModel
+@{
+    ViewData["Title"] = "ویرایش اطلاعات";
 
+}
 
 
 <section class="bg-profile d-table w-100 bg-primary" style="background: url('images/account/bg.png') center center;">
@@ -13,7 +16,7 @@
                             @if (Model.UserImage != null)
                             {
                                 <div class="col-lg-2 col-md-3 text-md-start text-center">
-                                    <img src="@PathExtensions.UserAvatarOrgin@Model.UserImage" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
+                                    <img src="@PathExtensions.UserAvatarOrgin@Model.UserImage" class="UserPanelPicture  avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
                                 </div>
 
                                 <!--end col-->
@@ -21,7 +24,7 @@
                             else
                             {
                                 <div class="col-lg-2 col-md-3 text-md-start text-center">
-                                    <img src="images/blog/user-Details.png" class="avatar avatar-large img-fluid rounded-circle shadow d-block mx-auto" alt="">
+                                    <img src="images/blog/user-Details.png" class="UserPanelPicture  avatar avatar-large img-fluid rounded-circle shadow d-block mx-auto" alt="">
                                 </div>
 
                                 <!--end col-->
@@ -31,7 +34,7 @@
                                 <div class="row align-items-end">
                                     <div class="col-md-7 text-md-start text-center mt-4 mt-sm-0">
                                         <h3 class="title mb-0">@Model.UserName</h3>
-                                        <small class="text-muted h6 me-2">@Model.Email</small>
+                                        <small class="text-muted h6 me-2">@Model.Email.Substring(0, @Model.Email.IndexOf('@'))</small>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div><!--end col-->

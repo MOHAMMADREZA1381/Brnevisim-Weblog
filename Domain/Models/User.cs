@@ -39,6 +39,8 @@ namespace Domain.Models
         [Display(Name = "رمز عبور")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
+        [MinLength(7, ErrorMessage = "{0} نمی تواند کمتر از {1} کاراکتر باشد")]
+
         public string Password { get; set; }
 
         public string MobileActivateCode { get; set; }

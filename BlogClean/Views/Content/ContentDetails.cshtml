@@ -1,8 +1,13 @@
 ﻿@using Application.ImageTools
 @using Application.Convertor
 @using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
 @model Domain.ViewModels.Content.ContentDetailsViewModel
-
+@{
+    ViewData["Title"] = @Model.Content.Title;
+    ViewData["Details"] = @Model.Content.SubTitle;
+}
+<link href="~/css/details.css" rel="stylesheet" />
 <!-- Hero Start -->
 <section class="bg-half d-table w-100" style="background: url('@PathExtensions.ContentBannerOrgin@Model.Content.BannerName') center center;">
     <div class="bg-overlay"></div>
@@ -16,7 +21,6 @@
                                 <li class=""><a class="link-dark" asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
                                 <li class="bi bi-chevron-left"><a asp-action="Index" class="link-dark">وبلاگ</a></li>
                                 <li class="bi bi-chevron-left" aria-current="page">جزئیات وبلاگ</li>
-
                             </ul>
                         </nav>
                     </div>
@@ -27,6 +31,7 @@
 </section>
 
 
+
 <section class="section">
     <div class="container">
         <div class="row justify-content-center">
@@ -34,35 +39,41 @@
                 <div class="row">
 
 
+
                     <div class="col-md-10">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <div class="btn-group dropdown-info me-2 mt-2 mb-5">
+                            <div class="btn-group dropdown-info  ">
                                 <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     بیشتر
                                 </button>
                                 <div class="dropdown-menu" style="margin: 0px;">
-                                    @if (TempData["FollowBefor"] == "False")
+                                    @if (int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) != Model.Content.UserId)
                                     {
-                                        <a asp-route-id="@Model.Content.UserId" asp-controller="Follow" asp-action="Follow" class="dropdown-item">دنبال کردن</a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-route-UserIdWntUnFollow="@Model.Content.UserId" asp-controller="Follow" asp-action="UnByUsersIdFollow" class="dropdown-item"><i class=""></i>لغو دنبال کردن</a>
 
-                                    }
-                                    @if (TempData["AddToBookamrk"] == "False")
-                                    {
-                                        <a asp-route-ContentId="@Model.Content.id" asp-controller="Bookmark" asp-action="AddBookmark" class="dropdown-item">افزودن به بوکمارک</a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-route-ContentId="@Model.Content.id" asp-controller="Bookmark" asp-action="RemoveBookmark" class="dropdown-item">حذف از بوکمارک</a>
+                                        @if (TempData["FollowBefor"] == "False")
+                                        {
+                                            <a asp-route-id="@Model.Content.UserId" asp-controller="Follow" asp-action="Follow" class="dropdown-item">دنبال کردن</a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-route-UserIdWntUnFollow="@Model.Content.UserId" asp-controller="Follow" asp-action="UnByUsersIdFollow" class="dropdown-item"><i class=""></i>لغو دنبال کردن</a>
 
+                                        }
+
+                                        @if (TempData["AddToBookamrk"] == "False")
+                                        {
+                                            <a asp-route-ContentId="@Model.Content.id" asp-controller="Bookmark" asp-action="AddBookmark" class="dropdown-item">افزودن به بوکمارک</a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-route-ContentId="@Model.Content.id" asp-controller="Bookmark" asp-action="RemoveBookmark" class="dropdown-item">حذف از بوکمارک</a>
+
+                                        }
                                     }
 
-                                    @await Component.InvokeAsync("ContentOwner",Model.Content.id)
-                                    <div class="dropdown-divider"></div>
+                                    @await Component.InvokeAsync("ContentOwner", Model.Content.id)
+
                                 </div>
                             </div>
                         }
@@ -79,34 +90,34 @@
                                         }
                                     </i>  @Model.Content.UserName
                                 </a>
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
+                                @if (User.Identity.IsAuthenticated)
+                                {
                                     <!-- Button trigger modal -->
                                     <span data-bs-toggle="modal" data-bs-target="#exampleModal" class="badge bg-soft-danger me-2 mt-2 Pointer"> گرازش</span>
-                                    }
+                                }
 
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">ارسال گزارش </h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <form asp-controller="Content" asp-action="ReportContent">
-                                                    <div class="modal-body">
-                                                        <input type="hidden" name="ContentId" value="@Model.Content.id" />
-                                                        <input type="text" class="form-control ps-5" name="ReportText"  placeholder="علت گزارش" />
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
-                                                        <button type="submit" class="btn btn-primary">ارسال </button>
-                                                    </div>
-                                                </form>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">ارسال گزارش </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
+                                            <form asp-controller="Content" asp-action="ReportContent">
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="ContentId" value="@Model.Content.id" />
+                                                    <input type="text" class="form-control ps-5" name="ReportText" placeholder="علت گزارش" />
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                                                    <button type="submit" class="btn btn-primary">ارسال </button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
+                                </div>
 
 
 
@@ -116,13 +127,11 @@
                         </ul>
                         <img src="@PathExtensions.ContentBannerOrgin@Model.Content.BannerName" class="img-fluid rounded-md shadow" alt="">
 
-                        <h5 class="mt-4">@Model.Content.Title</h5>
+                        <h5 class="mt-4"> @Model.Content.Title</h5>
+                        <div id="pos-article-text-card-95690"></div>
 
+                        <p class="text-muted">@Html.Raw(@Model.Content.ContentText)</p>
 
-
-
-
-                        <p class="text-muted">@Model.Content.ContentText</p>
                         @if (Model.Content.CaseList.Count != 0)
                         {
                             <h5 class="mt-4">نظرات :</h5>
@@ -154,17 +163,23 @@
                                                     </div>
                                                     @if (User.Identity != null && User.Identity.IsAuthenticated)
                                                     {
-                                                        @if (message.UserId == int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
-                                                        {
-                                                            <a class="text-danger Pointer Edit Delete" asp-controller="Message" asp-action="DeletMessage" asp-route-MessageId="@message.id" asp-route-ContentId="@Model.Content.id"><i class="bi bi-trash"></i> حذف </a>
-                                                            <a onclick="EditMessage(@message.id)" class="text-warning Pointer Edit" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i> ویرایش </a>
-                                                            <partial name="_EditMessageModal" model="Model.MessageViewModel" />
 
-                                                        }
                                                         <a href="#scrollspyHeading1" onclick="Reply(@item.id)" class="text-muted Pointer"><i class="bi bi-reply"></i> پاسخ </a>
                                                     }
                                                 </div>
-                                                <div class="mt-3">
+                                                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                                                {
+                                                    <div class="d-flex justify-content-between float-end mt-2 ">
+                                                        @if (message.UserId == int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                                                        {
+                                                            <a class="text-danger Pointer  mx-3" asp-controller="Message" asp-action="DeletMessage" asp-route-MessageId="@message.id" asp-route-ContentId="@Model.Content.id"><i class="bi bi-trash"></i> حذف </a>
+                                                            <a onclick="EditMessage(@message.id)" class="text-warning Pointer" data-bs-toggle="modal" data-bs-target="#exampleModal1"><i class="bi bi-pencil"></i> ویرایش </a>
+                                                            <partial name="_EditMessageModal" model="Model.MessageViewModel" />
+
+                                                        }
+                                                    </div>
+                                                }
+                                                <div class="mt-5">
                                                     <p id="Comment+@message.id" class="text-muted fst-italic p-3 bg-light rounded">"@message.text"</p>
                                                 </div>
                                             </li>
@@ -193,17 +208,23 @@
                                                         </div>
                                                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                                                         {
-                                                            @if (message.UserId == int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
-                                                            {
-                                                                <a class="text-danger Pointer Edit Delete" asp-controller="Message" asp-action="DeletMessage" asp-route-MessageId="@message.id" asp-route-ContentId="@Model.Content.id"><i class="bi bi-trash"></i> حذف </a>
-
-                                                                <a onclick="EditMessage(@message.id)" class="text-warning Pointer Edit" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i> ویرایش </a> @*Modal For Edit*@
-                                                                <partial name="_EditMessageModal" model="Model.MessageViewModel" />
-                                                            }
                                                             <a href="#scrollspyHeading1" onclick="Reply(@item.id)" class="text-muted Pointer"><i class="bi bi-reply"></i> پاسخ </a>
                                                         }
                                                     </div>
-                                                    <div class="mt-3">
+                                                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                                                    {
+                                                        <div class="d-flex justify-content-between float-end mt-2 ">
+                                                            @if (message.UserId == int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                                                            {
+                                                                <a class="text-danger Pointer  mx-3" asp-controller="Message" asp-action="DeletMessage" asp-route-MessageId="@message.id" asp-route-ContentId="@Model.Content.id"><i class="bi bi-trash"></i> حذف </a>
+                                                                <a onclick="EditMessage(@message.id)" class="text-warning Pointer" data-bs-toggle="modal" data-bs-target="#exampleModal1"><i class="bi bi-pencil"></i> ویرایش </a>
+                                                                <partial name="_EditMessageModal" model="Model.MessageViewModel" />
+
+                                                            }
+                                                        </div>
+                                                    }
+
+                                                    <div class="mt-5">
                                                         <p id="Comment+@message.id" class="text-muted fst-italic p-3 bg-light rounded">"@message.text"</p>
                                                     </div>
                                                 </li>
@@ -271,6 +292,7 @@
 
 
 }
+
 
 
 

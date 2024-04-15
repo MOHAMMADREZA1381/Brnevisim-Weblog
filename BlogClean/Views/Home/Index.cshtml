@@ -3,6 +3,7 @@
 @model Domain.ViewModels.Home.HomeViewModel
 @{
     ViewData["Title"] = "صفحه اصلی";
+    ViewData["Details"] = "پست های اخیر همین الان داستان خودت رو بنویس بنویسیم تولید محتوا ";
 }
 
 
@@ -101,19 +102,41 @@
                 {
                     @foreach (var item in Model.GalleryCollection)
                     {
-                    <div class="galleryImages carousel-item mt-4 @(Model.GalleryCollection.First() == item ? "active" : "")" data-bs-interval="3000">
+                    <div @* style="height: 355px !important" *@ class="GalleryResponse galleryImages carousel-item mt-4 @(Model.GalleryCollection.First() == item ? "active" : "")" data-bs-interval="3000">
                         <div class="bg-half-170 banner" style="background: url('@PathExtensions.ContentBannerOrgin@item.BannerName') center center;">
                             <div class="bg-overlay"></div>
                             <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class=" col-12">
-                                        <div class="title-heading text-center">
-                                            <h2 class="Gallery-text text-white title-dark mb-3">@item.Title</h2>
+                                <div class="row justify-content-center"  >
+                                    <div  class=" col-12">
+                                        <div style="margin-top: -55px !important" class="title-heading text-center">
+                                            <h2 class="Gallery-text text-white title-dark mb-3">
+                                                @if(item.Title.Length>28){
+                                                    item.Title = item.Title.Substring(0, 28) + "...";
+                                                    @item.Title
+                                                    ;
+
+                                                }
+                                                else
+                                                {
+                                                    @item.Title
+
+                                                }
+                                            </h2>
                                             <ul class="Gallery-text list-unstyled d-none d-md-block">
                                                 <li class="list-inline-item small user text-white-50 me-2"><i class="uil uil-user text-white title-dark"></i>@item.UserName</li>
                                                 <li class="list-inline-item small date text-white-50"><i class="uil uil-calendar-alt text-white title-dark"></i>@ConvertDateToShamsi.ConvertDateToSh(item.CreateDate)</li>
                                             </ul>
-                                            <p class="Gallery-text para-desc mx-auto text-white-50 mb-0">@item.SubTitle</p>
+                                            <p class="Gallery-text para-desc mx-auto text-white-50 mb-0">
+                                                @if(item.SubTitle.Length>145){
+                                                    item.SubTitle = item.SubTitle.Substring(0, 145) + "...";
+                                                    @item.SubTitle
+                                                    ;
+                                                }
+                                                else
+                                                {
+                                                    @item.SubTitle
+                                                }
+                                            </p>
                                             <div class="mt-4">
                                                 <a asp-controller="Content" asp-action="ContentDetails" asp-route-id="@item.id" class="btn btn-primary">ادامه مطلب </a>
                                             </div>

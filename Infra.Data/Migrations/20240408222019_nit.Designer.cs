@@ -12,18 +12,41 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Data.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    [Migration("20240224173205_fix-rel")]
-    partial class fixrel
+    [Migration("20240408222019_nit")]
+    partial class nit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain.Models.Bookmark", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("ContentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("ContentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Bookmarks");
+                });
 
             modelBuilder.Entity("Domain.Models.CaseMessage", b =>
                 {
@@ -134,6 +157,9 @@ namespace Infra.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("ShowInGallery")
+                        .HasColumnType("bit");
+
                     b.Property<string>("SubTitle")
                         .IsRequired()
                         .HasMaxLength(180)
@@ -150,9 +176,6 @@ namespace Infra.Data.Migrations
                         .HasColumnType("nvarchar(120)");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ViewCount")
                         .HasColumnType("int");
 
                     b.HasKey("id");
@@ -175,11 +198,14 @@ namespace Infra.Data.Migrations
                     b.Property<int>("ContentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserIp")
-                        .HasColumnType("int");
+                    b.Property<string>("UserIp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ViewDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("id");
 
@@ -188,6 +214,34 @@ namespace Infra.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Views");
+                });
+
+            modelBuilder.Entity("Domain.Models.Following", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageProfile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserIdThatFollowed")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserNameThatFollowed")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Followings");
                 });
 
             modelBuilder.Entity("Domain.Models.Message", b =>
@@ -215,7 +269,8 @@ namespace Infra.Data.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -231,6 +286,53 @@ namespace Infra.Data.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("Domain.Models.ReportContent", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("ContentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReportText")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("ContentId");
+
+                    b.ToTable("ReportContents");
+                });
+
+            modelBuilder.Entity("Domain.Models.UseFulLink", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Footer")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LinkName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("UseFulLinks");
+                });
+
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -242,6 +344,10 @@ namespace Infra.Data.Migrations
                     b.Property<string>("ActivateCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Bio")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -257,14 +363,21 @@ namespace Infra.Data.Migrations
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
+                    b.Property<string>("MobileActivateCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("MobileActivated")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(400)
                         .HasColumnType("nvarchar(400)");
 
-                    b.Property<int?>("Phone")
+                    b.Property<string>("Phone")
                         .HasMaxLength(400)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<string>("UserImg")
                         .HasColumnType("nvarchar(max)");
@@ -277,6 +390,25 @@ namespace Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Domain.Models.Bookmark", b =>
+                {
+                    b.HasOne("Domain.Models.Content", "Content")
+                        .WithMany("Bookmarks")
+                        .HasForeignKey("ContentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.User", "User")
+                        .WithMany("Bookmarks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Content");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.CaseMessage", b =>
@@ -325,13 +457,21 @@ namespace Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.User", "User")
+                    b.HasOne("Domain.Models.User", null)
                         .WithMany("ViewsCollection")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Content");
+                });
+
+            modelBuilder.Entity("Domain.Models.Following", b =>
+                {
+                    b.HasOne("Domain.Models.User", "User")
+                        .WithMany("Followings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Content");
 
                     b.Navigation("User");
                 });
@@ -363,6 +503,17 @@ namespace Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Models.ReportContent", b =>
+                {
+                    b.HasOne("Domain.Models.Content", "Content")
+                        .WithMany()
+                        .HasForeignKey("ContentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Content");
+                });
+
             modelBuilder.Entity("Domain.Models.CaseMessage", b =>
                 {
                     b.Navigation("Messages");
@@ -375,6 +526,8 @@ namespace Infra.Data.Migrations
 
             modelBuilder.Entity("Domain.Models.Content", b =>
                 {
+                    b.Navigation("Bookmarks");
+
                     b.Navigation("CaseMessages");
 
                     b.Navigation("ContentViewsCollection");
@@ -382,7 +535,11 @@ namespace Infra.Data.Migrations
 
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
+                    b.Navigation("Bookmarks");
+
                     b.Navigation("Contents");
+
+                    b.Navigation("Followings");
 
                     b.Navigation("ViewsCollection");
                 });

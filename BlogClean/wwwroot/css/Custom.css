@@ -114,6 +114,10 @@ a {
     height: 80px !important;
 }
 
+.UserPanelPicture {
+    height: auto !important;
+    width: 105px !important;
+}
 
 @media only screen and (min-width:400px) and (max-width:900px) {
 
@@ -151,5 +155,32 @@ a {
     }
     .Gallery-text {
         font-size: 20px !important;
+    }
+}
+@media only screen and (min-width:340px) {
+
+    .GalleryResponse {
+        height: 385px !important;
+    }
+}
+
+@media only screen and (min-width:575px) and (max-width:765px) {
+
+    .GalleryResponse {
+        height: 415px !important;
+    }
+}
+
+
+@media only screen and (min-width:766px) and (max-width:993px) {
+
+    .GalleryResponse {
+        height: 555px !important;
+    }
+}
+@media only screen and (min-width:994px)  {
+
+    .GalleryResponse {
+        height: 555px !important;
     }
 }

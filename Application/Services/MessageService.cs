@@ -34,6 +34,7 @@ public class MessageService : IMessageService
                 AddCaseMessage.UserId = message.UserId;
                 AddCaseMessage.CreateDate = DateTime.Now;
                 AddCaseMessage = await _caseMessageRepository.CreateCaseMessage(AddCaseMessage);
+                await _caseMessageRepository.SaveAsync();
                 message.IsFirstMessage = true;
                 message.CaseId = AddCaseMessage.Id;
             }

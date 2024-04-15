@@ -28,7 +28,7 @@ namespace BlogClean.Controllers
             HomeViewModel.GalleryCollection = await _contentService.GetContentForGallery();
             return View(HomeViewModel);
         }
-
+        [Route("Privacy")]
         public IActionResult Privacy()
         {
             return View();
