@@ -6,17 +6,17 @@ namespace Application.Interfaces;
 
 public interface IFollowService
 {
-    public Task AddFollow(FollowViewModel followViewModel);
-    public Task RemoveFollow(int id);
-    public Task RemoveByUsersId(int userId, int UserIdFollowed);
-    public Task<ICollection<FollowViewModel>> GetFollows(int UserId);
-    public Task<ICollection<FollowViewModel>> GetFollowers(int UserId);
-    public Task<bool> FollowedBefor(int UserId, int UserIdWntToFollow);
-    public Task<Following> GetFollowByIdTask(int Id);
-    public Task<Following> GetFollowByUsersId(int userId, int UserIdFollowed);
+     Task AddFollow(FollowViewModel followViewModel);
+     Task RemoveFollow(int id);
+     Task RemoveByUsersId(int userId, int UserIdFollowed);
+     Task<ICollection<FollowViewModel>> GetFollows(int UserId);
+     Task<ICollection<FollowViewModel>> GetFollowers(int UserId);
+     Task<bool> FollowedBefor(int UserId, int UserIdWntToFollow);
+     Task<Following> GetFollowByIdTask(int Id);
+     Task<Following> GetFollowByUsersId(int userId, int UserIdFollowed);
 
-    public Task<FiltertFollowViewModel> GetFilterFollowViewModel(FiltertFollowViewModel model);
-    public Task<FiltertFollowViewModel> GetFilterFollowersViewModel(FiltertFollowViewModel model);
+     Task<FiltertFollowViewModel> GetFilterFollowViewModel(FiltertFollowViewModel model);
+     Task<FiltertFollowViewModel> GetFilterFollowersViewModel(FiltertFollowViewModel model);
 
 
 }

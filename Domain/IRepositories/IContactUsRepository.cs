@@ -4,9 +4,9 @@ namespace Domain.IRepositories;
 
 public interface IContactUsRepository
 {
-    public  Task AddContactUs(ContactUs contactUs);
-    public Task<ContactUs> GetContactUsById(int id);
-    public Task DeleteContactUs(ContactUs contactUs);
-    public Task<ICollection<ContactUs>> GetAll();
-    public Task SaveAsync();
+      Task AddContactUs(ContactUs contactUs);
+     Task<ContactUs> GetContactUsById(int id);
+     Task DeleteContactUs(ContactUs contactUs);
+     Task<ICollection<ContactUs>> GetAll();
+     Task SaveAsync();
 }

@@ -5,7 +5,7 @@ namespace Application.Interfaces;
 
 public interface IViewCountService
 {
-    public Task AddView(ViewCountViewModel model);
-    public Task<bool> IsAnyIp(string UserIp,int ContentId);
-    public Task<int> ViewCount();
+     Task AddView(ViewCountViewModel model);
+     Task<bool> IsAnyIp(string UserIp,int ContentId);
+     Task<int> ViewCount();
 }

@@ -5,8 +5,8 @@ namespace Application.Interfaces;
 
 public interface IReportContentService
 {
-    public Task AddReport(AddReportViewModel content);
-    public Task RemoveReport(int id);
-    public Task<ReportContent> GetReport(int id);
-    public Task<FilterReportViewModel> GetLisTask(FilterReportViewModel viewModel);
+     Task AddReport(AddReportViewModel content);
+     Task RemoveReport(int id);
+     Task<ReportContent> GetReport(int id);
+     Task<FilterReportViewModel> GetLisTask(FilterReportViewModel viewModel);
 }

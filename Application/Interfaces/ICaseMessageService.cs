@@ -5,8 +5,8 @@ namespace Application.Interfaces;
 
 public interface ICaseMessageService
 {
-    public Task<CaseMessageViewModel> CreateCaseMessage(CaseMessageViewModel caseMessage);
-    public Task EditCaseMessage(CaseMessageViewModel caseMessage);
-    public Task<CaseMessageViewModel> GetCaseMessage(int id);
-    public Task<bool> IsCreatedBefor(int id);
+     Task<CaseMessageViewModel> CreateCaseMessage(CaseMessageViewModel caseMessage);
+     Task EditCaseMessage(CaseMessageViewModel caseMessage);
+     Task<CaseMessageViewModel> GetCaseMessage(int id);
+     Task<bool> IsCreatedBefor(int id);
 }

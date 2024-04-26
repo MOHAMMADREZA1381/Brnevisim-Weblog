@@ -5,10 +5,10 @@ namespace Application.Interfaces;
 
 public interface ICategoryService
 {
-    public Task AddCategory(AddCategoryViewModel category);
-    public Task EditCategory(EditCategoryViewModel category);
-    public Task<CategoryViewModel> GetCategoryViewModelById(int id);
-    public Task<List<CategoryViewModel>> GetAllCategories();
-    public Task<Category> GetCategoryById(int id);
-    public Task DeleteCategory(int id);
+     Task AddCategory(AddCategoryViewModel category);
+     Task EditCategory(EditCategoryViewModel category);
+     Task<CategoryViewModel> GetCategoryViewModelById(int id);
+     Task<List<CategoryViewModel>> GetAllCategories();
+     Task<Category> GetCategoryById(int id);
+     Task DeleteCategory(int id);
 }

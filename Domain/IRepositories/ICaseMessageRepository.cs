@@ -4,9 +4,9 @@ namespace Domain.IRepositories;
 
 public interface ICaseMessageRepository
 {
-    public Task<CaseMessage> CreateCaseMessage(CaseMessage caseMessage);
-    public Task EditCaseMessage(CaseMessage caseMessage);
-    public Task<CaseMessage> GetCaseMessage(int id);
-    public Task<bool> IsCreatedBefor(int id);
-    public Task SaveAsync();
+     Task<CaseMessage> CreateCaseMessage(CaseMessage caseMessage);
+     Task EditCaseMessage(CaseMessage caseMessage);
+     Task<CaseMessage> GetCaseMessage(int id);
+     Task<bool> IsCreatedBefor(int id);
+     Task SaveAsync();
 }

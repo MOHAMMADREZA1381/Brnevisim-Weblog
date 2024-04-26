@@ -5,9 +5,9 @@ namespace Application.Interfaces;
 
 public interface IUseFulLinksService
 {
-    public Task AddLink(LinksViewModel link);
-    public Task Delete(int id);
-    public Task<List<UseFulLinkViewModel>> GetLinks();
-    public Task<ICollection<LinksViewModel>> GetFooterLinks();
-    public Task<ICollection<LinksViewModel>> GetHeaderLinks();
+     Task AddLink(LinksViewModel link);
+     Task Delete(int id);
+     Task<List<UseFulLinkViewModel>> GetLinks();
+     Task<ICollection<LinksViewModel>> GetFooterLinks();
+     Task<ICollection<LinksViewModel>> GetHeaderLinks();
 }

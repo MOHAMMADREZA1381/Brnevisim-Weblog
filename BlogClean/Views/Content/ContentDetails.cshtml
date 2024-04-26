@@ -9,7 +9,7 @@
 }
 <link href="~/css/details.css" rel="stylesheet" />
 <!-- Hero Start -->
-<section class="bg-half d-table w-100" style="background: url('@PathExtensions.ContentBannerOrgin@Model.Content.BannerName') center center;">
+<section class="bg-half d-table w-100"  style="background: url('@PathExtensions.ContentBannerOrgin@Model.Content.BannerName') center center;">
     <div class="bg-overlay"></div>
     <div class="container">
         <div class="row justify-content-center">
@@ -86,7 +86,7 @@
                                     <i class="@(Model.Content.ProfilePicture == null ? "uil uil-user text-dark" : "")">
                                         @if (Model.Content.ProfilePicture != null)
                                         {
-                                            <img class="rounded-circle ProfilePicture" src="@PathExtensions.UserAvatarOrgin@Model.Content.ProfilePicture" />
+                                            <img alt="profilePic" class="rounded-circle ProfilePicture" src="@PathExtensions.UserAvatarOrgin@Model.Content.ProfilePicture" />
                                         }
                                     </i>  @Model.Content.UserName
                                 </a>
@@ -125,14 +125,30 @@
 
                             <li class="list-inline-item date text-muted"><i class="uil uil-calendar-alt text-dark"></i>@ConvertDateToShamsi.ConvertDateToSh(@Model.Content.CreateDate)</li>
                         </ul>
-                        <img src="@PathExtensions.ContentBannerOrgin@Model.Content.BannerName" class="img-fluid rounded-md shadow" alt="">
+                        <img alt="Banner" src="@PathExtensions.ContentBannerOrgin@Model.Content.BannerName" class="img-fluid rounded-md shadow" alt="">
 
-                        <h5 class="mt-4"> @Model.Content.Title</h5>
+                        <h1 class="mt-4"> @Model.Content.Title</h1>
                         <div id="pos-article-text-card-95690"></div>
 
                         <p class="text-muted">@Html.Raw(@Model.Content.ContentText)</p>
+                        
+                    
+                    
+                    <amp-ad
+                        width="100"
+                        height="134"
+                        heights="(min-width: 768px) 60%, 134%"
+                        layout="responsive"
+                        type="yektanet"
+                        data-publisher-name="benevisim.com"
+                        data-script-name="native-amp-benevisim.com-1713200486.353041.js"
+                        data-pos-id="pos-article-display-95717"
+                    >
+                    </amp-ad>
+                    
+                    
 
-                        @if (Model.Content.CaseList.Count != 0)
+                    @if (Model.Content.CaseList.Count != 0)
                         {
                             <h5 class="mt-4">نظرات :</h5>
                             <ul class="media-list list-unstyled mb-0">
@@ -149,11 +165,11 @@
                                                         <a class="pe-3" href="#">
                                                             @if (message.ProfileNamePic == null)
                                                             {
-                                                                <img src="images/blog/user.png" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                                <img alt="profilePic" src="images/blog/user.png" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
                                                             }
                                                             else
                                                             {
-                                                                <img src="@PathExtensions.UserAvatarOrgin@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                                <img alt="profilePic" src="@PathExtensions.UserAvatarOrgin@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
                                                             }
                                                         </a>
                                                         <div class="flex-1 commentor-detail">
@@ -194,11 +210,11 @@
                                                             <a class="pe-3" href="#">
                                                                 @if (message.ProfileNamePic == null)
                                                                 {
-                                                                    <img src="images/blog/user.png" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                                    <img alt="profilePic" src="images/blog/user.png" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
                                                                 }
                                                                 else
                                                                 {
-                                                                    <img src="@PathExtensions.UserAvatarOrgin@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                                    <img alt="profilePic" src="@PathExtensions.UserAvatarOrgin@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
                                                                 }
                                                             </a>
                                                             <div class="commentor-detail">

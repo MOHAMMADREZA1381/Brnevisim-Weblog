@@ -4,10 +4,10 @@ namespace Application.Interfaces;
 
 public interface IMessageService
 {
-    public Task AddMessage(MessageViewModel message);
-    public Task EditMessage(MessageViewModel message);
-    public Task DeleteMessage(int id);
-    public Task<bool> CreatedBefor(int id);
-    public Task<bool> MessageBlongToUser(int UserId,int MessageId);
-    public Task<int> messageCount();
+     Task AddMessage(MessageViewModel message);
+     Task EditMessage(MessageViewModel message);
+     Task DeleteMessage(int id);
+     Task<bool> CreatedBefor(int id);
+     Task<bool> MessageBlongToUser(int UserId,int MessageId);
+     Task<int> messageCount();
 }

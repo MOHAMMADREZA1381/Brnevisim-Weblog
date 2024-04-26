@@ -5,11 +5,11 @@ namespace Domain.IRepositories;
 
 public interface IMessageRepository
 {
-    public  Task AddMessage(Message message);
-    public Task EditMessage(Message message);
-    public Task<Message> GetMessageById(int id);
-    public Task<bool> CreatedMessageBefor(int id);
-    public Task<int> MessageCount();
-    public Task SaveAsync();
+      Task AddMessage(Message message);
+     Task EditMessage(Message message);
+     Task<Message> GetMessageById(int id);
+     Task<bool> CreatedMessageBefor(int id);
+     Task<int> MessageCount();
+     Task SaveAsync();
 
 }

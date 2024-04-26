@@ -5,10 +5,10 @@ namespace Domain.IRepositories;
 
 public interface IBookmarkRepository
 {
-    public Task AddBookmark(Bookmark bookmark);
-    public Task<FilterBookmarkViewModel> FiltertBookmarks(FilterBookmarkViewModel model);
-    public Task<bool> AddeBefor(int ContentId, int UserId);
-    public Task RemoveFromBookmark(Bookmark model);
-    public Task<Bookmark> getBookmark(int ContentId, int UserId);
-    public Task SaveAsync();
+     Task AddBookmark(Bookmark bookmark);
+     Task<FilterBookmarkViewModel> FiltertBookmarks(FilterBookmarkViewModel model);
+     Task<bool> AddeBefor(int ContentId, int UserId);
+     Task RemoveFromBookmark(Bookmark model);
+     Task<Bookmark> getBookmark(int ContentId, int UserId);
+     Task SaveAsync();
 }

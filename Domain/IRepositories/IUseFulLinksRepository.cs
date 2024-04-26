@@ -4,13 +4,13 @@ namespace Domain.IRepositories;
 
 public interface IUseFulLinksRepository
 {
-    public Task AddLink(UseFulLink link);
-    public Task Delete(int id);
-    public Task<UseFulLink> Get(int id);
-    public Task<ICollection<UseFulLink>> GetLinks();
-    public Task<ICollection<UseFulLink>> GetFooterLinks();
-    public Task<ICollection<UseFulLink>> GetHeaderLinks();
-    public Task SaveAsync();
+     Task AddLink(UseFulLink link);
+     Task Delete(int id);
+     Task<UseFulLink> Get(int id);
+     Task<ICollection<UseFulLink>> GetLinks();
+     Task<ICollection<UseFulLink>> GetFooterLinks();
+     Task<ICollection<UseFulLink>> GetHeaderLinks();
+     Task SaveAsync();
 
 
 }

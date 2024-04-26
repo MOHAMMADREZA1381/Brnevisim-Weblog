@@ -5,10 +5,10 @@ namespace Domain.IRepositories;
 
 public interface IReportRepository
 {
-    public Task AddReport(ReportContent content);
-    public Task RemoveReport(ReportContent content);
-    public Task<ReportContent> GetReport(int id);
-    public Task<FilterReportViewModel> GetFilterReport(FilterReportViewModel model);
-    public Task SaveAsync();
+     Task AddReport(ReportContent content);
+     Task RemoveReport(ReportContent content);
+     Task<ReportContent> GetReport(int id);
+     Task<FilterReportViewModel> GetFilterReport(FilterReportViewModel model);
+     Task SaveAsync();
 
 }
