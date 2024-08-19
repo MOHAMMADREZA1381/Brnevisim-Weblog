@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /Application/Interfaces/ISmsService.cs
 /Application/Services/SmsService.cs
+/BlogClean/appsettings.json
