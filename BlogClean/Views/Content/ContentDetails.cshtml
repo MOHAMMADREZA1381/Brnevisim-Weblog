@@ -6,10 +6,14 @@
 @{
     ViewData["Title"] = @Model.Content.Title;
     ViewData["Details"] = @Model.Content.SubTitle;
+    ViewData["banner"] = @Model.Content.BannerName;
+    ViewData["ContentId"] = @Model.Content.id;
+
 }
+
 <link href="~/css/details.css" rel="stylesheet" />
 <!-- Hero Start -->
-<section class="bg-half d-table w-100"  style="background: url('@PathExtensions.ContentBannerOrgin@Model.Content.BannerName') center center;">
+<section class="bg-half d-table w-100" style="background: url('@PathExtensions.ContentBannerOrgin@Model.Content.BannerName') center center;">
     <div class="bg-overlay"></div>
     <div class="container">
         <div class="row justify-content-center">
@@ -78,7 +82,12 @@
                             </div>
                         }
 
+
                         <p class="text-muted">@Model.Content.SubTitle</p>
+
+
+
+
 
                         <ul class="list-unstyled d-flex justify-content-between mt-4">
                             <li class="list-inline-item user me-2">
@@ -86,7 +95,7 @@
                                     <i class="@(Model.Content.ProfilePicture == null ? "uil uil-user text-dark" : "")">
                                         @if (Model.Content.ProfilePicture != null)
                                         {
-                                            <img alt="profilePic" class="rounded-circle ProfilePicture" src="@PathExtensions.UserAvatarOrgin@Model.Content.ProfilePicture" />
+                                            <img alt="profilePic" class="rounded-circle ProfilePicture" src="@PathExtensions.UserAvatarThumb@Model.Content.ProfilePicture" />
                                         }
                                     </i>  @Model.Content.UserName
                                 </a>
@@ -125,30 +134,25 @@
 
                             <li class="list-inline-item date text-muted"><i class="uil uil-calendar-alt text-dark"></i>@ConvertDateToShamsi.ConvertDateToSh(@Model.Content.CreateDate)</li>
                         </ul>
-                        <img alt="Banner" src="@PathExtensions.ContentBannerOrgin@Model.Content.BannerName" class="img-fluid rounded-md shadow" alt="">
+                        <img onload="load()" alt="Banner" src="@PathExtensions.ContentBannerOrgin@Model.Content.BannerName" class="img-fluid rounded-md shadow" alt="">
 
-                        <h1 class="mt-4"> @Model.Content.Title</h1>
+                        <h1 class="mt-4 titleContent"> @Model.Content.Title</h1>
+
                         <div id="pos-article-text-card-95690"></div>
 
-                        <p class="text-muted">@Html.Raw(@Model.Content.ContentText)</p>
-                        
+                        <div id="ShortText">
+                        <p  class="text-muted ">@Html.Raw(@Model.Content.ContentText.Substring(0, 300))</p>
+                    </div>
                     
-                    
-                    <amp-ad
-                        width="100"
-                        height="134"
-                        heights="(min-width: 768px) 60%, 134%"
-                        layout="responsive"
-                        type="yektanet"
-                        data-publisher-name="benevisim.com"
-                        data-script-name="native-amp-benevisim.com-1713200486.353041.js"
-                        data-pos-id="pos-article-display-95717"
-                    >
-                    </amp-ad>
-                    
-                    
-
-                    @if (Model.Content.CaseList.Count != 0)
+                        <div class="collapse" id="collapseExample">
+                            <div class="">
+                                @Html.Raw(@Model.Content.ContentText)
+                            </div>
+                        </div>
+                    <a onclick="showFulltext()" id="openbtn" class="btn btn-primary d-block mx-auto col-4" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        نمایش کامل متن
+                    </a>
+                        @if (Model.Content.CaseList.Count != 0)
                         {
                             <h5 class="mt-4">نظرات :</h5>
                             <ul class="media-list list-unstyled mb-0">
@@ -169,7 +173,7 @@
                                                             }
                                                             else
                                                             {
-                                                                <img alt="profilePic" src="@PathExtensions.UserAvatarOrgin@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                                <img alt="profilePic" src="@PathExtensions.UserAvatarThumb@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
                                                             }
                                                         </a>
                                                         <div class="flex-1 commentor-detail">
@@ -214,7 +218,7 @@
                                                                 }
                                                                 else
                                                                 {
-                                                                    <img alt="profilePic" src="@PathExtensions.UserAvatarOrgin@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                                                                    <img alt="profilePic" src="@PathExtensions.UserAvatarThumb@message.ProfileNamePic" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
                                                                 }
                                                             </a>
                                                             <div class="commentor-detail">
@@ -260,6 +264,7 @@
 
 
                         <partial data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" class="mt-4" name="_AddMessage" model="Model.MessageViewModel" />
+                    <div id="pos-article-text-card-95690"></div>
 
                     </div>
                 </div>
@@ -267,7 +272,6 @@
         </div>
     </div>
 </section>
-
 
 @section Scripts
 {
@@ -287,7 +291,7 @@
             Content.value = @Model.Content.id;
 
             var HowManyShow = document.getElementById("HowMany");
-            HowManyShow.value = @TempData["HowManyShowCase"]+4;
+            HowManyShow.value = @TempData["HowManyShowCase"] + 4;
 
             var Form = document.getElementById("ShowMore");
             Form.submit();
@@ -305,8 +309,17 @@
             TextArea.value = Message;
         }
     </script>
-
-
+    
+    <script>
+        function showFulltext() {
+            var elemnt=  document.getElementById("ShortText");
+            elemnt.remove();
+            document.getElementById("openbtn").remove();
+            load();
+        }
+    </script>
+    
+  
 }
 
 

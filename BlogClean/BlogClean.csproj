@@ -144,6 +144,8 @@
     <None Include="wwwroot\lib\ckeditor5-build-classic\translations\vi.js" />
     <None Include="wwwroot\lib\ckeditor5-build-classic\translations\zh-cn.js" />
     <None Include="wwwroot\lib\ckeditor5-build-classic\translations\zh.js" />
+    <None Include="wwwroot\robots.txt" />
+    <None Include="wwwroot\sitemap.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -156,6 +158,7 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Follow\Followers.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\robots.txt" />
   </ItemGroup>
 
   <ItemGroup>

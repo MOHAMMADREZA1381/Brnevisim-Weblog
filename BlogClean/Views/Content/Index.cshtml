@@ -73,7 +73,7 @@
                                 <ul class="list-unstyled mb-0">
                                     <li class="list-inline-item bi bi-eye me-2 mb-0 "><span class="ms-1">@item.ViewCount</span></li>
                                 </ul>
-                                <a asp-controller="Content" asp-action="ContentDetails" asp-route-id="@item.id" class="text-muted readmore">ادامه مطلب <i class="uil uil-angle-left-b align-middle"></i></a>
+                                <a onclick="load()" asp-controller="Content" asp-action="ContentDetails" asp-route-id="@item.id" class="text-muted readmore">ادامه مطلب <i class="uil uil-angle-left-b align-middle"></i></a>
                             </div>
                         </div>
                         <div class="author">

@@ -118,6 +118,9 @@ a {
     height: auto !important;
     width: 105px !important;
 }
+.titleContent {
+    font-size: 30px !important;
+}
 
 @media only screen and (min-width:400px) and (max-width:900px) {
 

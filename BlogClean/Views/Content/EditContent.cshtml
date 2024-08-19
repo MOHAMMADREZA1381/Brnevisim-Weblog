@@ -25,14 +25,14 @@
                                             <span class="text-center d-block btn btn-primary">آپلود تصویر</span>
                                             <span asp-validation-for="Banner" class="text-danger"></span>
 
-                                            <input class="d-none" asp-for="Banner" value="@PathExtensions.ContentBannerOrgin@Model.BannerName" id="inputTag" type="file" accept="image/png, image/gif, image/jpeg" onchange="previewimg(event)" />
+                                            <input class="d-none" asp-for="Banner" value="@PathExtensions.ContentBannerThumb@Model.BannerName" id="inputTag" type="file" accept="image/png, image/gif, image/jpeg" onchange="previewimg(event)" />
 
                                         </label>
-                                        <img alt="preview" src="@PathExtensions.ContentBannerOrgin@Model.BannerName" class="img-fluid mx-auto d-block mt-5" id="Preview" />
+                                        <img alt="preview" src="@PathExtensions.ContentBannerThumb@Model.BannerName" class="img-fluid mx-auto d-block mt-5" id="Preview" />
                                     </div>
                                 </div><!--end col-->
                             </div>
-                            @PathExtensions.ContentBannerOrgin@Model.BannerName
+                            @PathExtensions.ContentBannerThumb@Model.BannerName
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
